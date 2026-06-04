@@ -2,6 +2,7 @@ rootProject.name = "PolishThousand"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
+    includeBuild("multiplatform-convention-plugin")
     repositories {
         google {
             mavenContent {
@@ -29,5 +30,6 @@ dependencyResolutionManagement {
 }
 
 include(":androidApp")
+include(":core:mvi")
 include(":shared")
 include(":webApp")
