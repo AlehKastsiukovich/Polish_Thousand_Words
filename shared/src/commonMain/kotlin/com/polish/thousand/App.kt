@@ -1,14 +1,12 @@
 package com.polish.thousand
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.foundation.layout.Box
+import com.polish.thousand.ui.FoundationPreviewScreen
+import com.polish.thousand.core.designsystem.PolishThousandTheme
 
 @Composable
 fun App() {
-    MaterialTheme {
-        Box(modifier = Modifier.fillMaxSize())
+    PolishThousandTheme {
+        FoundationPreviewScreen()
     }
 }
