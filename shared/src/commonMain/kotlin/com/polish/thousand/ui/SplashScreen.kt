@@ -54,12 +54,6 @@ internal fun SplashScreen() {
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onBackground
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Practical Polish",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.52f)
-            )
         }
     }
 }
