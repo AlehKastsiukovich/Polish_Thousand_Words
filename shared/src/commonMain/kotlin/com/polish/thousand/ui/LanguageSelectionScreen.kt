@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.SupportLanguage
+import com.polish.thousand.content.appText
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -47,6 +49,7 @@ internal fun LanguageSelectionScreen(
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
     var localSelection by remember { mutableStateOf(selectedLanguage) }
+    val text = localSelection.appText
 
     Box(
         modifier = Modifier
@@ -77,7 +80,6 @@ internal fun LanguageSelectionScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(
                     horizontal = spacing.screenHorizontal,
                     vertical = spacing.screenVertical
@@ -106,7 +108,7 @@ internal fun LanguageSelectionScreen(
                     color = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f)
                 ) {
                     Text(
-                        text = "Step 1",
+                        text = localSelection.nativeName,
                         modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
@@ -114,33 +116,27 @@ internal fun LanguageSelectionScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(48.dp))
-            WelcomeBadgeLine(text = "Choose your support language")
+            Spacer(modifier = Modifier.height(56.dp))
+            WelcomeBadgeLine(text = text.languageSelectionBadge)
             Spacer(modifier = Modifier.height(spacing.lg))
 
             Text(
-                text = "Start in the language that feels natural to you.",
+                text = text.languageSelectionTitle,
                 style = MaterialTheme.typography.displaySmall,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "You will learn Polish, but explanations and translations should feel easy from the first screen.",
+                text = text.languageSelectionDescription,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
             )
 
             Spacer(modifier = Modifier.height(spacing.xl))
-
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
-                SupportLanguage.entries.forEach { language ->
-                    LanguageOptionCard(
-                        language = language,
-                        selected = language == localSelection,
-                        onClick = { localSelection = language }
-                    )
-                }
-            }
+            CompactLanguageSwitcher(
+                selectedLanguage = localSelection,
+                onLanguageSelected = { localSelection = it }
+            )
 
             Spacer(modifier = Modifier.weight(1f, fill = true))
 
@@ -154,7 +150,7 @@ internal fun LanguageSelectionScreen(
                 )
             ) {
                 Text(
-                    text = "Continue in ${localSelection.englishName}",
+                    text = "${text.languageSelectionContinuePrefix} ${localSelection.nativeName.lowercase()}",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -163,7 +159,7 @@ internal fun LanguageSelectionScreen(
             Spacer(modifier = Modifier.height(spacing.md))
 
             Text(
-                text = "You can change this later in settings. No need to decide perfectly now.",
+                text = text.languageSelectionFooter,
                 modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.md),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium,
@@ -201,38 +197,90 @@ private fun WelcomeBadgeLine(text: String) {
 }
 
 @Composable
+private fun CompactLanguageSwitcher(
+    selectedLanguage: SupportLanguage,
+    onLanguageSelected: (SupportLanguage) -> Unit
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            SupportLanguage.entries.forEach { language ->
+                val selected = language == selectedLanguage
+                Surface(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onLanguageSelected(language) },
+                    shape = MaterialTheme.shapes.medium,
+                    color = if (selected) {
+                        MaterialTheme.colorScheme.primaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.surface
+                    },
+                    border = androidx.compose.foundation.BorderStroke(
+                        1.dp,
+                        if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.24f)
+                        else MaterialTheme.colorScheme.outlineVariant
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 18.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Text(
+                            text = language.code,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f)
+                        )
+                        Text(
+                            text = language.nativeName,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 internal fun LanguageOptionCard(
     language: SupportLanguage,
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val containerColor = if (selected) {
-        MaterialTheme.colorScheme.primaryContainer
-    } else {
-        MaterialTheme.colorScheme.surface.copy(alpha = 0.82f)
-    }
-    val borderColor = if (selected) {
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
-    } else {
-        MaterialTheme.colorScheme.outlineVariant
-    }
-
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
         shape = MaterialTheme.shapes.large,
-        color = containerColor,
-        border = androidx.compose.foundation.BorderStroke(1.dp, borderColor)
+        color = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface.copy(alpha = 0.82f)
+        },
+        border = androidx.compose.foundation.BorderStroke(
+            1.dp,
+            if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
+            else MaterialTheme.colorScheme.outlineVariant
+        )
     ) {
         Row(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier.padding(18.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
                     text = language.code,
@@ -241,19 +289,13 @@ internal fun LanguageOptionCard(
                 )
                 Text(
                     text = language.nativeName,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Text(
-                    text = "Use ${language.nativeName} for translations and support text.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
             }
-
             Box(
                 modifier = Modifier
-                    .size(28.dp)
+                    .size(24.dp)
                     .clip(CircleShape)
                     .background(
                         if (selected) MaterialTheme.colorScheme.primary
@@ -264,7 +306,7 @@ internal fun LanguageOptionCard(
                 if (selected) {
                     Text(
                         text = "✓",
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 }

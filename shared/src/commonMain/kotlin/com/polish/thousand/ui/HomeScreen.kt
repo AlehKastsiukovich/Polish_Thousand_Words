@@ -32,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
+import com.polish.thousand.content.appText
+import com.polish.thousand.content.descriptionFor
+import com.polish.thousand.content.titleFor
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -47,6 +50,7 @@ internal fun HomeScreen(
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
     val completedLessons = completedLessonIds.size
     val totalLessons = MvpSeedContent.totalLessons
     val completedTopics = MvpSeedContent.topics.count { topic ->
@@ -98,12 +102,12 @@ internal fun HomeScreen(
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
-                        text = "${supportLanguage.englishName} support",
+                        text = supportLanguage.nativeName,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = "Welcome back",
+                        text = text.homeGreeting,
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -119,7 +123,7 @@ internal fun HomeScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Settings",
+                            text = text.settings,
                             modifier = Modifier
                                 .clip(MaterialTheme.shapes.extraLarge)
                                 .clickable(onClick = onOpenSettingsClick)
@@ -128,7 +132,7 @@ internal fun HomeScreen(
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.74f)
                         )
                         Text(
-                            text = if (hasPremium) "Premium" else "Free plan",
+                            text = if (hasPremium) text.premium else text.freePlan,
                             modifier = Modifier.padding(end = 6.dp),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary
@@ -148,12 +152,12 @@ internal fun HomeScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Text(
-                        text = "Keep going with practical Polish for real life.",
+                        text = text.homeTitle,
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "One finished lesson already makes the next shop, tram ride, or short conversation easier.",
+                        text = text.homeDescription,
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.74f)
                     )
@@ -165,19 +169,23 @@ internal fun HomeScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(spacing.md)) {
                 HomeStatCard(
                     modifier = Modifier.weight(1f),
-                    label = "Lessons",
+                    label = text.lessonsLabel,
                     value = "$completedLessons / $totalLessons"
                 )
                 HomeStatCard(
                     modifier = Modifier.weight(1f),
-                    label = "Topics done",
+                    label = text.topicsDoneLabel,
                     value = "$completedTopics / ${MvpSeedContent.topics.size}"
                 )
             }
 
             Spacer(modifier = Modifier.height(spacing.lg))
 
-            NextTopicCard(topic = nextTopic, completedLessonIds = completedLessonIds)
+            NextTopicCard(
+                topic = nextTopic,
+                completedLessonIds = completedLessonIds,
+                supportLanguage = supportLanguage
+            )
 
             if (!hasPremium) {
                 Spacer(modifier = Modifier.height(spacing.lg))
@@ -190,12 +198,12 @@ internal fun HomeScreen(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Text(
-                            text = "Unlock the full course when you are ready.",
+                            text = text.homePremiumTitle,
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                         Text(
-                            text = "Keep the free start simple now. Premium only appears after a few finished lessons.",
+                            text = text.homePremiumDescription,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.72f)
                         )
@@ -221,7 +229,7 @@ internal fun HomeScreen(
                             .background(MaterialTheme.colorScheme.primary)
                     )
                     Text(
-                        text = "You do not need a long session. A few useful phrases today are enough.",
+                        text = text.shortSupportiveLine,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
@@ -240,7 +248,7 @@ internal fun HomeScreen(
                 )
             ) {
                 Text(
-                    text = if (completedLessons == 0) "Start your first lesson" else "Continue learning",
+                    text = if (completedLessons == 0) text.startFirstLesson else text.continueLearning,
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -264,7 +272,7 @@ internal fun HomeScreen(
                     elevation = null
                 ) {
                     Text(
-                        text = "Browse all topics",
+                        text = text.exploreTopics,
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
@@ -305,11 +313,13 @@ private fun HomeStatCard(
 @Composable
 private fun NextTopicCard(
     topic: TopicContent,
-    completedLessonIds: Set<String>
+    completedLessonIds: Set<String>,
+    supportLanguage: SupportLanguage
 ) {
     val completedCount = topic.lessons.count { it.id in completedLessonIds }
     val totalCount = topic.lessons.size
     val progress = if (totalCount == 0) 0f else completedCount.toFloat() / totalCount.toFloat()
+    val text = supportLanguage.appText
 
     Surface(
         shape = MaterialTheme.shapes.large,
@@ -320,17 +330,17 @@ private fun NextTopicCard(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Continue with",
+                text = text.continueWith,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = topic.title,
+                text = topic.titleFor(supportLanguage),
                 style = MaterialTheme.typography.displaySmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = topic.description,
+                text = topic.descriptionFor(supportLanguage),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
             )
@@ -350,7 +360,11 @@ private fun NextTopicCard(
                 )
             }
             Text(
-                text = "$completedCount of $totalCount lessons completed",
+                text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                    "$completedCount з $totalCount уроків завершено"
+                } else {
+                    "$completedCount из $totalCount уроков завершено"
+                },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
             )

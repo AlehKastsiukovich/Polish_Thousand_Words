@@ -40,7 +40,9 @@ import com.polish.thousand.content.LessonItemContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
+import com.polish.thousand.content.appText
 import com.polish.thousand.content.exampleForSelectedLanguage
+import com.polish.thousand.content.titleFor
 import com.polish.thousand.content.translationForSelectedLanguage
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
@@ -61,6 +63,7 @@ internal fun LessonStudyScreen(
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
     var phase by remember(lesson.id) { mutableStateOf(LessonPhase.Learn) }
     var currentIndex by remember(lesson.id) { mutableIntStateOf(0) }
     var quizIndex by remember(lesson.id) { mutableIntStateOf(0) }
@@ -111,16 +114,17 @@ internal fun LessonStudyScreen(
                 )
         ) {
             LessonHeader(
-                overline = topic.title,
-                title = lesson.title,
+                overline = topic.titleFor(supportLanguage),
+                title = lesson.titleFor(supportLanguage),
+                backText = text.back,
                 onBackClick = onBackClick
             )
             Spacer(modifier = Modifier.height(spacing.lg))
 
             Text(
                 text = when (phase) {
-                    LessonPhase.Learn -> "Learn ${currentIndex + 1} of ${lesson.items.size}"
-                    LessonPhase.Practice -> "Practice ${quizIndex + 1} of ${lesson.items.size}"
+                    LessonPhase.Learn -> "${text.learnPhasePrefix} ${currentIndex + 1} / ${lesson.items.size}"
+                    LessonPhase.Practice -> "${text.practicePhasePrefix} ${quizIndex + 1} / ${lesson.items.size}"
                 },
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary
@@ -172,14 +176,18 @@ internal fun LessonStudyScreen(
             Spacer(modifier = Modifier.height(spacing.lg))
             when (phase) {
                 LessonPhase.Learn -> {
-                    LessonExerciseCard(lesson = lesson)
+                    LessonExerciseCard(
+                        lesson = lesson,
+                        supportLanguage = supportLanguage
+                    )
                     Spacer(modifier = Modifier.height(spacing.xl))
                 }
                 LessonPhase.Practice -> {
                     if (submittedAnswer != null) {
                         AnswerFeedbackCard(
                             isCorrect = submittedAnswer == quizItem.translationForSelectedLanguage(supportLanguage),
-                            correctAnswer = quizItem.translationForSelectedLanguage(supportLanguage)
+                            correctAnswer = quizItem.translationForSelectedLanguage(supportLanguage),
+                            supportLanguage = supportLanguage
                         )
                         Spacer(modifier = Modifier.height(spacing.xl))
                     } else {
@@ -225,7 +233,7 @@ internal fun LessonStudyScreen(
                         ),
                         elevation = null
                     ) {
-                        Text(text = "Back", style = MaterialTheme.typography.labelLarge)
+                        Text(text = text.back, style = MaterialTheme.typography.labelLarge)
                     }
                 }
 
@@ -269,11 +277,11 @@ internal fun LessonStudyScreen(
                 ) {
                     Text(
                         text = when (phase) {
-                            LessonPhase.Learn -> if (isLastLearningCard) "Start practice" else "Next phrase"
+                            LessonPhase.Learn -> if (isLastLearningCard) text.startPractice else text.nextPhrase
                             LessonPhase.Practice -> when {
-                                submittedAnswer == null -> "Check answer"
-                                isLastQuizQuestion -> "Finish lesson"
-                                else -> "Next question"
+                                submittedAnswer == null -> text.checkAnswer
+                                isLastQuizQuestion -> text.finishLesson
+                                else -> text.nextQuestion
                             }
                         },
                         style = MaterialTheme.typography.labelLarge,
@@ -309,7 +317,7 @@ private fun ChooseTranslationCard(
             verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
             Text(
-                text = "Choose the correct translation",
+                text = supportLanguage.appText.chooseCorrectTranslation,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -433,8 +441,12 @@ private fun LessonTranslationLine(
 }
 
 @Composable
-private fun LessonExerciseCard(lesson: LessonContent) {
+private fun LessonExerciseCard(
+    lesson: LessonContent,
+    supportLanguage: SupportLanguage
+) {
     val spacing = MaterialTheme.appSpacing
+    val text = supportLanguage.appText
 
     Surface(
         shape = MaterialTheme.shapes.large,
@@ -445,16 +457,16 @@ private fun LessonExerciseCard(lesson: LessonContent) {
             verticalArrangement = Arrangement.spacedBy(spacing.md)
         ) {
             Text(
-                text = "Lesson practice",
+                text = text.lessonPractice,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             lesson.exerciseTypes.forEach { exerciseType ->
                 Text(
                     text = when (exerciseType) {
-                        com.polish.thousand.content.ExerciseType.ChooseTranslation -> "Choose the correct translation"
-                        com.polish.thousand.content.ExerciseType.ListenAndChoose -> "Listen and choose the phrase"
-                        com.polish.thousand.content.ExerciseType.UnderstandInContext -> "Understand the phrase in context"
+                        com.polish.thousand.content.ExerciseType.ChooseTranslation -> text.chooseCorrectTranslation
+                        com.polish.thousand.content.ExerciseType.ListenAndChoose -> if (supportLanguage == SupportLanguage.Ukrainian) "Послухайте й оберіть фразу" else "Послушайте и выберите фразу"
+                        com.polish.thousand.content.ExerciseType.UnderstandInContext -> if (supportLanguage == SupportLanguage.Ukrainian) "Зрозумійте фразу в контексті" else "Поймите фразу в контексте"
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.82f)
@@ -467,19 +479,25 @@ private fun LessonExerciseCard(lesson: LessonContent) {
 @Composable
 private fun AnswerFeedbackCard(
     isCorrect: Boolean,
-    correctAnswer: String
+    correctAnswer: String,
+    supportLanguage: SupportLanguage
 ) {
     val spacing = MaterialTheme.appSpacing
+    val text = supportLanguage.appText
     val containerColor = if (isCorrect) {
         MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.82f)
     } else {
         MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.82f)
     }
-    val title = if (isCorrect) "Correct" else "Not quite"
+    val title = if (isCorrect) text.correct else text.notQuite
     val message = if (isCorrect) {
-        "Good. Keep the phrase moving."
+        text.correctFeedback
     } else {
-        "The correct translation is: $correctAnswer"
+        if (supportLanguage == SupportLanguage.Ukrainian) {
+            "Правильний переклад: $correctAnswer"
+        } else {
+            "Правильный перевод: $correctAnswer"
+        }
     }
 
     Surface(

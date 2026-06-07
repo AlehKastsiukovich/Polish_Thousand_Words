@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
+import com.polish.thousand.content.appText
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -39,6 +40,7 @@ import com.polish.thousand.core.designsystem.appSpacing
 @Composable
 internal fun SettingsScreen(
     selectedLanguage: SupportLanguage,
+    supportLanguage: SupportLanguage,
     hasPremium: Boolean,
     completedLessonIds: Set<String>,
     onBackClick: () -> Unit = {},
@@ -46,6 +48,7 @@ internal fun SettingsScreen(
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
     var localLanguage by remember(selectedLanguage) { mutableStateOf(selectedLanguage) }
     val completedTopics = MvpSeedContent.topics.count { topic ->
         topic.lessons.all { it.id in completedLessonIds }
@@ -87,8 +90,9 @@ internal fun SettingsScreen(
                 )
         ) {
             LessonHeader(
-                overline = "Settings",
-                title = "Your learning setup",
+                overline = text.settingsOverline,
+                title = text.settingsTitle,
+                backText = text.back,
                 onBackClick = onBackClick
             )
 
@@ -103,12 +107,12 @@ internal fun SettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Text(
-                        text = "Support language",
+                        text = text.supportLanguageTitle,
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Use one support language across lessons so the app stays calm and readable.",
+                        text = text.supportLanguageDescription,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
                     )
@@ -133,20 +137,20 @@ internal fun SettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Text(
-                        text = "Current plan",
+                        text = text.currentPlanTitle,
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = if (hasPremium) "Premium unlocked" else "Free starter plan",
+                        text = if (hasPremium) text.premiumUnlocked else text.freeStarterPlan,
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.primary
                     )
                     Text(
                         text = if (hasPremium) {
-                            "You already unlocked the fuller path. Keep moving through lessons at your own pace."
+                            text.premiumDescription
                         } else {
-                            "The free start is enough to feel the product. Premium appears only after you already used a few lessons."
+                            text.freePlanDescription
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
@@ -159,12 +163,12 @@ internal fun SettingsScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(spacing.md)) {
                 SettingsStatCard(
                     modifier = Modifier.weight(1f),
-                    label = "Lessons done",
+                    label = text.lessonsLabel,
                     value = "${completedLessonIds.size}"
                 )
                 SettingsStatCard(
                     modifier = Modifier.weight(1f),
-                    label = "Topics done",
+                    label = text.topicsDoneLabel,
                     value = "$completedTopics"
                 )
             }
@@ -182,7 +186,7 @@ internal fun SettingsScreen(
                 )
             ) {
                 Text(
-                    text = "Save settings",
+                    text = text.saveSettings,
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -226,6 +230,7 @@ private fun SettingsScreenPreview() {
     PolishThousandTheme {
         SettingsScreen(
             selectedLanguage = SupportLanguage.Ukrainian,
+            supportLanguage = SupportLanguage.Ukrainian,
             hasPremium = false,
             completedLessonIds = setOf("lesson-1", "lesson-2")
         )

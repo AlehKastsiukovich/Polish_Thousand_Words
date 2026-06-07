@@ -3,6 +3,7 @@ package com.polish.thousand
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -10,9 +11,8 @@ import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
-import kotlinx.coroutines.delay
-import com.polish.thousand.ui.HomeScreen
 import com.polish.thousand.core.designsystem.PolishThousandTheme
+import com.polish.thousand.ui.HomeScreen
 import com.polish.thousand.ui.LanguageSelectionScreen
 import com.polish.thousand.ui.LessonCompletionScreen
 import com.polish.thousand.ui.LessonIntroScreen
@@ -22,37 +22,55 @@ import com.polish.thousand.ui.SoftPaywallScreen
 import com.polish.thousand.ui.SplashScreen
 import com.polish.thousand.ui.TopicSelectionScreen
 import com.polish.thousand.ui.WelcomeScreen
+import kotlinx.coroutines.delay
 
 @Composable
 fun App() {
     PolishThousandTheme {
-        var screen by remember { mutableStateOf(AppScreen.Splash) }
-        var selectedTopic by remember { mutableStateOf<TopicContent?>(null) }
-        var selectedLesson by remember { mutableStateOf<LessonContent?>(null) }
+        val backStack = remember { mutableStateListOf<AppRoute>(AppRoute.Splash) }
         var supportLanguage by remember { mutableStateOf(SupportLanguage.Ukrainian) }
         var completedLessonIds by remember { mutableStateOf(setOf<String>()) }
         var hasPremium by remember { mutableStateOf(false) }
         var hasSeenPaywall by remember { mutableStateOf(false) }
+        val currentRoute = backStack.last()
+
+        fun push(route: AppRoute) {
+            backStack.add(route)
+        }
+
+        fun replace(route: AppRoute) {
+            backStack[backStack.lastIndex] = route
+        }
+
+        fun pop() {
+            if (backStack.size > 1) {
+                backStack.removeAt(backStack.lastIndex)
+            }
+        }
 
         LaunchedEffect(Unit) {
             delay(1100)
-            screen = AppScreen.LanguageSelection
+            replace(AppRoute.LanguageSelection)
         }
 
-        when (screen) {
-            AppScreen.Splash -> SplashScreen()
-            AppScreen.LanguageSelection -> LanguageSelectionScreen(
+        when (currentRoute) {
+            AppRoute.Splash -> SplashScreen()
+
+            AppRoute.LanguageSelection -> LanguageSelectionScreen(
                 selectedLanguage = supportLanguage,
                 onLanguageSelected = { language ->
                     supportLanguage = language
-                    screen = AppScreen.Welcome
+                    replace(AppRoute.Welcome)
                 }
             )
-            AppScreen.Welcome -> WelcomeScreen(
-                onStartLearningClick = { screen = AppScreen.Home },
-                onExploreTopicsClick = { screen = AppScreen.Home }
+
+            AppRoute.Welcome -> WelcomeScreen(
+                supportLanguage = supportLanguage,
+                onStartLearningClick = { replace(AppRoute.Home) },
+                onExploreTopicsClick = { push(AppRoute.Topics) }
             )
-            AppScreen.Home -> HomeScreen(
+
+            AppRoute.Home -> HomeScreen(
                 supportLanguage = supportLanguage,
                 completedLessonIds = completedLessonIds,
                 hasPremium = hasPremium,
@@ -60,118 +78,139 @@ fun App() {
                     val nextTopic = nextTopicForProgress(completedLessonIds)
                     val nextLesson = nextLessonForTopic(nextTopic, completedLessonIds)
                     if (nextTopic != null && nextLesson != null) {
-                        selectedTopic = nextTopic
-                        selectedLesson = nextLesson
-                        screen = AppScreen.LessonIntro
+                        push(AppRoute.LessonIntro(nextTopic.id, nextLesson.id))
                     } else {
-                        screen = AppScreen.Topics
+                        push(AppRoute.Topics)
                     }
                 },
-                onBrowseTopicsClick = { screen = AppScreen.Topics },
-                onOpenSettingsClick = { screen = AppScreen.Settings }
+                onBrowseTopicsClick = { push(AppRoute.Topics) },
+                onOpenSettingsClick = { push(AppRoute.Settings) }
             )
-            AppScreen.Topics -> TopicSelectionScreen(
+
+            AppRoute.Topics -> TopicSelectionScreen(
                 supportLanguage = supportLanguage,
                 completedLessonIds = completedLessonIds,
+                onBackClick = ::pop,
                 onStartTopicClick = { topic ->
-                    selectedTopic = topic
-                    selectedLesson = nextLessonForTopic(topic, completedLessonIds)
-                    screen = AppScreen.LessonIntro
+                    nextLessonForTopic(topic, completedLessonIds)?.let { lesson ->
+                        push(AppRoute.LessonIntro(topic.id, lesson.id))
+                    }
                 }
             )
-            AppScreen.LessonIntro -> {
-                val topic = selectedTopic
-                val lesson = selectedLesson
 
-                if (topic != null && lesson != null) {
+            is AppRoute.LessonIntro -> {
+                val lessonRoute = resolveLessonRoute(currentRoute.topicId, currentRoute.lessonId)
+                if (lessonRoute != null) {
                     LessonIntroScreen(
-                        topic = topic,
-                        lesson = lesson,
+                        topic = lessonRoute.topic,
+                        lesson = lessonRoute.lesson,
                         supportLanguage = supportLanguage,
-                        onBackClick = { screen = AppScreen.Topics },
-                        onStartLessonClick = { screen = AppScreen.LessonStudy }
+                        onBackClick = ::pop,
+                        onStartLessonClick = {
+                            push(AppRoute.LessonStudy(lessonRoute.topic.id, lessonRoute.lesson.id))
+                        }
                     )
                 }
             }
-            AppScreen.LessonStudy -> {
-                val topic = selectedTopic
-                val lesson = selectedLesson
 
-                if (topic != null && lesson != null) {
+            is AppRoute.LessonStudy -> {
+                val lessonRoute = resolveLessonRoute(currentRoute.topicId, currentRoute.lessonId)
+                if (lessonRoute != null) {
                     LessonStudyScreen(
-                        topic = topic,
-                        lesson = lesson,
+                        topic = lessonRoute.topic,
+                        lesson = lessonRoute.lesson,
                         supportLanguage = supportLanguage,
-                        onBackClick = { screen = AppScreen.LessonIntro },
+                        onBackClick = ::pop,
                         onCompleteClick = {
-                            val updatedCompletedLessonIds = completedLessonIds + lesson.id
+                            val updatedCompletedLessonIds = completedLessonIds + lessonRoute.lesson.id
                             completedLessonIds = updatedCompletedLessonIds
                             if (!hasPremium && !hasSeenPaywall && updatedCompletedLessonIds.size >= 2) {
                                 hasSeenPaywall = true
-                                screen = AppScreen.Paywall
+                                push(AppRoute.Paywall(lessonRoute.topic.id, lessonRoute.lesson.id))
                             } else {
-                                screen = AppScreen.LessonCompletion
+                                push(AppRoute.LessonCompletion(lessonRoute.topic.id, lessonRoute.lesson.id))
                             }
                         }
                     )
                 }
             }
-            AppScreen.LessonCompletion -> {
-                val topic = selectedTopic
-                val lesson = selectedLesson
 
-                if (topic != null && lesson != null) {
+            is AppRoute.LessonCompletion -> {
+                val lessonRoute = resolveLessonRoute(currentRoute.topicId, currentRoute.lessonId)
+                if (lessonRoute != null) {
                     LessonCompletionScreen(
-                        topic = topic,
-                        lesson = lesson,
+                        topic = lessonRoute.topic,
+                        lesson = lessonRoute.lesson,
+                        supportLanguage = supportLanguage,
                         completedLessonIds = completedLessonIds,
-                        onBackToTopicsClick = { screen = AppScreen.Home },
+                        onBackToTopicsClick = { replace(AppRoute.Home) },
                         onContinueClick = {
-                            val nextLesson = nextLessonForTopic(topic, completedLessonIds)
+                            val nextLesson = nextLessonForTopic(lessonRoute.topic, completedLessonIds)
                             if (nextLesson != null) {
-                                selectedLesson = nextLesson
-                                screen = AppScreen.LessonIntro
+                                push(AppRoute.LessonIntro(lessonRoute.topic.id, nextLesson.id))
                             } else {
-                                screen = AppScreen.Home
+                                replace(AppRoute.Home)
                             }
                         }
                     )
                 }
             }
-            AppScreen.Paywall -> SoftPaywallScreen(
+
+            is AppRoute.Paywall -> SoftPaywallScreen(
+                supportLanguage = supportLanguage,
                 completedLessons = completedLessonIds.size,
                 onUnlockClick = {
                     hasPremium = true
-                    screen = AppScreen.Home
+                    replace(AppRoute.Home)
                 },
-                onContinueFreeClick = { screen = AppScreen.LessonCompletion },
-                onCloseClick = { screen = AppScreen.LessonCompletion }
+                onContinueFreeClick = {
+                    replace(AppRoute.LessonCompletion(currentRoute.topicId, currentRoute.lessonId))
+                },
+                onCloseClick = {
+                    replace(AppRoute.LessonCompletion(currentRoute.topicId, currentRoute.lessonId))
+                }
             )
-            AppScreen.Settings -> SettingsScreen(
+
+            AppRoute.Settings -> SettingsScreen(
                 selectedLanguage = supportLanguage,
+                supportLanguage = supportLanguage,
                 hasPremium = hasPremium,
                 completedLessonIds = completedLessonIds,
-                onBackClick = { screen = AppScreen.Home },
+                onBackClick = ::pop,
                 onLanguageSaved = { language ->
                     supportLanguage = language
-                    screen = AppScreen.Home
+                    pop()
                 }
             )
         }
     }
 }
 
-private enum class AppScreen {
-    Splash,
-    LanguageSelection,
-    Welcome,
-    Home,
-    Topics,
-    LessonIntro,
-    LessonStudy,
-    LessonCompletion,
-    Paywall,
-    Settings
+private sealed interface AppRoute {
+    data object Splash : AppRoute
+    data object LanguageSelection : AppRoute
+    data object Welcome : AppRoute
+    data object Home : AppRoute
+    data object Topics : AppRoute
+    data class LessonIntro(val topicId: String, val lessonId: String) : AppRoute
+    data class LessonStudy(val topicId: String, val lessonId: String) : AppRoute
+    data class LessonCompletion(val topicId: String, val lessonId: String) : AppRoute
+    data class Paywall(val topicId: String, val lessonId: String) : AppRoute
+    data object Settings : AppRoute
+}
+
+private data class ResolvedLessonRoute(
+    val topic: TopicContent,
+    val lesson: LessonContent
+)
+
+private fun resolveLessonRoute(
+    topicId: String,
+    lessonId: String
+): ResolvedLessonRoute? {
+    val topic = MvpSeedContent.topics.firstOrNull { it.id == topicId } ?: return null
+    val lesson = topic.lessons.firstOrNull { it.id == lessonId } ?: return null
+    return ResolvedLessonRoute(topic = topic, lesson = lesson)
 }
 
 private fun nextTopicForProgress(completedLessonIds: Set<String>): TopicContent? {

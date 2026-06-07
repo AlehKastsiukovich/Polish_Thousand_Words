@@ -32,6 +32,9 @@ import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
+import com.polish.thousand.content.appText
+import com.polish.thousand.content.descriptionFor
+import com.polish.thousand.content.titleFor
 import com.polish.thousand.content.translationForSelectedLanguage
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
@@ -47,6 +50,7 @@ internal fun LessonIntroScreen(
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
 
     Box(
         modifier = Modifier
@@ -84,8 +88,9 @@ internal fun LessonIntroScreen(
                 )
         ) {
             LessonHeader(
-                overline = topic.title,
-                title = "Lesson ready",
+                overline = topic.titleFor(supportLanguage),
+                title = text.lessonReadyTitle,
+                backText = text.back,
                 onBackClick = onBackClick
             )
             Spacer(modifier = Modifier.height(spacing.xl))
@@ -99,17 +104,17 @@ internal fun LessonIntroScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                        LessonPill(text = "${lesson.estimatedMinutes} min")
-                        LessonPill(text = "${lesson.items.size} phrases")
+                        LessonPill(text = "${lesson.estimatedMinutes} ${text.lessonMinutesSuffix}")
+                        LessonPill(text = "${lesson.items.size} ${text.lessonPhrasesSuffix}")
                     }
 
                     Text(
-                        text = lesson.title,
+                        text = lesson.titleFor(supportLanguage),
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = lesson.description,
+                        text = lesson.descriptionFor(supportLanguage),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.74f)
                     )
@@ -127,13 +132,13 @@ internal fun LessonIntroScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Text(
-                        text = "What you will do",
+                        text = text.whatYouWillDo,
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
-                    LessonBullet("Learn useful Polish words with ${supportLanguage.englishName.lowercase()} support")
-                    LessonBullet("See a short real-life example for every phrase")
-                    LessonBullet("Finish 3 simple exercise types without overload")
+                    LessonBullet("${text.lessonBulletOnePrefix} ${supportLanguage.nativeName.lowercase()}")
+                    LessonBullet(text.lessonBulletTwo)
+                    LessonBullet(text.lessonBulletThree)
                 }
             }
 
@@ -148,7 +153,7 @@ internal fun LessonIntroScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.md)
                 ) {
                     Text(
-                        text = "First phrases in this lesson",
+                        text = text.firstPhrasesInLesson,
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -181,7 +186,7 @@ internal fun LessonIntroScreen(
                 )
             ) {
                 Text(
-                    text = "Start lesson",
+                    text = text.startLesson,
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )

@@ -29,7 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
+import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
+import com.polish.thousand.content.appText
+import com.polish.thousand.content.titleFor
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -38,12 +41,14 @@ import com.polish.thousand.core.designsystem.appSpacing
 internal fun LessonCompletionScreen(
     topic: TopicContent,
     lesson: LessonContent,
+    supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
     completedLessonIds: Set<String>,
     onContinueClick: () -> Unit = {},
     onBackToTopicsClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
     val completedInTopic = topic.lessons.count { it.id in completedLessonIds }
     val totalInTopic = topic.lessons.size
     val hasMoreLessons = completedInTopic < totalInTopic
@@ -89,7 +94,7 @@ internal fun LessonCompletionScreen(
                     color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
                 ) {
                     Text(
-                        text = topic.title,
+                        text = topic.titleFor(supportLanguage),
                         modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary
@@ -115,13 +120,17 @@ internal fun LessonCompletionScreen(
                 Spacer(modifier = Modifier.height(spacing.xl))
 
                 Text(
-                    text = "Lesson complete",
+                    text = text.lessonCompleteTitle,
                     style = MaterialTheme.typography.displaySmall,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "You finished ${lesson.title.lowercase()}. Small steps like this make the next real conversation easier.",
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Ви завершили ${lesson.titleFor(supportLanguage).lowercase()}. Такі малі кроки справді полегшують наступну розмову."
+                    } else {
+                        "Вы завершили ${lesson.titleFor(supportLanguage).lowercase()}. Такие маленькие шаги реально упрощают следующий разговор."
+                    },
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
                 )
@@ -137,14 +146,22 @@ internal fun LessonCompletionScreen(
                         verticalArrangement = Arrangement.spacedBy(spacing.md)
                     ) {
                         Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                            CompletionStatPill(text = "$completedInTopic / $totalInTopic lessons")
-                            CompletionStatPill(text = "${lesson.items.size} phrases done")
+                            CompletionStatPill(text = if (supportLanguage == SupportLanguage.Ukrainian) "$completedInTopic / $totalInTopic уроків" else "$completedInTopic / $totalInTopic уроков")
+                            CompletionStatPill(text = if (supportLanguage == SupportLanguage.Ukrainian) "${lesson.items.size} фраз завершено" else "${lesson.items.size} фраз завершено")
                         }
                         Text(
                             text = if (hasMoreLessons) {
-                                "You still have more useful phrases in ${topic.title}."
+                                if (supportLanguage == SupportLanguage.Ukrainian) {
+                                    "У темі ${topic.titleFor(supportLanguage)} ще залишилися корисні фрази."
+                                } else {
+                                    "В теме ${topic.titleFor(supportLanguage)} ещё остались полезные фразы."
+                                }
                             } else {
-                                "You finished this whole topic. Good."
+                                if (supportLanguage == SupportLanguage.Ukrainian) {
+                                    "Ви завершили всю тему. Добре."
+                                } else {
+                                    "Вы завершили всю тему. Хорошо."
+                                }
                             },
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface
@@ -164,7 +181,7 @@ internal fun LessonCompletionScreen(
                     )
                 ) {
                     Text(
-                        text = if (hasMoreLessons) "Continue topic" else "Back to topics",
+                        text = if (hasMoreLessons) text.continueTopic else text.backToTopics,
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -186,14 +203,14 @@ internal fun LessonCompletionScreen(
                         elevation = null
                     ) {
                         Text(
-                            text = "See all topics",
+                            text = text.seeAllTopics,
                             style = MaterialTheme.typography.labelLarge
                         )
                     }
                 }
 
                 Text(
-                    text = "You do not need a long session. One finished lesson already counts.",
+                    text = text.completionSupportiveLine,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.md),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodyMedium,
@@ -228,6 +245,7 @@ private fun LessonCompletionScreenPreview() {
         LessonCompletionScreen(
             topic = topic,
             lesson = lesson,
+            supportLanguage = SupportLanguage.Ukrainian,
             completedLessonIds = setOf(lesson.id)
         )
     }

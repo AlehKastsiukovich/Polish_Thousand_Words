@@ -30,12 +30,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.polish.thousand.content.SupportLanguage
+import com.polish.thousand.content.appText
+import com.polish.thousand.content.paywallTitle
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
 
 @Composable
 internal fun SoftPaywallScreen(
+    supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
     completedLessons: Int,
     onUnlockClick: () -> Unit = {},
     onContinueFreeClick: () -> Unit = {},
@@ -43,6 +47,7 @@ internal fun SoftPaywallScreen(
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
+    val text = supportLanguage.appText
 
     Box(
         modifier = Modifier
@@ -91,7 +96,7 @@ internal fun SoftPaywallScreen(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
                     ) {
                         Text(
-                            text = "Keep your momentum",
+                            text = text.keepMomentum,
                             modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary
@@ -103,7 +108,7 @@ internal fun SoftPaywallScreen(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.76f)
                     ) {
                         Text(
-                            text = "Later",
+                            text = text.later,
                             modifier = Modifier
                                 .clickable(onClick = onCloseClick)
                                 .padding(horizontal = 14.dp, vertical = 10.dp),
@@ -116,13 +121,13 @@ internal fun SoftPaywallScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "You already finished $completedLessons lessons. That is enough to know if this can help.",
+                    text = supportLanguage.paywallTitle(completedLessons),
                     style = MaterialTheme.typography.displaySmall,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
-                    text = "Unlock the full course when you want more topics, more lessons, and a calmer path through daily life in Polish.",
+                    text = text.paywallDescription,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
                 )
@@ -135,9 +140,9 @@ internal fun SoftPaywallScreen(
                         modifier = Modifier.padding(spacing.xl),
                         verticalArrangement = Arrangement.spacedBy(spacing.md)
                     ) {
-                        PaywallBenefit("All practical topics, not only the starter pack")
-                        PaywallBenefit("A steady lesson path for work, transport, doctor, and documents")
-                        PaywallBenefit("A cleaner learning flow with fewer stops and more continuity")
+                        PaywallBenefit(text.paywallBenefitOne)
+                        PaywallBenefit(text.paywallBenefitTwo)
+                        PaywallBenefit(text.paywallBenefitThree)
                     }
                 }
 
@@ -157,7 +162,7 @@ internal fun SoftPaywallScreen(
                                 .background(MaterialTheme.colorScheme.primary)
                         )
                         Text(
-                            text = "No pressure. You can continue the free version now and decide later.",
+                            text = text.paywallSoftNote,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -176,7 +181,7 @@ internal fun SoftPaywallScreen(
                     )
                 ) {
                     Text(
-                        text = "Unlock full course",
+                        text = text.unlockFullCourse,
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -198,14 +203,14 @@ internal fun SoftPaywallScreen(
                         elevation = null
                     ) {
                         Text(
-                            text = "Continue free for now",
+                            text = text.continueFree,
                             style = MaterialTheme.typography.labelLarge
                         )
                     }
                 }
 
                 Text(
-                    text = "You do not need to decide now. Keep learning first if that feels better.",
+                    text = text.paywallFooter,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = spacing.md),
@@ -241,6 +246,9 @@ private fun PaywallBenefit(text: String) {
 @Composable
 private fun SoftPaywallScreenPreview() {
     PolishThousandTheme {
-        SoftPaywallScreen(completedLessons = 2)
+        SoftPaywallScreen(
+            supportLanguage = SupportLanguage.Ukrainian,
+            completedLessons = 2
+        )
     }
 }
