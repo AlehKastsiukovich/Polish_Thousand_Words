@@ -4,17 +4,18 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -23,134 +24,164 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.polish.thousand.content.LearningPath
+import com.polish.thousand.content.LearningTargetWords
+import com.polish.thousand.content.LessonContent
+import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.appText
+import com.polish.thousand.content.titleFor
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
 
-private const val WelcomeLearnedWords = 124
-private const val WelcomeTotalWords = 1000
-private const val WelcomeNextLessonMinutes = 6
-private const val WelcomeNextLessonMinutesTotal = 10
-
 @Composable
 internal fun WelcomeScreen(
     supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
-    onStartLearningClick: () -> Unit = {},
-    onExploreTopicsClick: () -> Unit = {}
+    learnedWords: Int = 0,
+    nextLesson: LessonContent? = MvpSeedContent.lessons.firstOrNull(),
+    completedLessonIds: Set<String> = emptySet(),
+    dueReviewCount: Int = 0,
+    quickReviewCount: Int = 0,
+    onContinueClick: () -> Unit = {},
+    onOpenDueReviewClick: () -> Unit = {},
+    onOpenQuickReviewClick: () -> Unit = {},
+    onOpenSettingsClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
     val text = supportLanguage.appText
-    val learnedWords = WelcomeLearnedWords
-    val totalWords = WelcomeTotalWords
-    val remainingWords = totalWords - learnedWords
-    val progress = learnedWords.toFloat() / totalWords.toFloat()
+    val totalProgress = learnedWords.toFloat() / LearningTargetWords
+    val milestone = LearningPath.nextMilestone(learnedWords)
+    val remainingToMilestone = (milestone.wordCount - learnedWords).coerceAtLeast(0)
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
+                Brush.verticalGradient(
+                    listOf(
                         MaterialTheme.colorScheme.background,
-                        colors.heroEnd,
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.50f)
+                        colors.heroStart,
+                        MaterialTheme.colorScheme.background
                     )
-            )
-        )
-    ) {
-        WelcomeGlow(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .offset(x = 72.dp, y = (-12).dp)
-                .size(220.dp),
-            brush = Brush.radialGradient(
-                colors = listOf(
-                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.22f),
-                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0f)
                 )
             )
-        )
-
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    horizontal = spacing.screenHorizontal,
-                    vertical = spacing.screenVertical
-                )
+                .padding(horizontal = spacing.screenHorizontal)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .statusBarsPadding()
-                    .padding(bottom = 156.dp)
+                    .padding(bottom = 94.dp)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(24.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "PolishThousand",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    TextButton(onClick = onOpenSettingsClick) {
+                        Text(
+                            text = text.settings,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
 
-                Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) "Ваш прогрес" else "Ваш прогресс",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary
+                Spacer(modifier = Modifier.height(spacing.md))
+
+                OverallProgressRing(
+                    progress = totalProgress,
+                    learnedWords = learnedWords,
+                    supportLanguage = supportLanguage
                 )
 
-                Spacer(modifier = Modifier.height(spacing.lg))
+                Spacer(modifier = Modifier.height(spacing.xl))
 
-                WelcomeProgressRing(
-                    progress = progress,
+                MilestoneCard(
                     learnedWords = learnedWords,
-                    totalWords = totalWords,
+                    remainingWords = remainingToMilestone,
                     supportLanguage = supportLanguage
                 )
 
                 Spacer(modifier = Modifier.height(spacing.lg))
 
-                Text(
-                    text = when (supportLanguage) {
-                        SupportLanguage.Ukrainian ->
-                            "Ви вже вивчили $learnedWords слів. До повної цілі залишилось $remainingWords."
-                        SupportLanguage.Russian ->
-                            "Вы уже выучили $learnedWords слов. До полной цели осталось $remainingWords."
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
-                )
+                if (dueReviewCount > 0) {
+                    ReviewDueCard(
+                        dueReviewCount = dueReviewCount,
+                        supportLanguage = supportLanguage,
+                        onClick = onOpenDueReviewClick
+                    )
 
-                Spacer(modifier = Modifier.height(spacing.xl))
+                    Spacer(modifier = Modifier.height(spacing.lg))
+                }
 
-                WelcomeNextStepCard(supportLanguage = supportLanguage)
+                if (quickReviewCount > 0) {
+                    QuickReviewCard(
+                        quickReviewCount = quickReviewCount,
+                        supportLanguage = supportLanguage,
+                        onClick = onOpenQuickReviewClick
+                    )
+
+                    Spacer(modifier = Modifier.height(spacing.lg))
+                }
+
+                nextLesson?.let { lesson ->
+                    NextLessonCard(
+                        lesson = lesson,
+                        lessonNumber = completedLessonIds.size + 1,
+                        supportLanguage = supportLanguage
+                    )
+                }
+
+                if (nextLesson == null) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                            "Усі доступні уроки завершено. Нові слова вже готуються."
+                        } else {
+                            "Все доступные уроки завершены. Новые слова уже готовятся."
+                        },
+                        modifier = Modifier.padding(vertical = spacing.xl),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.72f)
+                    )
+                }
             }
 
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .navigationBarsPadding(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            if (nextLesson != null || dueReviewCount > 0) {
                 Button(
-                    onClick = onStartLearningClick,
-                    modifier = Modifier.fillMaxWidth().height(58.dp),
+                    onClick = onContinueClick,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                        .height(58.dp),
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
@@ -158,103 +189,229 @@ internal fun WelcomeScreen(
                     )
                 ) {
                     Text(
-                        text = text.continueLearning,
+                        text = when {
+                            nextLesson == null && dueReviewCount > 0 -> reviewOnlyActionLabel(supportLanguage)
+                            learnedWords == 0 -> text.startLearning
+                            else -> text.continueLearning
+                        },
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-
-                Spacer(modifier = Modifier.height(spacing.md))
-
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.78f),
-                    tonalElevation = 0.dp,
-                    shadowElevation = 0.dp
-                ) {
-                    Button(
-                        onClick = onExploreTopicsClick,
-                        modifier = Modifier.fillMaxWidth().height(58.dp),
-                        shape = MaterialTheme.shapes.medium,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0f),
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        elevation = null
-                    ) {
-                        Text(
-                            text = text.exploreTopics,
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(spacing.md))
             }
         }
     }
 }
 
+private fun reviewOnlyActionLabel(supportLanguage: SupportLanguage): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> "Повторити слова"
+    SupportLanguage.Russian -> "Повторить слова"
+}
+
 @Composable
-private fun WelcomeProgressRing(
+private fun QuickReviewCard(
+    quickReviewCount: Int,
+    supportLanguage: SupportLanguage,
+    onClick: () -> Unit
+) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.88f),
+        onClick = onClick
+    ) {
+        Row(
+            modifier = Modifier.padding(spacing.lg),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Швидке повторення"
+                    } else {
+                        "Быстрое повторение"
+                    },
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "$quickReviewCount ${wordCountLabel(quickReviewCount, supportLanguage)}"
+                    } else {
+                        "$quickReviewCount ${wordCountLabel(quickReviewCount, supportLanguage)}"
+                    },
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Помилки з останнього уроку"
+                    } else {
+                        "Ошибки из последнего урока"
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                )
+            }
+            TimeChip(
+                text = reviewDurationLabel(quickReviewCount, supportLanguage)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ReviewDueCard(
+    dueReviewCount: Int,
+    supportLanguage: SupportLanguage,
+    onClick: () -> Unit
+) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f),
+        onClick = onClick
+    ) {
+        Row(
+            modifier = Modifier.padding(spacing.lg),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Повторення"
+                    } else {
+                        "Повторение"
+                    },
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "$dueReviewCount ${wordCountLabel(dueReviewCount, supportLanguage)}"
+                    } else {
+                        "$dueReviewCount ${wordCountLabel(dueReviewCount, supportLanguage)}"
+                    },
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = reviewQueueSubtitle(dueReviewCount, supportLanguage),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                )
+            }
+            TimeChip(
+                text = reviewDurationLabel(dueReviewCount.coerceAtMost(10), supportLanguage)
+            )
+        }
+    }
+}
+
+private fun reviewQueueSubtitle(
+    dueReviewCount: Int,
+    supportLanguage: SupportLanguage
+): String = when {
+    dueReviewCount > 10 && supportLanguage == SupportLanguage.Ukrainian -> "10 слів у цьому підході"
+    dueReviewCount > 10 -> "10 слов в этом подходе"
+    supportLanguage == SupportLanguage.Ukrainian -> "Закріпити сьогодні"
+    else -> "Закрепить сегодня"
+}
+
+private fun reviewDurationLabel(
+    wordCount: Int,
+    supportLanguage: SupportLanguage
+): String {
+    val minutes = ((wordCount + 2) / 3).coerceAtLeast(1)
+    return if (supportLanguage == SupportLanguage.Ukrainian) "$minutes хв" else "$minutes мин"
+}
+
+@Composable
+private fun TimeChip(text: String) {
+    Surface(
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.primaryContainer
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    }
+}
+
+private fun wordCountLabel(
+    count: Int,
+    supportLanguage: SupportLanguage
+): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> if (count == 1) "слово" else "слів"
+    SupportLanguage.Russian -> when {
+        count % 10 == 1 && count % 100 != 11 -> "слово"
+        count % 10 in 2..4 && count % 100 !in 12..14 -> "слова"
+        else -> "слов"
+    }
+}
+
+@Composable
+private fun OverallProgressRing(
     progress: Float,
     learnedWords: Int,
-    totalWords: Int,
     supportLanguage: SupportLanguage
 ) {
-    Box(
-        modifier = Modifier.size(188.dp),
-        contentAlignment = Alignment.Center
-    ) {
+    val colors = MaterialTheme.appColors
+    Box(modifier = Modifier.size(196.dp), contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.fillMaxSize()) {
-            val strokeWidth = 14.dp.toPx()
+            val strokeWidth = 15.dp.toPx()
             val diameter = size.minDimension - strokeWidth
-            val topLeft = Offset(
-                (size.width - diameter) / 2f,
-                (size.height - diameter) / 2f
-            )
-
+            val topLeft = Offset((size.width - diameter) / 2f, (size.height - diameter) / 2f)
             drawArc(
-                color = Color(0xFFEFE7DE),
+                color = androidx.compose.ui.graphics.Color(0xFFEDE4DA),
                 startAngle = 0f,
                 sweepAngle = 360f,
                 useCenter = false,
                 topLeft = topLeft,
                 size = Size(diameter, diameter),
-                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
+                style = Stroke(strokeWidth, cap = StrokeCap.Round)
             )
-
-            drawArc(
-                brush = Brush.sweepGradient(
-                    colors = listOf(
-                        Color(0xFF19877C),
-                        Color(0xFF84C5C0),
-                        Color(0xFF19877C)
-                    )
-                ),
-                startAngle = -90f,
-                sweepAngle = 360f * progress,
-                useCenter = false,
-                topLeft = topLeft,
-                size = Size(diameter, diameter),
-                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
-            )
+            if (progress > 0f) {
+                drawArc(
+                    brush = Brush.sweepGradient(
+                        colors = listOf(
+                            colors.progressStart,
+                            colors.progressMiddle,
+                            colors.progressEnd,
+                            colors.progressStart
+                        )
+                    ),
+                    startAngle = -90f,
+                    sweepAngle = 360f * progress.coerceIn(0f, 1f),
+                    useCenter = false,
+                    topLeft = topLeft,
+                    size = Size(diameter, diameter),
+                    style = Stroke(strokeWidth, cap = StrokeCap.Round)
+                )
+            }
         }
-
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = learnedWords.toString(),
                 style = MaterialTheme.typography.displaySmall,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.ExtraBold
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onBackground
             )
             Text(
-                text = when (supportLanguage) {
-                    SupportLanguage.Ukrainian -> if (totalWords >= 1000) "з 1 000 слів" else "з $totalWords"
-                    SupportLanguage.Russian -> if (totalWords >= 1000) "из 1 000 слов" else "из $totalWords"
-                },
+                text = if (supportLanguage == SupportLanguage.Ukrainian) "з 1 000 слів" else "из 1 000 слов",
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.56f)
             )
@@ -263,20 +420,153 @@ private fun WelcomeProgressRing(
 }
 
 @Composable
-private fun WelcomeNextStepCard(
+private fun MilestoneCard(
+    learnedWords: Int,
+    remainingWords: Int,
     supportLanguage: SupportLanguage
 ) {
     val spacing = MaterialTheme.appSpacing
-    val lessonProgress = WelcomeNextLessonMinutes.toFloat() / WelcomeNextLessonMinutesTotal.toFloat()
+    val milestone = LearningPath.nextMilestone(learnedWords)
+    val progress = (learnedWords.toFloat() / LearningTargetWords).coerceIn(0f, 1f)
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.90f),
-        shadowElevation = 0.dp
+        color = MaterialTheme.colorScheme.surface
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(spacing.md)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) "Наступна відмітка" else "Следующая отметка",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
+                    )
+                    Text(
+                        text = "${milestone.wordCount} · ${milestone.titleFor(supportLanguage)}",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primaryContainer
+                ) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) "ще $remainingWords" else "ещё $remainingWords",
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(9.dp)
+                    .background(
+                        color = MaterialTheme.appColors.progressTrack,
+                        shape = MaterialTheme.shapes.extraLarge
+                    )
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(progress)
+                        .height(9.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    MaterialTheme.appColors.progressStart,
+                                    MaterialTheme.appColors.progressMiddle,
+                                    MaterialTheme.appColors.progressEnd
+                                )
+                            ),
+                            shape = MaterialTheme.shapes.extraLarge
+                        )
+                )
+            }
+
+            MilestoneScale(
+                learnedWords = learnedWords
+            )
+        }
+    }
+}
+
+@Composable
+private fun MilestoneScale(
+    learnedWords: Int
+) {
+    val scalePoints = listOf(0) + LearningPath.milestones.map { it.wordCount }
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(34.dp)
+    ) {
+        scalePoints.forEach { point ->
+            val position = maxWidth * (point.toFloat() / LearningTargetWords)
+            val isStart = point == 0
+            val isCompleted = learnedWords >= point && !isStart
+            val isActive = if (isStart) learnedWords < LearningPath.milestones.first().wordCount else isCompleted
+            Column(
+                modifier = Modifier.offset(
+                    x = when (point) {
+                        0 -> 0.dp
+                        LearningTargetWords -> position - 32.dp
+                        else -> position - 16.dp
+                    }
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(
+                            color = if (isActive) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.outlineVariant
+                            },
+                            shape = CircleShape
+                        )
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = point.toString(),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = if (isActive) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.42f)
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun NextLessonCard(
+    lesson: LessonContent,
+    lessonNumber: Int,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface
     ) {
         Row(
-            modifier = Modifier.padding(spacing.xl),
+            modifier = Modifier.padding(spacing.lg),
             horizontalArrangement = Arrangement.spacedBy(spacing.lg),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -285,108 +575,44 @@ private fun WelcomeNextStepCard(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) "Наступний крок" else "Следующий шаг",
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Урок $lessonNumber · наступні ${lesson.items.size} слів"
+                    } else {
+                        "Урок $lessonNumber · следующие ${lesson.items.size} слов"
+                    },
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
                 )
                 Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) "Магазин" else "Магазин",
-                    style = MaterialTheme.typography.headlineMedium,
+                    text = lesson.titleFor(supportLanguage),
+                    style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                        "3 з 5 уроків завершено"
-                    } else {
-                        "3 из 5 уроков завершено"
-                    },
+                    text = lesson.items.take(3).joinToString(" · ") { it.polish },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
                 )
             }
-
-            WelcomeTimeRing(
-                minutes = WelcomeNextLessonMinutes,
-                progress = lessonProgress,
-                supportLanguage = supportLanguage
-            )
+            Surface(
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Text(
+                    text = "${lesson.estimatedMinutes} ${if (supportLanguage == SupportLanguage.Ukrainian) "хв" else "мин"}",
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
     }
-}
-
-@Composable
-private fun WelcomeTimeRing(
-    minutes: Int,
-    progress: Float,
-    supportLanguage: SupportLanguage
-) {
-    Box(
-        modifier = Modifier
-            .size(92.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.72f)),
-        contentAlignment = Alignment.Center
-    ) {
-        Canvas(modifier = Modifier.size(72.dp)) {
-            val strokeWidth = 8.dp.toPx()
-            val diameter = size.minDimension - strokeWidth
-            val topLeft = Offset(
-                (size.width - diameter) / 2f,
-                (size.height - diameter) / 2f
-            )
-
-            drawArc(
-                color = Color(0xFFE9DED3),
-                startAngle = 0f,
-                sweepAngle = 360f,
-                useCenter = false,
-                topLeft = topLeft,
-                size = Size(diameter, diameter),
-                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
-            )
-            drawArc(
-                color = Color(0xFF19877C),
-                startAngle = -90f,
-                sweepAngle = 360f * progress,
-                useCenter = false,
-                topLeft = topLeft,
-                size = Size(diameter, diameter),
-                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
-            )
-        }
-
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = minutes.toString(),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = if (supportLanguage == SupportLanguage.Ukrainian) "хв" else "мин",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
-            )
-        }
-    }
-}
-
-@Composable
-private fun WelcomeGlow(
-    modifier: Modifier,
-    brush: Brush
-) {
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .background(brush)
-    )
 }
 
 @Preview
 @Composable
 private fun WelcomeScreenPreview() {
     PolishThousandTheme {
-        WelcomeScreen()
+        WelcomeScreen(learnedWords = 20)
     }
 }

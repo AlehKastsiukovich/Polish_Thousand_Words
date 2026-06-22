@@ -20,15 +20,15 @@ internal enum class SupportLanguage(
 internal val LessonItemContent.translationForSelectedLanguage: (SupportLanguage) -> String
     get() = { language ->
         when (language) {
-            SupportLanguage.Ukrainian -> ukrainian
+            SupportLanguage.Ukrainian -> ukrainian.ifBlank { russian }
             SupportLanguage.Russian -> russian
         }
     }
 
-internal val LessonItemContent.exampleForSelectedLanguage: (SupportLanguage) -> String
+internal val LessonExampleContent.translationForSelectedLanguage: (SupportLanguage) -> String
     get() = { language ->
         when (language) {
-            SupportLanguage.Ukrainian -> exampleUkrainian
-            SupportLanguage.Russian -> exampleRussian
+            SupportLanguage.Ukrainian -> ukrainian.ifBlank { russian }
+            SupportLanguage.Russian -> russian
         }
     }

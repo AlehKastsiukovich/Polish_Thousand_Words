@@ -196,7 +196,7 @@ private fun ProgressBlock() {
         LinearProgressIndicator(
             progress = { 0.72f },
             modifier = Modifier.fillMaxWidth().height(6.dp).clip(MaterialTheme.shapes.small),
-            color = colors.progressFill,
+            color = colors.progressStart,
             trackColor = colors.progressTrack
         )
     }
