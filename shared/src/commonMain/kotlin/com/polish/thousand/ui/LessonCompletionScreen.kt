@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -21,60 +21,67 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.polish.thousand.content.LearningPath
+import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
-import com.polish.thousand.content.TopicContent
-import com.polish.thousand.content.appText
-import com.polish.thousand.content.titleFor
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
 
 @Composable
 internal fun LessonCompletionScreen(
-    topic: TopicContent,
     lesson: LessonContent,
     supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
-    completedLessonIds: Set<String>,
-    onContinueClick: () -> Unit = {},
-    onBackToTopicsClick: () -> Unit = {}
+    learnedWords: Int,
+    addedWords: Int,
+    attemptedWords: Int,
+    quickReviewWords: Int = 0,
+    continuesToNextLesson: Boolean = false,
+    onQuickReviewClick: () -> Unit = {},
+    onContinueClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
-    val text = supportLanguage.appText
-    val completedInTopic = topic.lessons.count { it.id in completedLessonIds }
-    val totalInTopic = topic.lessons.size
-    val hasMoreLessons = completedInTopic < totalInTopic
+    val milestone = LearningPath.nextMilestone(learnedWords)
+    val stageStartWords = LearningPath.milestones
+        .lastOrNull { it.wordCount <= learnedWords }
+        ?.wordCount
+        ?: 0
+    val remaining = (milestone.wordCount - learnedWords).coerceAtLeast(0)
+    val milestoneProgress = LearningPath.milestoneProgress(learnedWords)
+    val totalProgress = (learnedWords.toFloat() / LearningTargetWords).coerceIn(0f, 1f)
+    val missedWords = (attemptedWords - addedWords).coerceAtLeast(0)
+    val bottomContentPadding = if (quickReviewWords > 0) 154.dp else 92.dp
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
+                Brush.verticalGradient(
+                    listOf(
                         MaterialTheme.colorScheme.background,
                         colors.heroStart,
-                        colors.heroEnd.copy(alpha = 0.72f)
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
                     )
                 )
             )
+            .padding(horizontal = spacing.screenHorizontal)
     ) {
         LessonGlow(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .offset(x = 56.dp, y = (-24).dp)
-                .size(220.dp),
+                .size(180.dp),
             brush = Brush.radialGradient(
                 colors = listOf(
-                    MaterialTheme.colorScheme.secondary.copy(alpha = 0.22f),
-                    MaterialTheme.colorScheme.secondary.copy(alpha = 0f)
+                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.16f),
+                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0f)
                 )
             )
         )
@@ -82,98 +89,49 @@ internal fun LessonCompletionScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    horizontal = spacing.screenHorizontal,
-                    vertical = spacing.screenVertical
-                ),
-            verticalArrangement = Arrangement.SpaceBetween
+                .statusBarsPadding()
+                .padding(top = 46.dp, bottom = bottomContentPadding),
+            verticalArrangement = Arrangement.Center
         ) {
-            Column {
-                Surface(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
-                ) {
-                    Text(
-                        text = topic.titleFor(supportLanguage),
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
+            CompletionResult(
+                addedWords = addedWords,
+                attemptedWords = attemptedWords,
+                missedWords = missedWords,
+                supportLanguage = supportLanguage
+            )
 
-                Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(spacing.xl))
 
-                Box(
-                    modifier = Modifier
-                        .size(84.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "✓",
-                        style = MaterialTheme.typography.displaySmall,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
+            MilestoneProgressCard(
+                stageStartWords = stageStartWords,
+                milestoneWords = milestone.wordCount,
+                milestoneTitle = milestone.titleFor(supportLanguage),
+                remaining = remaining,
+                milestoneProgress = milestoneProgress,
+                supportLanguage = supportLanguage
+            )
 
-                Spacer(modifier = Modifier.height(spacing.xl))
+            Spacer(modifier = Modifier.height(spacing.md))
 
-                Text(
-                    text = text.lessonCompleteTitle,
-                    style = MaterialTheme.typography.displaySmall,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                        "Ви завершили ${lesson.titleFor(supportLanguage).lowercase()}. Такі малі кроки справді полегшують наступну розмову."
-                    } else {
-                        "Вы завершили ${lesson.titleFor(supportLanguage).lowercase()}. Такие маленькие шаги реально упрощают следующий разговор."
-                    },
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
-                )
+            OverallPathCard(
+                totalProgress = totalProgress,
+                supportLanguage = supportLanguage
+            )
+        }
 
-                Spacer(modifier = Modifier.height(spacing.xl))
-
-                Surface(
-                    shape = MaterialTheme.shapes.large,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(spacing.xl),
-                        verticalArrangement = Arrangement.spacedBy(spacing.md)
-                    ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                            CompletionStatPill(text = if (supportLanguage == SupportLanguage.Ukrainian) "$completedInTopic / $totalInTopic уроків" else "$completedInTopic / $totalInTopic уроков")
-                            CompletionStatPill(text = if (supportLanguage == SupportLanguage.Ukrainian) "${lesson.items.size} фраз завершено" else "${lesson.items.size} фраз завершено")
-                        }
-                        Text(
-                            text = if (hasMoreLessons) {
-                                if (supportLanguage == SupportLanguage.Ukrainian) {
-                                    "У темі ${topic.titleFor(supportLanguage)} ще залишилися корисні фрази."
-                                } else {
-                                    "В теме ${topic.titleFor(supportLanguage)} ещё остались полезные фразы."
-                                }
-                            } else {
-                                if (supportLanguage == SupportLanguage.Ukrainian) {
-                                    "Ви завершили всю тему. Добре."
-                                } else {
-                                    "Вы завершили всю тему. Хорошо."
-                                }
-                            },
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
-            }
-
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .navigationBarsPadding(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            if (quickReviewWords > 0) {
                 Button(
-                    onClick = onContinueClick,
-                    modifier = Modifier.fillMaxWidth().height(58.dp),
+                    onClick = onQuickReviewClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(58.dp),
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
@@ -181,7 +139,10 @@ internal fun LessonCompletionScreen(
                     )
                 ) {
                     Text(
-                        text = if (hasMoreLessons) text.continueTopic else text.backToTopics,
+                        text = completionQuickReviewActionLabel(
+                            supportLanguage = supportLanguage,
+                            hasMistakes = missedWords > 0
+                        ),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -190,11 +151,13 @@ internal fun LessonCompletionScreen(
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
                 ) {
                     Button(
-                        onClick = onBackToTopicsClick,
-                        modifier = Modifier.fillMaxWidth().height(58.dp),
+                        onClick = onContinueClick,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
                         shape = MaterialTheme.shapes.medium,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0f),
@@ -203,18 +166,203 @@ internal fun LessonCompletionScreen(
                         elevation = null
                     ) {
                         Text(
-                            text = text.seeAllTopics,
-                            style = MaterialTheme.typography.labelLarge
+                            text = completionPrimaryActionLabel(
+                                supportLanguage = supportLanguage,
+                                continuesToNextLesson = continuesToNextLesson
+                            ),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Medium
                         )
                     }
                 }
+            } else {
+                Button(
+                    onClick = onContinueClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(58.dp),
+                    shape = MaterialTheme.shapes.medium,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(
+                        text = completionPrimaryActionLabel(
+                            supportLanguage = supportLanguage,
+                            continuesToNextLesson = continuesToNextLesson
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+        }
+    }
+}
 
+private fun completionPrimaryActionLabel(
+    supportLanguage: SupportLanguage,
+    continuesToNextLesson: Boolean
+): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> if (continuesToNextLesson) "Наступний урок" else "На головний екран"
+    SupportLanguage.Russian -> if (continuesToNextLesson) "Следующий урок" else "На главный экран"
+}
+
+private fun completionQuickReviewActionLabel(
+    supportLanguage: SupportLanguage,
+    hasMistakes: Boolean
+): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> if (hasMistakes) "Повторити помилки" else "Повторити зараз"
+    SupportLanguage.Russian -> if (hasMistakes) "Повторить ошибки" else "Повторить сейчас"
+}
+
+@Composable
+private fun CompletionResult(
+    addedWords: Int,
+    attemptedWords: Int,
+    missedWords: Int,
+    supportLanguage: SupportLanguage
+) {
+    Column {
+        Text(
+            text = "+$addedWords",
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontSize = 62.sp,
+                lineHeight = 58.sp,
+                letterSpacing = (-2.4).sp
+            ),
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Text(
+            text = if (supportLanguage == SupportLanguage.Ukrainian) "слів" else "слов",
+            style = MaterialTheme.typography.headlineMedium.copy(
+                fontSize = 36.sp,
+                lineHeight = 38.sp,
+                letterSpacing = (-1.2).sp
+            ),
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                if (missedWords == 0) {
+                    "Зараховано $addedWords з $attemptedWords."
+                } else {
+                    "Зараховано $addedWords з $attemptedWords. Помилки повернуться в повторення."
+                }
+            } else {
+                if (missedWords == 0) {
+                    "Засчитано $addedWords из $attemptedWords."
+                } else {
+                    "Засчитано $addedWords из $attemptedWords. Ошибки вернутся в повторение."
+                }
+            },
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontSize = 21.sp,
+                lineHeight = 28.sp
+            ),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.66f)
+        )
+    }
+}
+
+@Composable
+private fun MilestoneProgressCard(
+    stageStartWords: Int,
+    milestoneWords: Int,
+    milestoneTitle: String,
+    remaining: Int,
+    milestoneProgress: Float,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.xl),
+            verticalArrangement = Arrangement.spacedBy(spacing.lg)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) "Наступна ціль" else "Следующая цель",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = "$milestoneWords · $milestoneTitle",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                Surface(
+                    shape = MaterialTheme.shapes.medium,
+                    color = MaterialTheme.colorScheme.primaryContainer
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 11.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = remaining.toString(),
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = if (supportLanguage == SupportLanguage.Ukrainian) "лишилось" else "осталось",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            }
+
+            ProgressLine(progress = milestoneProgress)
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(
-                    text = text.completionSupportiveLine,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.md),
-                    textAlign = TextAlign.Center,
+                    text = stageStartWords.toString(),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.48f)
+                )
+                Text(
+                    text = milestoneWords.toString(),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.48f)
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(MaterialTheme.colorScheme.outlineVariant)
+            )
+
+            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Ще $remaining слів до цієї відмітки."
+                    } else {
+                        "Еще $remaining слов до этой отметки."
+                    },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.66f)
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
                 )
             }
         }
@@ -222,16 +370,69 @@ internal fun LessonCompletionScreen(
 }
 
 @Composable
-private fun CompletionStatPill(text: String) {
+private fun OverallPathCard(
+    totalProgress: Float,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
     Surface(
-        shape = MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surfaceVariant
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
     ) {
-        Text(
-            text = text,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+        Column(
+            modifier = Modifier.padding(horizontal = spacing.xl, vertical = spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(spacing.sm)
+        ) {
+            Text(
+                text = if (supportLanguage == SupportLanguage.Ukrainian) "Загальний шлях" else "Общий путь",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+            )
+            ProgressLine(progress = totalProgress, compact = true)
+            Text(
+                text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                    "Рух іде далі крок за кроком."
+                } else {
+                    "Движение идет дальше шаг за шагом."
+                },
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.56f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProgressLine(
+    progress: Float,
+    compact: Boolean = false
+) {
+    val colors = MaterialTheme.appColors
+    val height = if (compact) 7.dp else 12.dp
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .background(
+                color = colors.progressTrack,
+                shape = MaterialTheme.shapes.extraLarge
+            )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(progress.coerceIn(0f, 1f))
+                .height(height)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        listOf(
+                            colors.progressStart,
+                            colors.progressMiddle,
+                            colors.progressEnd
+                        )
+                    ),
+                    shape = MaterialTheme.shapes.extraLarge
+                )
         )
     }
 }
@@ -240,13 +441,12 @@ private fun CompletionStatPill(text: String) {
 @Composable
 private fun LessonCompletionScreenPreview() {
     PolishThousandTheme {
-        val topic = MvpSeedContent.topics.first()
-        val lesson = topic.lessons.first()
+        val lesson = MvpSeedContent.lessons.first()
         LessonCompletionScreen(
-            topic = topic,
             lesson = lesson,
-            supportLanguage = SupportLanguage.Ukrainian,
-            completedLessonIds = setOf(lesson.id)
+            learnedWords = 9,
+            addedWords = 9,
+            attemptedWords = 10
         )
     }
 }

@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.appText
 import com.polish.thousand.core.designsystem.PolishThousandTheme
@@ -43,6 +42,7 @@ internal fun SettingsScreen(
     supportLanguage: SupportLanguage,
     hasPremium: Boolean,
     completedLessonIds: Set<String>,
+    learnedWords: Int,
     onBackClick: () -> Unit = {},
     onLanguageSaved: (SupportLanguage) -> Unit = {}
 ) {
@@ -50,9 +50,6 @@ internal fun SettingsScreen(
     val colors = MaterialTheme.appColors
     val text = supportLanguage.appText
     var localLanguage by remember(selectedLanguage) { mutableStateOf(selectedLanguage) }
-    val completedTopics = MvpSeedContent.topics.count { topic ->
-        topic.lessons.all { it.id in completedLessonIds }
-    }
 
     Box(
         modifier = Modifier
@@ -168,8 +165,8 @@ internal fun SettingsScreen(
                 )
                 SettingsStatCard(
                     modifier = Modifier.weight(1f),
-                    label = text.topicsDoneLabel,
-                    value = "$completedTopics"
+                    label = text.wordsLearnedLabel,
+                    value = "$learnedWords"
                 )
             }
 
@@ -232,7 +229,8 @@ private fun SettingsScreenPreview() {
             selectedLanguage = SupportLanguage.Ukrainian,
             supportLanguage = SupportLanguage.Ukrainian,
             hasPremium = false,
-            completedLessonIds = setOf("lesson-1", "lesson-2")
+            completedLessonIds = setOf("lesson-1", "lesson-2"),
+            learnedWords = 18
         )
     }
 }
