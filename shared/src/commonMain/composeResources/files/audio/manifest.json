@@ -1,0 +1,8015 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-27T08:29:50.781Z",
+  "sourceCsv": "/Users/alehkastsiukovich/Work/1000 slow/polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES.csv",
+  "model": "gemini-3.1-flash-tts-preview, gemini-2.5-flash-preview-tts",
+  "voice": "Kore",
+  "format": {
+    "container": "wav",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "bitsPerSample": 16
+  },
+  "items": [
+    {
+      "id": "1",
+      "rank": 1,
+      "polish": "możliwość",
+      "russian": "возможность",
+      "wordAudio": "words/0001-mozliwosc.wav",
+      "examples": []
+    },
+    {
+      "id": "2",
+      "rank": 2,
+      "polish": "doświadczenie",
+      "russian": "опыт",
+      "wordAudio": "words/0002-doswiadczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "3",
+      "rank": 3,
+      "polish": "obowiązek",
+      "russian": "обязанность",
+      "wordAudio": "words/0003-obowiazek.wav",
+      "examples": []
+    },
+    {
+      "id": "4",
+      "rank": 4,
+      "polish": "odpowiedzialność",
+      "russian": "ответственность",
+      "wordAudio": "words/0004-odpowiedzialnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "5",
+      "rank": 5,
+      "polish": "osiągnąć",
+      "russian": "достичь",
+      "wordAudio": "words/0005-osiagnac.wav",
+      "examples": []
+    },
+    {
+      "id": "6",
+      "rank": 6,
+      "polish": "zależeć",
+      "russian": "зависеть",
+      "wordAudio": "words/0006-zalezec.wav",
+      "examples": []
+    },
+    {
+      "id": "7",
+      "rank": 7,
+      "polish": "dotyczyć",
+      "russian": "касаться, относиться к",
+      "wordAudio": "words/0007-dotyczyc.wav",
+      "examples": []
+    },
+    {
+      "id": "8",
+      "rank": 8,
+      "polish": "załatwić",
+      "russian": "уладить, решить вопрос",
+      "wordAudio": "words/0008-zalatwic.wav",
+      "examples": []
+    },
+    {
+      "id": "9",
+      "rank": 9,
+      "polish": "dochód",
+      "russian": "доход",
+      "wordAudio": "words/0009-dochod.wav",
+      "examples": []
+    },
+    {
+      "id": "10",
+      "rank": 10,
+      "polish": "zatrudnienie",
+      "russian": "трудоустройство",
+      "wordAudio": "words/0010-zatrudnienie.wav",
+      "examples": []
+    },
+    {
+      "id": "11",
+      "rank": 11,
+      "polish": "świadczenie",
+      "russian": "пособие, выплата",
+      "wordAudio": "words/0011-swiadczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "12",
+      "rank": 12,
+      "polish": "wniosek",
+      "russian": "заявление",
+      "wordAudio": "words/0012-wniosek.wav",
+      "examples": []
+    },
+    {
+      "id": "13",
+      "rank": 13,
+      "polish": "pozwolenie",
+      "russian": "разрешение",
+      "wordAudio": "words/0013-pozwolenie.wav",
+      "examples": []
+    },
+    {
+      "id": "14",
+      "rank": 14,
+      "polish": "warunek",
+      "russian": "условие",
+      "wordAudio": "words/0014-warunek.wav",
+      "examples": []
+    },
+    {
+      "id": "15",
+      "rank": 15,
+      "polish": "korzyść",
+      "russian": "польза, выгода",
+      "wordAudio": "words/0015-korzysc.wav",
+      "examples": []
+    },
+    {
+      "id": "16",
+      "rank": 16,
+      "polish": "wpływ",
+      "russian": "влияние",
+      "wordAudio": "words/0016-wplyw.wav",
+      "examples": []
+    },
+    {
+      "id": "17",
+      "rank": 17,
+      "polish": "zachowanie",
+      "russian": "поведение",
+      "wordAudio": "words/0017-zachowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "18",
+      "rank": 18,
+      "polish": "stosunek",
+      "russian": "отношение",
+      "wordAudio": "words/0018-stosunek.wav",
+      "examples": []
+    },
+    {
+      "id": "19",
+      "rank": 19,
+      "polish": "kontaktować się",
+      "russian": "связываться",
+      "wordAudio": "words/0019-kontaktowac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "20",
+      "rank": 20,
+      "polish": "uzyskać",
+      "russian": "получить, добиться",
+      "wordAudio": "words/0020-uzyskac.wav",
+      "examples": []
+    },
+    {
+      "id": "21",
+      "rank": 21,
+      "polish": "przeprowadzić",
+      "russian": "провести",
+      "wordAudio": "words/0021-przeprowadzic.wav",
+      "examples": []
+    },
+    {
+      "id": "22",
+      "rank": 22,
+      "polish": "rozwiązanie",
+      "russian": "решение",
+      "wordAudio": "words/0022-rozwiazanie.wav",
+      "examples": []
+    },
+    {
+      "id": "23",
+      "rank": 23,
+      "polish": "ograniczenie",
+      "russian": "ограничение",
+      "wordAudio": "words/0023-ograniczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "24",
+      "rank": 24,
+      "polish": "okoliczność",
+      "russian": "обстоятельство",
+      "wordAudio": "words/0024-okolicznosc.wav",
+      "examples": []
+    },
+    {
+      "id": "25",
+      "rank": 25,
+      "polish": "wydarzenie",
+      "russian": "событие",
+      "wordAudio": "words/0025-wydarzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "26",
+      "rank": 26,
+      "polish": "perspektywa",
+      "russian": "перспектива",
+      "wordAudio": "words/0026-perspektywa.wav",
+      "examples": []
+    },
+    {
+      "id": "27",
+      "rank": 27,
+      "polish": "działalność",
+      "russian": "деятельность",
+      "wordAudio": "words/0027-dzialalnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "28",
+      "rank": 28,
+      "polish": "przedsiębiorstwo",
+      "russian": "предприятие",
+      "wordAudio": "words/0028-przedsiebiorstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "29",
+      "rank": 29,
+      "polish": "instytucja",
+      "russian": "учреждение",
+      "wordAudio": "words/0029-instytucja.wav",
+      "examples": []
+    },
+    {
+      "id": "30",
+      "rank": 30,
+      "polish": "procedura",
+      "russian": "процедура",
+      "wordAudio": "words/0030-procedura.wav",
+      "examples": []
+    },
+    {
+      "id": "31",
+      "rank": 31,
+      "polish": "szczegół",
+      "russian": "деталь",
+      "wordAudio": "words/0031-szczegol.wav",
+      "examples": []
+    },
+    {
+      "id": "32",
+      "rank": 32,
+      "polish": "podpis",
+      "russian": "подпись",
+      "wordAudio": "words/0032-podpis.wav",
+      "examples": []
+    },
+    {
+      "id": "33",
+      "rank": 33,
+      "polish": "zgoda",
+      "russian": "согласие",
+      "wordAudio": "words/0033-zgoda.wav",
+      "examples": []
+    },
+    {
+      "id": "34",
+      "rank": 34,
+      "polish": "odmowa",
+      "russian": "отказ",
+      "wordAudio": "words/0034-odmowa.wav",
+      "examples": []
+    },
+    {
+      "id": "35",
+      "rank": 35,
+      "polish": "wymaganie",
+      "russian": "требование",
+      "wordAudio": "words/0035-wymaganie.wav",
+      "examples": []
+    },
+    {
+      "id": "36",
+      "rank": 36,
+      "polish": "oczekiwanie",
+      "russian": "ожидание",
+      "wordAudio": "words/0036-oczekiwanie.wav",
+      "examples": []
+    },
+    {
+      "id": "37",
+      "rank": 37,
+      "polish": "uczestnik",
+      "russian": "участник",
+      "wordAudio": "words/0037-uczestnik.wav",
+      "examples": []
+    },
+    {
+      "id": "38",
+      "rank": 38,
+      "polish": "współpraca",
+      "russian": "сотрудничество",
+      "wordAudio": "words/0038-wspolpraca.wav",
+      "examples": []
+    },
+    {
+      "id": "39",
+      "rank": 39,
+      "polish": "konkurencja",
+      "russian": "конкуренция",
+      "wordAudio": "words/0039-konkurencja.wav",
+      "examples": []
+    },
+    {
+      "id": "40",
+      "rank": 40,
+      "polish": "rozwój",
+      "russian": "развитие",
+      "wordAudio": "words/0040-rozwoj.wav",
+      "examples": []
+    },
+    {
+      "id": "41",
+      "rank": 41,
+      "polish": "postęp",
+      "russian": "прогресс",
+      "wordAudio": "words/0041-postep.wav",
+      "examples": []
+    },
+    {
+      "id": "42",
+      "rank": 42,
+      "polish": "wartość",
+      "russian": "ценность",
+      "wordAudio": "words/0042-wartosc.wav",
+      "examples": []
+    },
+    {
+      "id": "43",
+      "rank": 43,
+      "polish": "cel",
+      "russian": "цель",
+      "wordAudio": "words/0043-cel.wav",
+      "examples": []
+    },
+    {
+      "id": "44",
+      "rank": 44,
+      "polish": "analiza",
+      "russian": "анализ",
+      "wordAudio": "words/0044-analiza.wav",
+      "examples": []
+    },
+    {
+      "id": "45",
+      "rank": 45,
+      "polish": "decyzja",
+      "russian": "решение",
+      "wordAudio": "words/0045-decyzja.wav",
+      "examples": []
+    },
+    {
+      "id": "46",
+      "rank": 46,
+      "polish": "wynik",
+      "russian": "результат",
+      "wordAudio": "words/0046-wynik.wav",
+      "examples": []
+    },
+    {
+      "id": "47",
+      "rank": 47,
+      "polish": "ocena",
+      "russian": "оценка",
+      "wordAudio": "words/0047-ocena.wav",
+      "examples": []
+    },
+    {
+      "id": "48",
+      "rank": 48,
+      "polish": "argument",
+      "russian": "аргумент",
+      "wordAudio": "words/0048-argument.wav",
+      "examples": []
+    },
+    {
+      "id": "49",
+      "rank": 49,
+      "polish": "dowód",
+      "russian": "доказательство",
+      "wordAudio": "words/0049-dowod.wav",
+      "examples": []
+    },
+    {
+      "id": "50",
+      "rank": 50,
+      "polish": "propozycja",
+      "russian": "предложение",
+      "wordAudio": "words/0050-propozycja.wav",
+      "examples": []
+    },
+    {
+      "id": "51",
+      "rank": 51,
+      "polish": "udział",
+      "russian": "участие",
+      "wordAudio": "words/0051-udzial.wav",
+      "examples": []
+    },
+    {
+      "id": "52",
+      "rank": 52,
+      "polish": "przepis",
+      "russian": "правило, норма",
+      "wordAudio": "words/0052-przepis.wav",
+      "examples": []
+    },
+    {
+      "id": "53",
+      "rank": 53,
+      "polish": "przestrzegać",
+      "russian": "соблюдать",
+      "wordAudio": "words/0053-przestrzegac.wav",
+      "examples": []
+    },
+    {
+      "id": "54",
+      "rank": 54,
+      "polish": "udowodnić",
+      "russian": "доказать",
+      "wordAudio": "words/0054-udowodnic.wav",
+      "examples": []
+    },
+    {
+      "id": "55",
+      "rank": 55,
+      "polish": "wyjaśnić",
+      "russian": "объяснить",
+      "wordAudio": "words/0055-wyjasnic.wav",
+      "examples": []
+    },
+    {
+      "id": "56",
+      "rank": 56,
+      "polish": "przekonać",
+      "russian": "убедить",
+      "wordAudio": "words/0056-przekonac.wav",
+      "examples": []
+    },
+    {
+      "id": "57",
+      "rank": 57,
+      "polish": "przyznać",
+      "russian": "признать, предоставить",
+      "wordAudio": "words/0057-przyznac.wav",
+      "examples": []
+    },
+    {
+      "id": "58",
+      "rank": 58,
+      "polish": "unikać",
+      "russian": "избегать",
+      "wordAudio": "words/0058-unikac.wav",
+      "examples": []
+    },
+    {
+      "id": "59",
+      "rank": 59,
+      "polish": "rozważać",
+      "russian": "рассматривать, обдумывать",
+      "wordAudio": "words/0059-rozwazac.wav",
+      "examples": []
+    },
+    {
+      "id": "60",
+      "rank": 60,
+      "polish": "porównywać",
+      "russian": "сравнивать",
+      "wordAudio": "words/0060-porownywac.wav",
+      "examples": []
+    },
+    {
+      "id": "61",
+      "rank": 61,
+      "polish": "oceniać",
+      "russian": "оценивать",
+      "wordAudio": "words/0061-oceniac.wav",
+      "examples": []
+    },
+    {
+      "id": "62",
+      "rank": 62,
+      "polish": "dotrzeć",
+      "russian": "добраться",
+      "wordAudio": "words/0062-dotrzec.wav",
+      "examples": []
+    },
+    {
+      "id": "63",
+      "rank": 63,
+      "polish": "polegać",
+      "russian": "полагаться, заключаться",
+      "wordAudio": "words/0063-polegac.wav",
+      "examples": []
+    },
+    {
+      "id": "64",
+      "rank": 64,
+      "polish": "radzić",
+      "russian": "советовать, справляться",
+      "wordAudio": "words/0064-radzic.wav",
+      "examples": []
+    },
+    {
+      "id": "65",
+      "rank": 65,
+      "polish": "uwaga",
+      "russian": "внимание",
+      "wordAudio": "words/0065-uwaga.wav",
+      "examples": []
+    },
+    {
+      "id": "66",
+      "rank": 66,
+      "polish": "wpływać",
+      "russian": "влиять",
+      "wordAudio": "words/0066-wplywac.wav",
+      "examples": []
+    },
+    {
+      "id": "67",
+      "rank": 67,
+      "polish": "zwracać",
+      "russian": "обращать, возвращать",
+      "wordAudio": "words/0067-zwracac.wav",
+      "examples": []
+    },
+    {
+      "id": "68",
+      "rank": 68,
+      "polish": "przyzwyczaić",
+      "russian": "привыкнуть",
+      "wordAudio": "words/0068-przyzwyczaic.wav",
+      "examples": []
+    },
+    {
+      "id": "69",
+      "rank": 69,
+      "polish": "rezygnować",
+      "russian": "отказываться",
+      "wordAudio": "words/0069-rezygnowac.wav",
+      "examples": []
+    },
+    {
+      "id": "70",
+      "rank": 70,
+      "polish": "korzystać",
+      "russian": "пользоваться",
+      "wordAudio": "words/0070-korzystac.wav",
+      "examples": []
+    },
+    {
+      "id": "71",
+      "rank": 71,
+      "polish": "ubiegać",
+      "russian": "подаваться, ходатайствовать",
+      "wordAudio": "words/0071-ubiegac.wav",
+      "examples": []
+    },
+    {
+      "id": "72",
+      "rank": 72,
+      "polish": "podlegać",
+      "russian": "подлежать",
+      "wordAudio": "words/0072-podlegac.wav",
+      "examples": []
+    },
+    {
+      "id": "73",
+      "rank": 73,
+      "polish": "obejmować",
+      "russian": "охватывать, включать",
+      "wordAudio": "words/0073-obejmowac.wav",
+      "examples": []
+    },
+    {
+      "id": "74",
+      "rank": 74,
+      "polish": "wynikać",
+      "russian": "следовать, вытекать",
+      "wordAudio": "words/0074-wynikac.wav",
+      "examples": []
+    },
+    {
+      "id": "75",
+      "rank": 75,
+      "polish": "przewidywać",
+      "russian": "предполагать, предусматривать",
+      "wordAudio": "words/0075-przewidywac.wav",
+      "examples": []
+    },
+    {
+      "id": "76",
+      "rank": 76,
+      "polish": "udostępniać",
+      "russian": "предоставлять, делиться",
+      "wordAudio": "words/0076-udostepniac.wav",
+      "examples": []
+    },
+    {
+      "id": "77",
+      "rank": 77,
+      "polish": "zapewniać",
+      "russian": "обеспечивать",
+      "wordAudio": "words/0077-zapewniac.wav",
+      "examples": []
+    },
+    {
+      "id": "78",
+      "rank": 78,
+      "polish": "potwierdzać",
+      "russian": "подтверждать",
+      "wordAudio": "words/0078-potwierdzac.wav",
+      "examples": []
+    },
+    {
+      "id": "79",
+      "rank": 79,
+      "polish": "odrzucić",
+      "russian": "отклонить",
+      "wordAudio": "words/0079-odrzucic.wav",
+      "examples": []
+    },
+    {
+      "id": "80",
+      "rank": 80,
+      "polish": "zatwierdzić",
+      "russian": "утвердить",
+      "wordAudio": "words/0080-zatwierdzic.wav",
+      "examples": []
+    },
+    {
+      "id": "81",
+      "rank": 81,
+      "polish": "przedłużyć",
+      "russian": "продлить",
+      "wordAudio": "words/0081-przedluzyc.wav",
+      "examples": []
+    },
+    {
+      "id": "82",
+      "rank": 82,
+      "polish": "wygasać",
+      "russian": "истекать",
+      "wordAudio": "words/0082-wygasac.wav",
+      "examples": []
+    },
+    {
+      "id": "83",
+      "rank": 83,
+      "polish": "obowiązywać",
+      "russian": "действовать",
+      "wordAudio": "words/0083-obowiazywac.wav",
+      "examples": []
+    },
+    {
+      "id": "84",
+      "rank": 84,
+      "polish": "meldunek",
+      "russian": "регистрация",
+      "wordAudio": "words/0084-meldunek.wav",
+      "examples": []
+    },
+    {
+      "id": "85",
+      "rank": 85,
+      "polish": "pobyt",
+      "russian": "пребывание",
+      "wordAudio": "words/0085-pobyt.wav",
+      "examples": []
+    },
+    {
+      "id": "86",
+      "rank": 86,
+      "polish": "obywatelstwo",
+      "russian": "гражданство",
+      "wordAudio": "words/0086-obywatelstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "87",
+      "rank": 87,
+      "polish": "zezwolenie",
+      "russian": "разрешение",
+      "wordAudio": "words/0087-zezwolenie.wav",
+      "examples": []
+    },
+    {
+      "id": "88",
+      "rank": 88,
+      "polish": "zaświadczenie",
+      "russian": "справка",
+      "wordAudio": "words/0088-zaswiadczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "89",
+      "rank": 89,
+      "polish": "opłata",
+      "russian": "оплата, сбор",
+      "wordAudio": "words/0089-oplata.wav",
+      "examples": []
+    },
+    {
+      "id": "90",
+      "rank": 90,
+      "polish": "formularz",
+      "russian": "формуляр, бланк",
+      "wordAudio": "words/0090-formularz.wav",
+      "examples": []
+    },
+    {
+      "id": "91",
+      "rank": 91,
+      "polish": "sprawa",
+      "russian": "дело, вопрос",
+      "wordAudio": "words/0091-sprawa.wav",
+      "examples": []
+    },
+    {
+      "id": "92",
+      "rank": 92,
+      "polish": "termin",
+      "russian": "срок, дата",
+      "wordAudio": "words/0092-termin.wav",
+      "examples": []
+    },
+    {
+      "id": "93",
+      "rank": 93,
+      "polish": "umowa",
+      "russian": "договор",
+      "wordAudio": "words/0093-umowa.wav",
+      "examples": []
+    },
+    {
+      "id": "94",
+      "rank": 94,
+      "polish": "wynagrodzenie",
+      "russian": "зарплата, вознаграждение",
+      "wordAudio": "words/0094-wynagrodzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "95",
+      "rank": 95,
+      "polish": "stanowisko",
+      "russian": "должность, позиция",
+      "wordAudio": "words/0095-stanowisko.wav",
+      "examples": []
+    },
+    {
+      "id": "96",
+      "rank": 96,
+      "polish": "zawodowy",
+      "russian": "профессиональный",
+      "wordAudio": "words/0096-zawodowy.wav",
+      "examples": []
+    },
+    {
+      "id": "97",
+      "rank": 97,
+      "polish": "kwalifikacje",
+      "russian": "квалификация",
+      "wordAudio": "words/0097-kwalifikacje.wav",
+      "examples": []
+    },
+    {
+      "id": "98",
+      "rank": 98,
+      "polish": "szkolenie",
+      "russian": "обучение, тренинг",
+      "wordAudio": "words/0098-szkolenie.wav",
+      "examples": []
+    },
+    {
+      "id": "99",
+      "rank": 99,
+      "polish": "awans",
+      "russian": "повышение",
+      "wordAudio": "words/0099-awans.wav",
+      "examples": []
+    },
+    {
+      "id": "100",
+      "rank": 100,
+      "polish": "pracodawca",
+      "russian": "работодатель",
+      "wordAudio": "words/0100-pracodawca.wav",
+      "examples": []
+    },
+    {
+      "id": "101",
+      "rank": 101,
+      "polish": "pracownik",
+      "russian": "сотрудник",
+      "wordAudio": "words/0101-pracownik.wav",
+      "examples": []
+    },
+    {
+      "id": "102",
+      "rank": 102,
+      "polish": "zatrudniać",
+      "russian": "нанимать",
+      "wordAudio": "words/0102-zatrudniac.wav",
+      "examples": []
+    },
+    {
+      "id": "103",
+      "rank": 103,
+      "polish": "zwolnić",
+      "russian": "уволить",
+      "wordAudio": "words/0103-zwolnic.wav",
+      "examples": []
+    },
+    {
+      "id": "104",
+      "rank": 104,
+      "polish": "zarobki",
+      "russian": "заработок",
+      "wordAudio": "words/0104-zarobki.wav",
+      "examples": []
+    },
+    {
+      "id": "105",
+      "rank": 105,
+      "polish": "etat",
+      "russian": "штатная должность",
+      "wordAudio": "words/0105-etat.wav",
+      "examples": []
+    },
+    {
+      "id": "106",
+      "rank": 106,
+      "polish": "urlop",
+      "russian": "отпуск",
+      "wordAudio": "words/0106-urlop.wav",
+      "examples": []
+    },
+    {
+      "id": "107",
+      "rank": 107,
+      "polish": "obecność",
+      "russian": "присутствие",
+      "wordAudio": "words/0107-obecnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "108",
+      "rank": 108,
+      "polish": "nieobecność",
+      "russian": "отсутствие",
+      "wordAudio": "words/0108-nieobecnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "109",
+      "rank": 109,
+      "polish": "zastępstwo",
+      "russian": "замещение",
+      "wordAudio": "words/0109-zastepstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "110",
+      "rank": 110,
+      "polish": "obowiązki służbowe",
+      "russian": "служебные обязанности",
+      "wordAudio": "words/0110-obowiazki-sluzbowe.wav",
+      "examples": []
+    },
+    {
+      "id": "111",
+      "rank": 111,
+      "polish": "terminowość",
+      "russian": "пунктуальность",
+      "wordAudio": "words/0111-terminowosc.wav",
+      "examples": []
+    },
+    {
+      "id": "112",
+      "rank": 112,
+      "polish": "wydajność",
+      "russian": "эффективность",
+      "wordAudio": "words/0112-wydajnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "113",
+      "rank": 113,
+      "polish": "osiągnięcie",
+      "russian": "достижение",
+      "wordAudio": "words/0113-osiagniecie.wav",
+      "examples": []
+    },
+    {
+      "id": "114",
+      "rank": 114,
+      "polish": "umiejętność",
+      "russian": "навык",
+      "wordAudio": "words/0114-umiejetnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "115",
+      "rank": 115,
+      "polish": "kompetencje",
+      "russian": "компетенции",
+      "wordAudio": "words/0115-kompetencje.wav",
+      "examples": []
+    },
+    {
+      "id": "116",
+      "rank": 116,
+      "polish": "doświadczać",
+      "russian": "испытывать",
+      "wordAudio": "words/0116-doswiadczac.wav",
+      "examples": []
+    },
+    {
+      "id": "117",
+      "rank": 117,
+      "polish": "rozwijać się",
+      "russian": "развиваться",
+      "wordAudio": "words/0117-rozwijac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "118",
+      "rank": 118,
+      "polish": "poprawić",
+      "russian": "улучшить",
+      "wordAudio": "words/0118-poprawic.wav",
+      "examples": []
+    },
+    {
+      "id": "119",
+      "rank": 119,
+      "polish": "pogorszyć",
+      "russian": "ухудшить",
+      "wordAudio": "words/0119-pogorszyc.wav",
+      "examples": []
+    },
+    {
+      "id": "120",
+      "rank": 120,
+      "polish": "spełniać",
+      "russian": "выполнять, соответствовать",
+      "wordAudio": "words/0120-spelniac.wav",
+      "examples": []
+    },
+    {
+      "id": "121",
+      "rank": 121,
+      "polish": "wymóg",
+      "russian": "требование",
+      "wordAudio": "words/0121-wymog.wav",
+      "examples": []
+    },
+    {
+      "id": "122",
+      "rank": 122,
+      "polish": "kandydat",
+      "russian": "кандидат",
+      "wordAudio": "words/0122-kandydat.wav",
+      "examples": []
+    },
+    {
+      "id": "123",
+      "rank": 123,
+      "polish": "rekrutacja",
+      "russian": "найм",
+      "wordAudio": "words/0123-rekrutacja.wav",
+      "examples": []
+    },
+    {
+      "id": "124",
+      "rank": 124,
+      "polish": "rozmowa kwalifikacyjna",
+      "russian": "собеседование",
+      "wordAudio": "words/0124-rozmowa-kwalifikacyjna.wav",
+      "examples": []
+    },
+    {
+      "id": "125",
+      "rank": 125,
+      "polish": "zatrudniony",
+      "russian": "трудоустроенный",
+      "wordAudio": "words/0125-zatrudniony.wav",
+      "examples": []
+    },
+    {
+      "id": "126",
+      "rank": 126,
+      "polish": "przedsiębiorca",
+      "russian": "предприниматель",
+      "wordAudio": "words/0126-przedsiebiorca.wav",
+      "examples": []
+    },
+    {
+      "id": "127",
+      "rank": 127,
+      "polish": "dział księgowości",
+      "russian": "бухгалтерия",
+      "wordAudio": "words/0127-dzial-ksiegowosci.wav",
+      "examples": []
+    },
+    {
+      "id": "128",
+      "rank": 128,
+      "polish": "faktura",
+      "russian": "счёт-фактура",
+      "wordAudio": "words/0128-faktura.wav",
+      "examples": []
+    },
+    {
+      "id": "129",
+      "rank": 129,
+      "polish": "rachunek",
+      "russian": "счёт",
+      "wordAudio": "words/0129-rachunek.wav",
+      "examples": []
+    },
+    {
+      "id": "130",
+      "rank": 130,
+      "polish": "podatek",
+      "russian": "налог",
+      "wordAudio": "words/0130-podatek.wav",
+      "examples": []
+    },
+    {
+      "id": "131",
+      "rank": 131,
+      "polish": "urząd skarbowy",
+      "russian": "налоговая инспекция",
+      "wordAudio": "words/0131-urzad-skarbowy.wav",
+      "examples": []
+    },
+    {
+      "id": "132",
+      "rank": 132,
+      "polish": "rozliczenie",
+      "russian": "декларация, расчёт",
+      "wordAudio": "words/0132-rozliczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "133",
+      "rank": 133,
+      "polish": "przychód",
+      "russian": "доход, выручка",
+      "wordAudio": "words/0133-przychod.wav",
+      "examples": []
+    },
+    {
+      "id": "134",
+      "rank": 134,
+      "polish": "wydatek",
+      "russian": "расход",
+      "wordAudio": "words/0134-wydatek.wav",
+      "examples": []
+    },
+    {
+      "id": "135",
+      "rank": 135,
+      "polish": "oszczędność",
+      "russian": "сбережение",
+      "wordAudio": "words/0135-oszczednosc.wav",
+      "examples": []
+    },
+    {
+      "id": "136",
+      "rank": 136,
+      "polish": "oszczędzać",
+      "russian": "экономить",
+      "wordAudio": "words/0136-oszczedzac.wav",
+      "examples": []
+    },
+    {
+      "id": "137",
+      "rank": 137,
+      "polish": "kredyt",
+      "russian": "кредит",
+      "wordAudio": "words/0137-kredyt.wav",
+      "examples": []
+    },
+    {
+      "id": "138",
+      "rank": 138,
+      "polish": "pożyczka",
+      "russian": "заём",
+      "wordAudio": "words/0138-pozyczka.wav",
+      "examples": []
+    },
+    {
+      "id": "139",
+      "rank": 139,
+      "polish": "rata",
+      "russian": "платёж",
+      "wordAudio": "words/0139-rata.wav",
+      "examples": []
+    },
+    {
+      "id": "140",
+      "rank": 140,
+      "polish": "oprocentowanie",
+      "russian": "процентная ставка",
+      "wordAudio": "words/0140-oprocentowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "141",
+      "rank": 141,
+      "polish": "bankowość",
+      "russian": "банковское дело",
+      "wordAudio": "words/0141-bankowosc.wav",
+      "examples": []
+    },
+    {
+      "id": "142",
+      "rank": 142,
+      "polish": "konto osobiste",
+      "russian": "личный счёт",
+      "wordAudio": "words/0142-konto-osobiste.wav",
+      "examples": []
+    },
+    {
+      "id": "143",
+      "rank": 143,
+      "polish": "przelew",
+      "russian": "банковский перевод",
+      "wordAudio": "words/0143-przelew.wav",
+      "examples": []
+    },
+    {
+      "id": "144",
+      "rank": 144,
+      "polish": "gotówka",
+      "russian": "наличные",
+      "wordAudio": "words/0144-gotowka.wav",
+      "examples": []
+    },
+    {
+      "id": "145",
+      "rank": 145,
+      "polish": "bezgotówkowy",
+      "russian": "безналичный",
+      "wordAudio": "words/0145-bezgotowkowy.wav",
+      "examples": []
+    },
+    {
+      "id": "146",
+      "rank": 146,
+      "polish": "transakcja",
+      "russian": "транзакция",
+      "wordAudio": "words/0146-transakcja.wav",
+      "examples": []
+    },
+    {
+      "id": "147",
+      "rank": 147,
+      "polish": "płatność",
+      "russian": "платёж",
+      "wordAudio": "words/0147-platnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "148",
+      "rank": 148,
+      "polish": "zadłużenie",
+      "russian": "задолженность",
+      "wordAudio": "words/0148-zadluzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "149",
+      "rank": 149,
+      "polish": "budżet",
+      "russian": "бюджет",
+      "wordAudio": "words/0149-budzet.wav",
+      "examples": []
+    },
+    {
+      "id": "150",
+      "rank": 150,
+      "polish": "plan finansowy",
+      "russian": "финансовый план",
+      "wordAudio": "words/0150-plan-finansowy.wav",
+      "examples": []
+    },
+    {
+      "id": "151",
+      "rank": 151,
+      "polish": "mieszkanie",
+      "russian": "квартира",
+      "wordAudio": "words/0151-mieszkanie.wav",
+      "examples": []
+    },
+    {
+      "id": "152",
+      "rank": 152,
+      "polish": "wynajem",
+      "russian": "аренда",
+      "wordAudio": "words/0152-wynajem.wav",
+      "examples": []
+    },
+    {
+      "id": "153",
+      "rank": 153,
+      "polish": "najemca",
+      "russian": "арендатор",
+      "wordAudio": "words/0153-najemca.wav",
+      "examples": []
+    },
+    {
+      "id": "154",
+      "rank": 154,
+      "polish": "właściciel",
+      "russian": "владелец",
+      "wordAudio": "words/0154-wlasciciel.wav",
+      "examples": []
+    },
+    {
+      "id": "155",
+      "rank": 155,
+      "polish": "czynsz",
+      "russian": "арендная плата",
+      "wordAudio": "words/0155-czynsz.wav",
+      "examples": []
+    },
+    {
+      "id": "156",
+      "rank": 156,
+      "polish": "opłaty eksploatacyjne",
+      "russian": "коммунальные платежи",
+      "wordAudio": "words/0156-oplaty-eksploatacyjne.wav",
+      "examples": []
+    },
+    {
+      "id": "157",
+      "rank": 157,
+      "polish": "media",
+      "russian": "коммунальные услуги",
+      "wordAudio": "words/0157-media.wav",
+      "examples": []
+    },
+    {
+      "id": "158",
+      "rank": 158,
+      "polish": "remont",
+      "russian": "ремонт",
+      "wordAudio": "words/0158-remont.wav",
+      "examples": []
+    },
+    {
+      "id": "159",
+      "rank": 159,
+      "polish": "przeprowadzka",
+      "russian": "переезд",
+      "wordAudio": "words/0159-przeprowadzka.wav",
+      "examples": []
+    },
+    {
+      "id": "160",
+      "rank": 160,
+      "polish": "wyposażenie",
+      "russian": "оснащение",
+      "wordAudio": "words/0160-wyposazenie.wav",
+      "examples": []
+    },
+    {
+      "id": "161",
+      "rank": 161,
+      "polish": "umowa najmu",
+      "russian": "договор аренды",
+      "wordAudio": "words/0161-umowa-najmu.wav",
+      "examples": []
+    },
+    {
+      "id": "162",
+      "rank": 162,
+      "polish": "nieruchomość",
+      "russian": "недвижимость",
+      "wordAudio": "words/0162-nieruchomosc.wav",
+      "examples": []
+    },
+    {
+      "id": "163",
+      "rank": 163,
+      "polish": "hipoteka",
+      "russian": "ипотека",
+      "wordAudio": "words/0163-hipoteka.wav",
+      "examples": []
+    },
+    {
+      "id": "164",
+      "rank": 164,
+      "polish": "zdolność kredytowa",
+      "russian": "кредитоспособность",
+      "wordAudio": "words/0164-zdolnosc-kredytowa.wav",
+      "examples": []
+    },
+    {
+      "id": "165",
+      "rank": 165,
+      "polish": "zakup nieruchomości",
+      "russian": "покупка недвижимости",
+      "wordAudio": "words/0165-zakup-nieruchomosci.wav",
+      "examples": []
+    },
+    {
+      "id": "166",
+      "rank": 166,
+      "polish": "warunki umowy",
+      "russian": "условия договора",
+      "wordAudio": "words/0166-warunki-umowy.wav",
+      "examples": []
+    },
+    {
+      "id": "167",
+      "rank": 167,
+      "polish": "ubezpieczenie",
+      "russian": "страхование",
+      "wordAudio": "words/0167-ubezpieczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "168",
+      "rank": 168,
+      "polish": "polisa",
+      "russian": "страховой полис",
+      "wordAudio": "words/0168-polisa.wav",
+      "examples": []
+    },
+    {
+      "id": "169",
+      "rank": 169,
+      "polish": "odszkodowanie",
+      "russian": "компенсация",
+      "wordAudio": "words/0169-odszkodowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "170",
+      "rank": 170,
+      "polish": "szkoda",
+      "russian": "ущерб",
+      "wordAudio": "words/0170-szkoda.wav",
+      "examples": []
+    },
+    {
+      "id": "171",
+      "rank": 171,
+      "polish": "zgłoszenie",
+      "russian": "заявка, уведомление",
+      "wordAudio": "words/0171-zgloszenie.wav",
+      "examples": []
+    },
+    {
+      "id": "172",
+      "rank": 172,
+      "polish": "awaria",
+      "russian": "поломка",
+      "wordAudio": "words/0172-awaria.wav",
+      "examples": []
+    },
+    {
+      "id": "173",
+      "rank": 173,
+      "polish": "naprawa",
+      "russian": "ремонт",
+      "wordAudio": "words/0173-naprawa.wav",
+      "examples": []
+    },
+    {
+      "id": "174",
+      "rank": 174,
+      "polish": "obsługa klienta",
+      "russian": "служба поддержки",
+      "wordAudio": "words/0174-obsluga-klienta.wav",
+      "examples": []
+    },
+    {
+      "id": "175",
+      "rank": 175,
+      "polish": "reklamacja",
+      "russian": "претензия",
+      "wordAudio": "words/0175-reklamacja.wav",
+      "examples": []
+    },
+    {
+      "id": "176",
+      "rank": 176,
+      "polish": "zwrot towaru",
+      "russian": "возврат товара",
+      "wordAudio": "words/0176-zwrot-towaru.wav",
+      "examples": []
+    },
+    {
+      "id": "177",
+      "rank": 177,
+      "polish": "gwarancja",
+      "russian": "гарантия",
+      "wordAudio": "words/0177-gwarancja.wav",
+      "examples": []
+    },
+    {
+      "id": "178",
+      "rank": 178,
+      "polish": "dostawa",
+      "russian": "доставка",
+      "wordAudio": "words/0178-dostawa.wav",
+      "examples": []
+    },
+    {
+      "id": "179",
+      "rank": 179,
+      "polish": "odbiór",
+      "russian": "получение",
+      "wordAudio": "words/0179-odbior.wav",
+      "examples": []
+    },
+    {
+      "id": "180",
+      "rank": 180,
+      "polish": "przesyłka",
+      "russian": "посылка, отправление",
+      "wordAudio": "words/0180-przesylka.wav",
+      "examples": []
+    },
+    {
+      "id": "181",
+      "rank": 181,
+      "polish": "zamówienie",
+      "russian": "заказ",
+      "wordAudio": "words/0181-zamowienie.wav",
+      "examples": []
+    },
+    {
+      "id": "182",
+      "rank": 182,
+      "polish": "dostępność",
+      "russian": "доступность",
+      "wordAudio": "words/0182-dostepnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "183",
+      "rank": 183,
+      "polish": "brak",
+      "russian": "отсутствие",
+      "wordAudio": "words/0183-brak.wav",
+      "examples": []
+    },
+    {
+      "id": "184",
+      "rank": 184,
+      "polish": "nadwyżka",
+      "russian": "излишек",
+      "wordAudio": "words/0184-nadwyzka.wav",
+      "examples": []
+    },
+    {
+      "id": "185",
+      "rank": 185,
+      "polish": "niedobór",
+      "russian": "нехватка",
+      "wordAudio": "words/0185-niedobor.wav",
+      "examples": []
+    },
+    {
+      "id": "186",
+      "rank": 186,
+      "polish": "środowisko",
+      "russian": "среда",
+      "wordAudio": "words/0186-srodowisko.wav",
+      "examples": []
+    },
+    {
+      "id": "187",
+      "rank": 187,
+      "polish": "otoczenie",
+      "russian": "окружение",
+      "wordAudio": "words/0187-otoczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "188",
+      "rank": 188,
+      "polish": "warunki życia",
+      "russian": "условия жизни",
+      "wordAudio": "words/0188-warunki-zycia.wav",
+      "examples": []
+    },
+    {
+      "id": "189",
+      "rank": 189,
+      "polish": "jakość życia",
+      "russian": "качество жизни",
+      "wordAudio": "words/0189-jakosc-zycia.wav",
+      "examples": []
+    },
+    {
+      "id": "190",
+      "rank": 190,
+      "polish": "stabilność",
+      "russian": "стабильность",
+      "wordAudio": "words/0190-stabilnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "191",
+      "rank": 191,
+      "polish": "bezpieczeństwo",
+      "russian": "безопасность",
+      "wordAudio": "words/0191-bezpieczenstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "192",
+      "rank": 192,
+      "polish": "ryzyko",
+      "russian": "риск",
+      "wordAudio": "words/0192-ryzyko.wav",
+      "examples": []
+    },
+    {
+      "id": "193",
+      "rank": 193,
+      "polish": "zagrożenie",
+      "russian": "угроза",
+      "wordAudio": "words/0193-zagrozenie.wav",
+      "examples": []
+    },
+    {
+      "id": "194",
+      "rank": 194,
+      "polish": "ochrona",
+      "russian": "защита",
+      "wordAudio": "words/0194-ochrona.wav",
+      "examples": []
+    },
+    {
+      "id": "195",
+      "rank": 195,
+      "polish": "odpowiedni",
+      "russian": "подходящий",
+      "wordAudio": "words/0195-odpowiedni.wav",
+      "examples": []
+    },
+    {
+      "id": "196",
+      "rank": 196,
+      "polish": "skuteczny",
+      "russian": "эффективный",
+      "wordAudio": "words/0196-skuteczny.wav",
+      "examples": []
+    },
+    {
+      "id": "197",
+      "rank": 197,
+      "polish": "niezbędny",
+      "russian": "необходимый",
+      "wordAudio": "words/0197-niezbedny.wav",
+      "examples": []
+    },
+    {
+      "id": "198",
+      "rank": 198,
+      "polish": "istotny",
+      "russian": "существенный, важny",
+      "wordAudio": "words/0198-istotny.wav",
+      "examples": []
+    },
+    {
+      "id": "199",
+      "rank": 199,
+      "polish": "dostępny",
+      "russian": "доступный",
+      "wordAudio": "words/0199-dostepny.wav",
+      "examples": []
+    },
+    {
+      "id": "200",
+      "rank": 200,
+      "polish": "korzystny",
+      "russian": "выгодный",
+      "wordAudio": "words/0200-korzystny.wav",
+      "examples": []
+    },
+    {
+      "id": "201",
+      "rank": 201,
+      "polish": "opinia",
+      "russian": "мнение",
+      "wordAudio": "words/0201-opinia.wav",
+      "examples": []
+    },
+    {
+      "id": "202",
+      "rank": 202,
+      "polish": "wrażenie",
+      "russian": "впечатление",
+      "wordAudio": "words/0202-wrazenie.wav",
+      "examples": []
+    },
+    {
+      "id": "203",
+      "rank": 203,
+      "polish": "pogląd",
+      "russian": "взгляд, точка зрения",
+      "wordAudio": "words/0203-poglad.wav",
+      "examples": []
+    },
+    {
+      "id": "204",
+      "rank": 204,
+      "polish": "dyskusja",
+      "russian": "обсуждение",
+      "wordAudio": "words/0204-dyskusja.wav",
+      "examples": []
+    },
+    {
+      "id": "205",
+      "rank": 205,
+      "polish": "rozmówca",
+      "russian": "собеседник",
+      "wordAudio": "words/0205-rozmowca.wav",
+      "examples": []
+    },
+    {
+      "id": "206",
+      "rank": 206,
+      "polish": "przekonanie",
+      "russian": "убеждение",
+      "wordAudio": "words/0206-przekonanie.wav",
+      "examples": []
+    },
+    {
+      "id": "207",
+      "rank": 207,
+      "polish": "zaufanie",
+      "russian": "доверие",
+      "wordAudio": "words/0207-zaufanie.wav",
+      "examples": []
+    },
+    {
+      "id": "208",
+      "rank": 208,
+      "polish": "szacunek",
+      "russian": "уважение",
+      "wordAudio": "words/0208-szacunek.wav",
+      "examples": []
+    },
+    {
+      "id": "209",
+      "rank": 209,
+      "polish": "wsparcie",
+      "russian": "поддержка",
+      "wordAudio": "words/0209-wsparcie.wav",
+      "examples": []
+    },
+    {
+      "id": "210",
+      "rank": 210,
+      "polish": "porozumienie",
+      "russian": "соглашение, понимание",
+      "wordAudio": "words/0210-porozumienie.wav",
+      "examples": []
+    },
+    {
+      "id": "211",
+      "rank": 211,
+      "polish": "konflikt",
+      "russian": "конфликт",
+      "wordAudio": "words/0211-konflikt.wav",
+      "examples": []
+    },
+    {
+      "id": "212",
+      "rank": 212,
+      "polish": "nieporozumienie",
+      "russian": "недоразумение",
+      "wordAudio": "words/0212-nieporozumienie.wav",
+      "examples": []
+    },
+    {
+      "id": "213",
+      "rank": 213,
+      "polish": "zachęcać",
+      "russian": "поощрять",
+      "wordAudio": "words/0213-zachecac.wav",
+      "examples": []
+    },
+    {
+      "id": "214",
+      "rank": 214,
+      "polish": "odradzać",
+      "russian": "отговаривать",
+      "wordAudio": "words/0214-odradzac.wav",
+      "examples": []
+    },
+    {
+      "id": "215",
+      "rank": 215,
+      "polish": "wyrażać",
+      "russian": "выражать",
+      "wordAudio": "words/0215-wyrazac.wav",
+      "examples": []
+    },
+    {
+      "id": "216",
+      "rank": 216,
+      "polish": "podkreślać",
+      "russian": "подчёркивать",
+      "wordAudio": "words/0216-podkreslac.wav",
+      "examples": []
+    },
+    {
+      "id": "217",
+      "rank": 217,
+      "polish": "twierdzić",
+      "russian": "утверждать",
+      "wordAudio": "words/0217-twierdzic.wav",
+      "examples": []
+    },
+    {
+      "id": "218",
+      "rank": 218,
+      "polish": "przyznać się",
+      "russian": "признаться",
+      "wordAudio": "words/0218-przyznac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "219",
+      "rank": 219,
+      "polish": "zgadzać się",
+      "russian": "соглашаться",
+      "wordAudio": "words/0219-zgadzac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "220",
+      "rank": 220,
+      "polish": "sprzeciwiać się",
+      "russian": "возражать",
+      "wordAudio": "words/0220-sprzeciwiac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "221",
+      "rank": 221,
+      "polish": "emocja",
+      "russian": "эмоция",
+      "wordAudio": "words/0221-emocja.wav",
+      "examples": []
+    },
+    {
+      "id": "222",
+      "rank": 222,
+      "polish": "nastrój",
+      "russian": "настроение",
+      "wordAudio": "words/0222-nastroj.wav",
+      "examples": []
+    },
+    {
+      "id": "223",
+      "rank": 223,
+      "polish": "stres",
+      "russian": "стресс",
+      "wordAudio": "words/0223-stres.wav",
+      "examples": []
+    },
+    {
+      "id": "224",
+      "rank": 224,
+      "polish": "presja",
+      "russian": "давление",
+      "wordAudio": "words/0224-presja.wav",
+      "examples": []
+    },
+    {
+      "id": "225",
+      "rank": 225,
+      "polish": "motywacja",
+      "russian": "мотивация",
+      "wordAudio": "words/0225-motywacja.wav",
+      "examples": []
+    },
+    {
+      "id": "226",
+      "rank": 226,
+      "polish": "pewność siebie",
+      "russian": "уверенность в себе",
+      "wordAudio": "words/0226-pewnosc-siebie.wav",
+      "examples": []
+    },
+    {
+      "id": "227",
+      "rank": 227,
+      "polish": "wątpliwość",
+      "russian": "сомнение",
+      "wordAudio": "words/0227-watpliwosc.wav",
+      "examples": []
+    },
+    {
+      "id": "228",
+      "rank": 228,
+      "polish": "rozczarowanie",
+      "russian": "разочарование",
+      "wordAudio": "words/0228-rozczarowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "229",
+      "rank": 229,
+      "polish": "satysfakcja",
+      "russian": "удовлетворение",
+      "wordAudio": "words/0229-satysfakcja.wav",
+      "examples": []
+    },
+    {
+      "id": "230",
+      "rank": 230,
+      "polish": "wdzięczność",
+      "russian": "благодарность",
+      "wordAudio": "words/0230-wdziecznosc.wav",
+      "examples": []
+    },
+    {
+      "id": "231",
+      "rank": 231,
+      "polish": "uczciwy",
+      "russian": "честный",
+      "wordAudio": "words/0231-uczciwy.wav",
+      "examples": []
+    },
+    {
+      "id": "232",
+      "rank": 232,
+      "polish": "odpowiedzialny",
+      "russian": "ответственный",
+      "wordAudio": "words/0232-odpowiedzialny.wav",
+      "examples": []
+    },
+    {
+      "id": "233",
+      "rank": 233,
+      "polish": "cierpliwy",
+      "russian": "терпеливый",
+      "wordAudio": "words/0233-cierpliwy.wav",
+      "examples": []
+    },
+    {
+      "id": "234",
+      "rank": 234,
+      "polish": "ambitny",
+      "russian": "амбициозный",
+      "wordAudio": "words/0234-ambitny.wav",
+      "examples": []
+    },
+    {
+      "id": "235",
+      "rank": 235,
+      "polish": "życzliwy",
+      "russian": "доброжелательный",
+      "wordAudio": "words/0235-zyczliwy.wav",
+      "examples": []
+    },
+    {
+      "id": "236",
+      "rank": 236,
+      "polish": "uparty",
+      "russian": "упрямый",
+      "wordAudio": "words/0236-uparty.wav",
+      "examples": []
+    },
+    {
+      "id": "237",
+      "rank": 237,
+      "polish": "wrażliwy",
+      "russian": "чувствительный",
+      "wordAudio": "words/0237-wrazliwy.wav",
+      "examples": []
+    },
+    {
+      "id": "238",
+      "rank": 238,
+      "polish": "pewny",
+      "russian": "уверенный",
+      "wordAudio": "words/0238-pewny.wav",
+      "examples": []
+    },
+    {
+      "id": "239",
+      "rank": 239,
+      "polish": "szczery",
+      "russian": "искренний",
+      "wordAudio": "words/0239-szczery.wav",
+      "examples": []
+    },
+    {
+      "id": "240",
+      "rank": 240,
+      "polish": "spokojny",
+      "russian": "спокойный",
+      "wordAudio": "words/0240-spokojny.wav",
+      "examples": []
+    },
+    {
+      "id": "241",
+      "rank": 241,
+      "polish": "znajomość",
+      "russian": "знакомство, знание",
+      "wordAudio": "words/0241-znajomosc.wav",
+      "examples": []
+    },
+    {
+      "id": "242",
+      "rank": 242,
+      "polish": "relacja",
+      "russian": "отношение, связь",
+      "wordAudio": "words/0242-relacja.wav",
+      "examples": []
+    },
+    {
+      "id": "243",
+      "rank": 243,
+      "polish": "przyjaźń",
+      "russian": "дружба",
+      "wordAudio": "words/0243-przyjazn.wav",
+      "examples": []
+    },
+    {
+      "id": "244",
+      "rank": 244,
+      "polish": "znajomy",
+      "russian": "знакомый",
+      "wordAudio": "words/0244-znajomy.wav",
+      "examples": []
+    },
+    {
+      "id": "245",
+      "rank": 245,
+      "polish": "sąsiad",
+      "russian": "сосед",
+      "wordAudio": "words/0245-sasiad.wav",
+      "examples": []
+    },
+    {
+      "id": "246",
+      "rank": 246,
+      "polish": "spotkanie",
+      "russian": "встреча",
+      "wordAudio": "words/0246-spotkanie.wav",
+      "examples": []
+    },
+    {
+      "id": "247",
+      "rank": 247,
+      "polish": "zaproszenie",
+      "russian": "приглашение",
+      "wordAudio": "words/0247-zaproszenie.wav",
+      "examples": []
+    },
+    {
+      "id": "248",
+      "rank": 248,
+      "polish": "rozmowa",
+      "russian": "разговор",
+      "wordAudio": "words/0248-rozmowa.wav",
+      "examples": []
+    },
+    {
+      "id": "249",
+      "rank": 249,
+      "polish": "wypowiedź",
+      "russian": "высказывание",
+      "wordAudio": "words/0249-wypowiedz.wav",
+      "examples": []
+    },
+    {
+      "id": "250",
+      "rank": 250,
+      "polish": "komentarz",
+      "russian": "комментарий",
+      "wordAudio": "words/0250-komentarz.wav",
+      "examples": []
+    },
+    {
+      "id": "251",
+      "rank": 251,
+      "polish": "pytanie",
+      "russian": "вопрос",
+      "wordAudio": "words/0251-pytanie.wav",
+      "examples": []
+    },
+    {
+      "id": "252",
+      "rank": 252,
+      "polish": "odpowiedź",
+      "russian": "ответ",
+      "wordAudio": "words/0252-odpowiedz.wav",
+      "examples": []
+    },
+    {
+      "id": "253",
+      "rank": 253,
+      "polish": "wyjaśnienie",
+      "russian": "объяснение",
+      "wordAudio": "words/0253-wyjasnienie.wav",
+      "examples": []
+    },
+    {
+      "id": "254",
+      "rank": 254,
+      "polish": "prośba",
+      "russian": "просьба",
+      "wordAudio": "words/0254-prosba.wav",
+      "examples": []
+    },
+    {
+      "id": "255",
+      "rank": 255,
+      "polish": "odmówić",
+      "russian": "отказать",
+      "wordAudio": "words/0255-odmowic.wav",
+      "examples": []
+    },
+    {
+      "id": "256",
+      "rank": 256,
+      "polish": "zaproponować",
+      "russian": "предложить",
+      "wordAudio": "words/0256-zaproponowac.wav",
+      "examples": []
+    },
+    {
+      "id": "257",
+      "rank": 257,
+      "polish": "uzgodnić",
+      "russian": "согласовать",
+      "wordAudio": "words/0257-uzgodnic.wav",
+      "examples": []
+    },
+    {
+      "id": "258",
+      "rank": 258,
+      "polish": "ustalić",
+      "russian": "установить, определить",
+      "wordAudio": "words/0258-ustalic.wav",
+      "examples": []
+    },
+    {
+      "id": "259",
+      "rank": 259,
+      "polish": "poinformować",
+      "russian": "проинформировать",
+      "wordAudio": "words/0259-poinformowac.wav",
+      "examples": []
+    },
+    {
+      "id": "260",
+      "rank": 260,
+      "polish": "powiadomić",
+      "russian": "уведомить",
+      "wordAudio": "words/0260-powiadomic.wav",
+      "examples": []
+    },
+    {
+      "id": "261",
+      "rank": 261,
+      "polish": "decydować",
+      "russian": "решать, принимать решение",
+      "wordAudio": "words/0261-decydowac.wav",
+      "examples": []
+    },
+    {
+      "id": "262",
+      "rank": 262,
+      "polish": "postanowić",
+      "russian": "решить",
+      "wordAudio": "words/0262-postanowic.wav",
+      "examples": []
+    },
+    {
+      "id": "263",
+      "rank": 263,
+      "polish": "wybierać",
+      "russian": "выбирать",
+      "wordAudio": "words/0263-wybierac.wav",
+      "examples": []
+    },
+    {
+      "id": "264",
+      "rank": 264,
+      "polish": "preferować",
+      "russian": "предпочитать",
+      "wordAudio": "words/0264-preferowac.wav",
+      "examples": []
+    },
+    {
+      "id": "265",
+      "rank": 265,
+      "polish": "rozważyć",
+      "russian": "рассмотреть",
+      "wordAudio": "words/0265-rozwazyc.wav",
+      "examples": []
+    },
+    {
+      "id": "266",
+      "rank": 266,
+      "polish": "zamierzać",
+      "russian": "намереваться",
+      "wordAudio": "words/0266-zamierzac.wav",
+      "examples": []
+    },
+    {
+      "id": "267",
+      "rank": 267,
+      "polish": "planować",
+      "russian": "планировать",
+      "wordAudio": "words/0267-planowac.wav",
+      "examples": []
+    },
+    {
+      "id": "268",
+      "rank": 268,
+      "polish": "organizować",
+      "russian": "организовывать",
+      "wordAudio": "words/0268-organizowac.wav",
+      "examples": []
+    },
+    {
+      "id": "269",
+      "rank": 269,
+      "polish": "przygotować",
+      "russian": "подготовить",
+      "wordAudio": "words/0269-przygotowac.wav",
+      "examples": []
+    },
+    {
+      "id": "270",
+      "rank": 270,
+      "polish": "przygotowanie",
+      "russian": "подготовка",
+      "wordAudio": "words/0270-przygotowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "271",
+      "rank": 271,
+      "polish": "powód",
+      "russian": "причина",
+      "wordAudio": "words/0271-powod.wav",
+      "examples": []
+    },
+    {
+      "id": "272",
+      "rank": 272,
+      "polish": "przyczyna",
+      "russian": "причина",
+      "wordAudio": "words/0272-przyczyna.wav",
+      "examples": []
+    },
+    {
+      "id": "273",
+      "rank": 273,
+      "polish": "skutek",
+      "russian": "последствие",
+      "wordAudio": "words/0273-skutek.wav",
+      "examples": []
+    },
+    {
+      "id": "274",
+      "rank": 274,
+      "polish": "efekt",
+      "russian": "эффект",
+      "wordAudio": "words/0274-efekt.wav",
+      "examples": []
+    },
+    {
+      "id": "275",
+      "rank": 275,
+      "polish": "rezultat",
+      "russian": "результат",
+      "wordAudio": "words/0275-rezultat.wav",
+      "examples": []
+    },
+    {
+      "id": "276",
+      "rank": 276,
+      "polish": "konsekwencja",
+      "russian": "последствие",
+      "wordAudio": "words/0276-konsekwencja.wav",
+      "examples": []
+    },
+    {
+      "id": "277",
+      "rank": 277,
+      "polish": "okazja",
+      "russian": "возможность, случай",
+      "wordAudio": "words/0277-okazja.wav",
+      "examples": []
+    },
+    {
+      "id": "278",
+      "rank": 278,
+      "polish": "szansa",
+      "russian": "шанс",
+      "wordAudio": "words/0278-szansa.wav",
+      "examples": []
+    },
+    {
+      "id": "279",
+      "rank": 279,
+      "polish": "zagwarantować",
+      "russian": "гарантировать",
+      "wordAudio": "words/0279-zagwarantowac.wav",
+      "examples": []
+    },
+    {
+      "id": "280",
+      "rank": 280,
+      "polish": "umożliwić",
+      "russian": "сделать возможным",
+      "wordAudio": "words/0280-umozliwic.wav",
+      "examples": []
+    },
+    {
+      "id": "281",
+      "rank": 281,
+      "polish": "sytuacja",
+      "russian": "ситуация",
+      "wordAudio": "words/0281-sytuacja.wav",
+      "examples": []
+    },
+    {
+      "id": "282",
+      "rank": 282,
+      "polish": "przypadek",
+      "russian": "случай",
+      "wordAudio": "words/0282-przypadek.wav",
+      "examples": []
+    },
+    {
+      "id": "283",
+      "rank": 283,
+      "polish": "zdarzenie",
+      "russian": "событие",
+      "wordAudio": "words/0283-zdarzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "284",
+      "rank": 284,
+      "polish": "proces",
+      "russian": "процесс",
+      "wordAudio": "words/0284-proces.wav",
+      "examples": []
+    },
+    {
+      "id": "285",
+      "rank": 285,
+      "polish": "etap",
+      "russian": "этап",
+      "wordAudio": "words/0285-etap.wav",
+      "examples": []
+    },
+    {
+      "id": "286",
+      "rank": 286,
+      "polish": "poziom",
+      "russian": "уровень",
+      "wordAudio": "words/0286-poziom.wav",
+      "examples": []
+    },
+    {
+      "id": "287",
+      "rank": 287,
+      "polish": "tempo",
+      "russian": "темп",
+      "wordAudio": "words/0287-tempo.wav",
+      "examples": []
+    },
+    {
+      "id": "288",
+      "rank": 288,
+      "polish": "zmiana",
+      "russian": "изменение",
+      "wordAudio": "words/0288-zmiana.wav",
+      "examples": []
+    },
+    {
+      "id": "289",
+      "rank": 289,
+      "polish": "zwiększyć",
+      "russian": "увеличить",
+      "wordAudio": "words/0289-zwiekszyc.wav",
+      "examples": []
+    },
+    {
+      "id": "290",
+      "rank": 290,
+      "polish": "zmniejszyć",
+      "russian": "уменьшить",
+      "wordAudio": "words/0290-zmniejszyc.wav",
+      "examples": []
+    },
+    {
+      "id": "291",
+      "rank": 291,
+      "polish": "ograniczyć",
+      "russian": "ограничить",
+      "wordAudio": "words/0291-ograniczyc.wav",
+      "examples": []
+    },
+    {
+      "id": "292",
+      "rank": 292,
+      "polish": "ulepszyć",
+      "russian": "улучшить",
+      "wordAudio": "words/0292-ulepszyc.wav",
+      "examples": []
+    },
+    {
+      "id": "293",
+      "rank": 293,
+      "polish": "usprawnić",
+      "russian": "оптимизировать",
+      "wordAudio": "words/0293-usprawnic.wav",
+      "examples": []
+    },
+    {
+      "id": "294",
+      "rank": 294,
+      "polish": "realizować",
+      "russian": "реализовывать",
+      "wordAudio": "words/0294-realizowac.wav",
+      "examples": []
+    },
+    {
+      "id": "295",
+      "rank": 295,
+      "polish": "wykonać",
+      "russian": "выполнить",
+      "wordAudio": "words/0295-wykonac.wav",
+      "examples": []
+    },
+    {
+      "id": "296",
+      "rank": 296,
+      "polish": "zakończyć",
+      "russian": "завершить",
+      "wordAudio": "words/0296-zakonczyc.wav",
+      "examples": []
+    },
+    {
+      "id": "297",
+      "rank": 297,
+      "polish": "kontynuować",
+      "russian": "продолжать",
+      "wordAudio": "words/0297-kontynuowac.wav",
+      "examples": []
+    },
+    {
+      "id": "298",
+      "rank": 298,
+      "polish": "osiągać",
+      "russian": "достигать",
+      "wordAudio": "words/0298-osiagac.wav",
+      "examples": []
+    },
+    {
+      "id": "299",
+      "rank": 299,
+      "polish": "wdrażać",
+      "russian": "внедрять",
+      "wordAudio": "words/0299-wdrazac.wav",
+      "examples": []
+    },
+    {
+      "id": "300",
+      "rank": 300,
+      "polish": "harmonogram",
+      "russian": "график",
+      "wordAudio": "words/0300-harmonogram.wav",
+      "examples": []
+    },
+    {
+      "id": "301",
+      "rank": 301,
+      "polish": "lekarz",
+      "russian": "врач",
+      "wordAudio": "words/0301-lekarz.wav",
+      "examples": []
+    },
+    {
+      "id": "302",
+      "rank": 302,
+      "polish": "pacjent",
+      "russian": "пациент",
+      "wordAudio": "words/0302-pacjent.wav",
+      "examples": []
+    },
+    {
+      "id": "303",
+      "rank": 303,
+      "polish": "badanie",
+      "russian": "обследование, анализ",
+      "wordAudio": "words/0303-badanie.wav",
+      "examples": []
+    },
+    {
+      "id": "304",
+      "rank": 304,
+      "polish": "wynik badania",
+      "russian": "результат обследования",
+      "wordAudio": "words/0304-wynik-badania.wav",
+      "examples": []
+    },
+    {
+      "id": "305",
+      "rank": 305,
+      "polish": "leczenie",
+      "russian": "лечение",
+      "wordAudio": "words/0305-leczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "306",
+      "rank": 306,
+      "polish": "objaw",
+      "russian": "симптом",
+      "wordAudio": "words/0306-objaw.wav",
+      "examples": []
+    },
+    {
+      "id": "307",
+      "rank": 307,
+      "polish": "dolegliwość",
+      "russian": "недомогание",
+      "wordAudio": "words/0307-dolegliwosc.wav",
+      "examples": []
+    },
+    {
+      "id": "308",
+      "rank": 308,
+      "polish": "zdrowie",
+      "russian": "здоровье",
+      "wordAudio": "words/0308-zdrowie.wav",
+      "examples": []
+    },
+    {
+      "id": "309",
+      "rank": 309,
+      "polish": "choroba",
+      "russian": "болезнь",
+      "wordAudio": "words/0309-choroba.wav",
+      "examples": []
+    },
+    {
+      "id": "310",
+      "rank": 310,
+      "polish": "przeziębienie",
+      "russian": "простуда",
+      "wordAudio": "words/0310-przeziebienie.wav",
+      "examples": []
+    },
+    {
+      "id": "311",
+      "rank": 311,
+      "polish": "gorączka",
+      "russian": "температура",
+      "wordAudio": "words/0311-goraczka.wav",
+      "examples": []
+    },
+    {
+      "id": "312",
+      "rank": 312,
+      "polish": "ból",
+      "russian": "боль",
+      "wordAudio": "words/0312-bol.wav",
+      "examples": []
+    },
+    {
+      "id": "313",
+      "rank": 313,
+      "polish": "recepta",
+      "russian": "рецепт",
+      "wordAudio": "words/0313-recepta.wav",
+      "examples": []
+    },
+    {
+      "id": "314",
+      "rank": 314,
+      "polish": "lek",
+      "russian": "лекарство",
+      "wordAudio": "words/0314-lek.wav",
+      "examples": []
+    },
+    {
+      "id": "315",
+      "rank": 315,
+      "polish": "apteka",
+      "russian": "аптека",
+      "wordAudio": "words/0315-apteka.wav",
+      "examples": []
+    },
+    {
+      "id": "316",
+      "rank": 316,
+      "polish": "szczepienie",
+      "russian": "прививка",
+      "wordAudio": "words/0316-szczepienie.wav",
+      "examples": []
+    },
+    {
+      "id": "317",
+      "rank": 317,
+      "polish": "opieka zdrowotna",
+      "russian": "здравоохранение",
+      "wordAudio": "words/0317-opieka-zdrowotna.wav",
+      "examples": []
+    },
+    {
+      "id": "318",
+      "rank": 318,
+      "polish": "ubezpieczenie zdrowotne",
+      "russian": "медицинская страховка",
+      "wordAudio": "words/0318-ubezpieczenie-zdrowotne.wav",
+      "examples": []
+    },
+    {
+      "id": "319",
+      "rank": 319,
+      "polish": "wizyta",
+      "russian": "визит",
+      "wordAudio": "words/0319-wizyta.wav",
+      "examples": []
+    },
+    {
+      "id": "320",
+      "rank": 320,
+      "polish": "specjalista",
+      "russian": "специалист",
+      "wordAudio": "words/0320-specjalista.wav",
+      "examples": []
+    },
+    {
+      "id": "321",
+      "rank": 321,
+      "polish": "rodzic",
+      "russian": "родитель",
+      "wordAudio": "words/0321-rodzic.wav",
+      "examples": []
+    },
+    {
+      "id": "322",
+      "rank": 322,
+      "polish": "matka",
+      "russian": "мать",
+      "wordAudio": "words/0322-matka.wav",
+      "examples": []
+    },
+    {
+      "id": "323",
+      "rank": 323,
+      "polish": "ojciec",
+      "russian": "отец",
+      "wordAudio": "words/0323-ojciec.wav",
+      "examples": []
+    },
+    {
+      "id": "324",
+      "rank": 324,
+      "polish": "dziecko",
+      "russian": "ребёнок",
+      "wordAudio": "words/0324-dziecko.wav",
+      "examples": []
+    },
+    {
+      "id": "325",
+      "rank": 325,
+      "polish": "niemowlę",
+      "russian": "младенец",
+      "wordAudio": "words/0325-niemowle.wav",
+      "examples": []
+    },
+    {
+      "id": "326",
+      "rank": 326,
+      "polish": "wychowanie",
+      "russian": "воспитание",
+      "wordAudio": "words/0326-wychowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "327",
+      "rank": 327,
+      "polish": "opieka",
+      "russian": "уход",
+      "wordAudio": "words/0327-opieka.wav",
+      "examples": []
+    },
+    {
+      "id": "328",
+      "rank": 328,
+      "polish": "rozwój dziecka",
+      "russian": "развитие ребёнка",
+      "wordAudio": "words/0328-rozwoj-dziecka.wav",
+      "examples": []
+    },
+    {
+      "id": "329",
+      "rank": 329,
+      "polish": "ciąża",
+      "russian": "беременность",
+      "wordAudio": "words/0329-ciaza.wav",
+      "examples": []
+    },
+    {
+      "id": "330",
+      "rank": 330,
+      "polish": "poród",
+      "russian": "роды",
+      "wordAudio": "words/0330-porod.wav",
+      "examples": []
+    },
+    {
+      "id": "331",
+      "rank": 331,
+      "polish": "urlop macierzyński",
+      "russian": "декретный отпуск",
+      "wordAudio": "words/0331-urlop-macierzynski.wav",
+      "examples": []
+    },
+    {
+      "id": "332",
+      "rank": 332,
+      "polish": "urlop rodzicielski",
+      "russian": "родительский отпуск",
+      "wordAudio": "words/0332-urlop-rodzicielski.wav",
+      "examples": []
+    },
+    {
+      "id": "333",
+      "rank": 333,
+      "polish": "żłobek",
+      "russian": "ясли",
+      "wordAudio": "words/0333-zlobek.wav",
+      "examples": []
+    },
+    {
+      "id": "334",
+      "rank": 334,
+      "polish": "przedszkole",
+      "russian": "детский сад",
+      "wordAudio": "words/0334-przedszkole.wav",
+      "examples": []
+    },
+    {
+      "id": "335",
+      "rank": 335,
+      "polish": "szkoła",
+      "russian": "школа",
+      "wordAudio": "words/0335-szkola.wav",
+      "examples": []
+    },
+    {
+      "id": "336",
+      "rank": 336,
+      "polish": "nauczyciel",
+      "russian": "учитель",
+      "wordAudio": "words/0336-nauczyciel.wav",
+      "examples": []
+    },
+    {
+      "id": "337",
+      "rank": 337,
+      "polish": "uczeń",
+      "russian": "ученик",
+      "wordAudio": "words/0337-uczen.wav",
+      "examples": []
+    },
+    {
+      "id": "338",
+      "rank": 338,
+      "polish": "edukacja",
+      "russian": "образование",
+      "wordAudio": "words/0338-edukacja.wav",
+      "examples": []
+    },
+    {
+      "id": "339",
+      "rank": 339,
+      "polish": "nauka",
+      "russian": "обучение, учёба",
+      "wordAudio": "words/0339-nauka.wav",
+      "examples": []
+    },
+    {
+      "id": "340",
+      "rank": 340,
+      "polish": "umiejętności",
+      "russian": "навыки",
+      "wordAudio": "words/0340-umiejetnosci.wav",
+      "examples": []
+    },
+    {
+      "id": "341",
+      "rank": 341,
+      "polish": "egzamin",
+      "russian": "экзамен",
+      "wordAudio": "words/0341-egzamin.wav",
+      "examples": []
+    },
+    {
+      "id": "342",
+      "rank": 342,
+      "polish": "praktyka",
+      "russian": "практика",
+      "wordAudio": "words/0342-praktyka.wav",
+      "examples": []
+    },
+    {
+      "id": "343",
+      "rank": 343,
+      "polish": "student",
+      "russian": "студент",
+      "wordAudio": "words/0343-student.wav",
+      "examples": []
+    },
+    {
+      "id": "344",
+      "rank": 344,
+      "polish": "prawo",
+      "russian": "право",
+      "wordAudio": "words/0344-prawo.wav",
+      "examples": []
+    },
+    {
+      "id": "345",
+      "rank": 345,
+      "polish": "uczelnia",
+      "russian": "университет",
+      "wordAudio": "words/0345-uczelnia.wav",
+      "examples": []
+    },
+    {
+      "id": "346",
+      "rank": 346,
+      "polish": "dokument",
+      "russian": "документ",
+      "wordAudio": "words/0346-dokument.wav",
+      "examples": []
+    },
+    {
+      "id": "347",
+      "rank": 347,
+      "polish": "dyplom",
+      "russian": "диплом",
+      "wordAudio": "words/0347-dyplom.wav",
+      "examples": []
+    },
+    {
+      "id": "348",
+      "rank": 348,
+      "polish": "legitymacja",
+      "russian": "удостоверение",
+      "wordAudio": "words/0348-legitymacja.wav",
+      "examples": []
+    },
+    {
+      "id": "349",
+      "rank": 349,
+      "polish": "gospodarka",
+      "russian": "экономика",
+      "wordAudio": "words/0349-gospodarka.wav",
+      "examples": []
+    },
+    {
+      "id": "350",
+      "rank": 350,
+      "polish": "obywatel",
+      "russian": "гражданин",
+      "wordAudio": "words/0350-obywatel.wav",
+      "examples": []
+    },
+    {
+      "id": "351",
+      "rank": 351,
+      "polish": "cudzoziemiec",
+      "russian": "иностранец",
+      "wordAudio": "words/0351-cudzoziemiec.wav",
+      "examples": []
+    },
+    {
+      "id": "352",
+      "rank": 352,
+      "polish": "rezydent",
+      "russian": "резидент",
+      "wordAudio": "words/0352-rezydent.wav",
+      "examples": []
+    },
+    {
+      "id": "353",
+      "rank": 353,
+      "polish": "adres zameldowania",
+      "russian": "адрес регистрации",
+      "wordAudio": "words/0353-adres-zameldowania.wav",
+      "examples": []
+    },
+    {
+      "id": "354",
+      "rank": 354,
+      "polish": "urzędnik",
+      "russian": "чиновник",
+      "wordAudio": "words/0354-urzednik.wav",
+      "examples": []
+    },
+    {
+      "id": "355",
+      "rank": 355,
+      "polish": "urząd",
+      "russian": "учреждение",
+      "wordAudio": "words/0355-urzad.wav",
+      "examples": []
+    },
+    {
+      "id": "356",
+      "rank": 356,
+      "polish": "rozpatrzyć",
+      "russian": "рассмотреть",
+      "wordAudio": "words/0356-rozpatrzyc.wav",
+      "examples": []
+    },
+    {
+      "id": "357",
+      "rank": 357,
+      "polish": "deadline",
+      "russian": "крайний срок",
+      "wordAudio": "words/0357-deadline.wav",
+      "examples": []
+    },
+    {
+      "id": "358",
+      "rank": 358,
+      "polish": "ważność",
+      "russian": "срок действия",
+      "wordAudio": "words/0358-waznosc.wav",
+      "examples": []
+    },
+    {
+      "id": "359",
+      "rank": 359,
+      "polish": "odnowić",
+      "russian": "обновить",
+      "wordAudio": "words/0359-odnowic.wav",
+      "examples": []
+    },
+    {
+      "id": "360",
+      "rank": 360,
+      "polish": "potwierdzenie",
+      "russian": "подтверждение",
+      "wordAudio": "words/0360-potwierdzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "361",
+      "rank": 361,
+      "polish": "podróż",
+      "russian": "путешествие",
+      "wordAudio": "words/0361-podroz.wav",
+      "examples": []
+    },
+    {
+      "id": "362",
+      "rank": 362,
+      "polish": "wyjazd",
+      "russian": "отъезд, поездка",
+      "wordAudio": "words/0362-wyjazd.wav",
+      "examples": []
+    },
+    {
+      "id": "363",
+      "rank": 363,
+      "polish": "przyjazd",
+      "russian": "приезд",
+      "wordAudio": "words/0363-przyjazd.wav",
+      "examples": []
+    },
+    {
+      "id": "364",
+      "rank": 364,
+      "polish": "trasa",
+      "russian": "маршрут",
+      "wordAudio": "words/0364-trasa.wav",
+      "examples": []
+    },
+    {
+      "id": "365",
+      "rank": 365,
+      "polish": "połączenie",
+      "russian": "сообщение, соединение",
+      "wordAudio": "words/0365-polaczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "366",
+      "rank": 366,
+      "polish": "przystanek",
+      "russian": "остановка",
+      "wordAudio": "words/0366-przystanek.wav",
+      "examples": []
+    },
+    {
+      "id": "367",
+      "rank": 367,
+      "polish": "dworzec",
+      "russian": "вокзал",
+      "wordAudio": "words/0367-dworzec.wav",
+      "examples": []
+    },
+    {
+      "id": "368",
+      "rank": 368,
+      "polish": "lotnisko",
+      "russian": "аэропорт",
+      "wordAudio": "words/0368-lotnisko.wav",
+      "examples": []
+    },
+    {
+      "id": "369",
+      "rank": 369,
+      "polish": "opóźnienie",
+      "russian": "задержка",
+      "wordAudio": "words/0369-opoznienie.wav",
+      "examples": []
+    },
+    {
+      "id": "370",
+      "rank": 370,
+      "polish": "rozkład jazdy",
+      "russian": "расписание",
+      "wordAudio": "words/0370-rozklad-jazdy.wav",
+      "examples": []
+    },
+    {
+      "id": "371",
+      "rank": 371,
+      "polish": "bilet",
+      "russian": "билет",
+      "wordAudio": "words/0371-bilet.wav",
+      "examples": []
+    },
+    {
+      "id": "372",
+      "rank": 372,
+      "polish": "kierowca",
+      "russian": "водитель",
+      "wordAudio": "words/0372-kierowca.wav",
+      "examples": []
+    },
+    {
+      "id": "373",
+      "rank": 373,
+      "polish": "pasażer",
+      "russian": "пассажир",
+      "wordAudio": "words/0373-pasazer.wav",
+      "examples": []
+    },
+    {
+      "id": "374",
+      "rank": 374,
+      "polish": "ruch drogowy",
+      "russian": "дорожное движение",
+      "wordAudio": "words/0374-ruch-drogowy.wav",
+      "examples": []
+    },
+    {
+      "id": "375",
+      "rank": 375,
+      "polish": "wypadek",
+      "russian": "авария, ДТП",
+      "wordAudio": "words/0375-wypadek.wav",
+      "examples": []
+    },
+    {
+      "id": "376",
+      "rank": 376,
+      "polish": "objazd",
+      "russian": "объезд",
+      "wordAudio": "words/0376-objazd.wav",
+      "examples": []
+    },
+    {
+      "id": "377",
+      "rank": 377,
+      "polish": "parking",
+      "russian": "парковка",
+      "wordAudio": "words/0377-parking.wav",
+      "examples": []
+    },
+    {
+      "id": "378",
+      "rank": 378,
+      "polish": "stacja",
+      "russian": "станция",
+      "wordAudio": "words/0378-stacja.wav",
+      "examples": []
+    },
+    {
+      "id": "379",
+      "rank": 379,
+      "polish": "przesiadka",
+      "russian": "пересадка",
+      "wordAudio": "words/0379-przesiadka.wav",
+      "examples": []
+    },
+    {
+      "id": "380",
+      "rank": 380,
+      "polish": "korek",
+      "russian": "пробка",
+      "wordAudio": "words/0380-korek.wav",
+      "examples": []
+    },
+    {
+      "id": "381",
+      "rank": 381,
+      "polish": "zakwaterowanie",
+      "russian": "проживание",
+      "wordAudio": "words/0381-zakwaterowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "382",
+      "rank": 382,
+      "polish": "hotel",
+      "russian": "отель",
+      "wordAudio": "words/0382-hotel.wav",
+      "examples": []
+    },
+    {
+      "id": "383",
+      "rank": 383,
+      "polish": "rezerwacja",
+      "russian": "бронирование",
+      "wordAudio": "words/0383-rezerwacja.wav",
+      "examples": []
+    },
+    {
+      "id": "384",
+      "rank": 384,
+      "polish": "gość",
+      "russian": "гость",
+      "wordAudio": "words/0384-gosc.wav",
+      "examples": []
+    },
+    {
+      "id": "385",
+      "rank": 385,
+      "polish": "recepcja",
+      "russian": "ресепшен",
+      "wordAudio": "words/0385-recepcja.wav",
+      "examples": []
+    },
+    {
+      "id": "386",
+      "rank": 386,
+      "polish": "pokój",
+      "russian": "номер, комната",
+      "wordAudio": "words/0386-pokoj.wav",
+      "examples": []
+    },
+    {
+      "id": "387",
+      "rank": 387,
+      "polish": "nocleg",
+      "russian": "ночлег",
+      "wordAudio": "words/0387-nocleg.wav",
+      "examples": []
+    },
+    {
+      "id": "388",
+      "rank": 388,
+      "polish": "nocować",
+      "russian": "ночевать",
+      "wordAudio": "words/0388-nocowac.wav",
+      "examples": []
+    },
+    {
+      "id": "389",
+      "rank": 389,
+      "polish": "turysta",
+      "russian": "турист",
+      "wordAudio": "words/0389-turysta.wav",
+      "examples": []
+    },
+    {
+      "id": "390",
+      "rank": 390,
+      "polish": "zwiedzać",
+      "russian": "осматривать достопримечательности",
+      "wordAudio": "words/0390-zwiedzac.wav",
+      "examples": []
+    },
+    {
+      "id": "391",
+      "rank": 391,
+      "polish": "pogoda",
+      "russian": "погода",
+      "wordAudio": "words/0391-pogoda.wav",
+      "examples": []
+    },
+    {
+      "id": "392",
+      "rank": 392,
+      "polish": "prognoza",
+      "russian": "прогноз",
+      "wordAudio": "words/0392-prognoza.wav",
+      "examples": []
+    },
+    {
+      "id": "393",
+      "rank": 393,
+      "polish": "temperatura",
+      "russian": "температура",
+      "wordAudio": "words/0393-temperatura.wav",
+      "examples": []
+    },
+    {
+      "id": "394",
+      "rank": 394,
+      "polish": "deszcz",
+      "russian": "дождь",
+      "wordAudio": "words/0394-deszcz.wav",
+      "examples": []
+    },
+    {
+      "id": "395",
+      "rank": 395,
+      "polish": "śnieg",
+      "russian": "снег",
+      "wordAudio": "words/0395-snieg.wav",
+      "examples": []
+    },
+    {
+      "id": "396",
+      "rank": 396,
+      "polish": "wiatr",
+      "russian": "ветер",
+      "wordAudio": "words/0396-wiatr.wav",
+      "examples": []
+    },
+    {
+      "id": "397",
+      "rank": 397,
+      "polish": "burza",
+      "russian": "гроза",
+      "wordAudio": "words/0397-burza.wav",
+      "examples": []
+    },
+    {
+      "id": "398",
+      "rank": 398,
+      "polish": "słońce",
+      "russian": "солнце",
+      "wordAudio": "words/0398-slonce.wav",
+      "examples": []
+    },
+    {
+      "id": "399",
+      "rank": 399,
+      "polish": "cień",
+      "russian": "тень",
+      "wordAudio": "words/0399-cien.wav",
+      "examples": []
+    },
+    {
+      "id": "400",
+      "rank": 400,
+      "polish": "klimat",
+      "russian": "климат",
+      "wordAudio": "words/0400-klimat.wav",
+      "examples": []
+    },
+    {
+      "id": "401",
+      "rank": 401,
+      "polish": "zakupy",
+      "russian": "покупки",
+      "wordAudio": "words/0401-zakupy.wav",
+      "examples": []
+    },
+    {
+      "id": "402",
+      "rank": 402,
+      "polish": "produkt",
+      "russian": "товар, продукт",
+      "wordAudio": "words/0402-produkt.wav",
+      "examples": []
+    },
+    {
+      "id": "403",
+      "rank": 403,
+      "polish": "towar",
+      "russian": "товар",
+      "wordAudio": "words/0403-towar.wav",
+      "examples": []
+    },
+    {
+      "id": "404",
+      "rank": 404,
+      "polish": "koszyk",
+      "russian": "корзина",
+      "wordAudio": "words/0404-koszyk.wav",
+      "examples": []
+    },
+    {
+      "id": "405",
+      "rank": 405,
+      "polish": "promocja",
+      "russian": "акция",
+      "wordAudio": "words/0405-promocja.wav",
+      "examples": []
+    },
+    {
+      "id": "406",
+      "rank": 406,
+      "polish": "zniżka",
+      "russian": "скидка",
+      "wordAudio": "words/0406-znizka.wav",
+      "examples": []
+    },
+    {
+      "id": "407",
+      "rank": 407,
+      "polish": "cena",
+      "russian": "цена",
+      "wordAudio": "words/0407-cena.wav",
+      "examples": []
+    },
+    {
+      "id": "408",
+      "rank": 408,
+      "polish": "koszt",
+      "russian": "стоимость",
+      "wordAudio": "words/0408-koszt.wav",
+      "examples": []
+    },
+    {
+      "id": "409",
+      "rank": 409,
+      "polish": "jakość",
+      "russian": "качество",
+      "wordAudio": "words/0409-jakosc.wav",
+      "examples": []
+    },
+    {
+      "id": "410",
+      "rank": 410,
+      "polish": "wybór",
+      "russian": "выбор",
+      "wordAudio": "words/0410-wybor.wav",
+      "examples": []
+    },
+    {
+      "id": "411",
+      "rank": 411,
+      "polish": "sprzedawca",
+      "russian": "продавец",
+      "wordAudio": "words/0411-sprzedawca.wav",
+      "examples": []
+    },
+    {
+      "id": "412",
+      "rank": 412,
+      "polish": "klient",
+      "russian": "клиент",
+      "wordAudio": "words/0412-klient.wav",
+      "examples": []
+    },
+    {
+      "id": "413",
+      "rank": 413,
+      "polish": "sklep internetowy",
+      "russian": "интернет-магазин",
+      "wordAudio": "words/0413-sklep-internetowy.wav",
+      "examples": []
+    },
+    {
+      "id": "414",
+      "rank": 414,
+      "polish": "stan magazynowy",
+      "russian": "остаток на складе",
+      "wordAudio": "words/0414-stan-magazynowy.wav",
+      "examples": []
+    },
+    {
+      "id": "415",
+      "rank": 415,
+      "polish": "rezerwować",
+      "russian": "бронировать",
+      "wordAudio": "words/0415-rezerwowac.wav",
+      "examples": []
+    },
+    {
+      "id": "416",
+      "rank": 416,
+      "polish": "zwrot",
+      "russian": "возврат",
+      "wordAudio": "words/0416-zwrot.wav",
+      "examples": []
+    },
+    {
+      "id": "417",
+      "rank": 417,
+      "polish": "gwarantować",
+      "russian": "гарантировать",
+      "wordAudio": "words/0417-gwarantowac.wav",
+      "examples": []
+    },
+    {
+      "id": "418",
+      "rank": 418,
+      "polish": "gotować",
+      "russian": "готовить",
+      "wordAudio": "words/0418-gotowac.wav",
+      "examples": []
+    },
+    {
+      "id": "419",
+      "rank": 419,
+      "polish": "przygotowywać",
+      "russian": "подготавливать, готовить",
+      "wordAudio": "words/0419-przygotowywac.wav",
+      "examples": []
+    },
+    {
+      "id": "420",
+      "rank": 420,
+      "polish": "posiłek",
+      "russian": "приём пищи",
+      "wordAudio": "words/0420-posilek.wav",
+      "examples": []
+    },
+    {
+      "id": "421",
+      "rank": 421,
+      "polish": "śniadanie",
+      "russian": "завтрак",
+      "wordAudio": "words/0421-sniadanie.wav",
+      "examples": []
+    },
+    {
+      "id": "422",
+      "rank": 422,
+      "polish": "obiad",
+      "russian": "обед",
+      "wordAudio": "words/0422-obiad.wav",
+      "examples": []
+    },
+    {
+      "id": "423",
+      "rank": 423,
+      "polish": "kolacja",
+      "russian": "ужин",
+      "wordAudio": "words/0423-kolacja.wav",
+      "examples": []
+    },
+    {
+      "id": "424",
+      "rank": 424,
+      "polish": "instrukcja",
+      "russian": "инструкция",
+      "wordAudio": "words/0424-instrukcja.wav",
+      "examples": []
+    },
+    {
+      "id": "425",
+      "rank": 425,
+      "polish": "składnik",
+      "russian": "ингредиент",
+      "wordAudio": "words/0425-skladnik.wav",
+      "examples": []
+    },
+    {
+      "id": "426",
+      "rank": 426,
+      "polish": "smak",
+      "russian": "вкус",
+      "wordAudio": "words/0426-smak.wav",
+      "examples": []
+    },
+    {
+      "id": "427",
+      "rank": 427,
+      "polish": "świeży",
+      "russian": "свежий",
+      "wordAudio": "words/0427-swiezy.wav",
+      "examples": []
+    },
+    {
+      "id": "428",
+      "rank": 428,
+      "polish": "mrożony",
+      "russian": "замороженный",
+      "wordAudio": "words/0428-mrozony.wav",
+      "examples": []
+    },
+    {
+      "id": "429",
+      "rank": 429,
+      "polish": "zdrowy",
+      "russian": "здоровый",
+      "wordAudio": "words/0429-zdrowy.wav",
+      "examples": []
+    },
+    {
+      "id": "430",
+      "rank": 430,
+      "polish": "niezdrowy",
+      "russian": "вредный для здоровья",
+      "wordAudio": "words/0430-niezdrowy.wav",
+      "examples": []
+    },
+    {
+      "id": "431",
+      "rank": 431,
+      "polish": "warzywo",
+      "russian": "овощ",
+      "wordAudio": "words/0431-warzywo.wav",
+      "examples": []
+    },
+    {
+      "id": "432",
+      "rank": 432,
+      "polish": "owoc",
+      "russian": "фрукт",
+      "wordAudio": "words/0432-owoc.wav",
+      "examples": []
+    },
+    {
+      "id": "433",
+      "rank": 433,
+      "polish": "mięso",
+      "russian": "мясо",
+      "wordAudio": "words/0433-mieso.wav",
+      "examples": []
+    },
+    {
+      "id": "434",
+      "rank": 434,
+      "polish": "nabiał",
+      "russian": "молочные продукты",
+      "wordAudio": "words/0434-nabial.wav",
+      "examples": []
+    },
+    {
+      "id": "435",
+      "rank": 435,
+      "polish": "pieczywo",
+      "russian": "хлебобулочные изделия",
+      "wordAudio": "words/0435-pieczywo.wav",
+      "examples": []
+    },
+    {
+      "id": "436",
+      "rank": 436,
+      "polish": "napój",
+      "russian": "напиток",
+      "wordAudio": "words/0436-napoj.wav",
+      "examples": []
+    },
+    {
+      "id": "437",
+      "rank": 437,
+      "polish": "woda",
+      "russian": "вода",
+      "wordAudio": "words/0437-woda.wav",
+      "examples": []
+    },
+    {
+      "id": "438",
+      "rank": 438,
+      "polish": "kawa",
+      "russian": "кофе",
+      "wordAudio": "words/0438-kawa.wav",
+      "examples": []
+    },
+    {
+      "id": "439",
+      "rank": 439,
+      "polish": "herbata",
+      "russian": "чай",
+      "wordAudio": "words/0439-herbata.wav",
+      "examples": []
+    },
+    {
+      "id": "440",
+      "rank": 440,
+      "polish": "sok",
+      "russian": "сок",
+      "wordAudio": "words/0440-sok.wav",
+      "examples": []
+    },
+    {
+      "id": "441",
+      "rank": 441,
+      "polish": "cukier",
+      "russian": "сахар",
+      "wordAudio": "words/0441-cukier.wav",
+      "examples": []
+    },
+    {
+      "id": "442",
+      "rank": 442,
+      "polish": "sól",
+      "russian": "соль",
+      "wordAudio": "words/0442-sol.wav",
+      "examples": []
+    },
+    {
+      "id": "443",
+      "rank": 443,
+      "polish": "śniadanie na wynos",
+      "russian": "завтрак навынос",
+      "wordAudio": "words/0443-sniadanie-na-wynos.wav",
+      "examples": []
+    },
+    {
+      "id": "444",
+      "rank": 444,
+      "polish": "restauracja",
+      "russian": "ресторан",
+      "wordAudio": "words/0444-restauracja.wav",
+      "examples": []
+    },
+    {
+      "id": "445",
+      "rank": 445,
+      "polish": "kawiarnia",
+      "russian": "кафе",
+      "wordAudio": "words/0445-kawiarnia.wav",
+      "examples": []
+    },
+    {
+      "id": "446",
+      "rank": 446,
+      "polish": "kelner",
+      "russian": "официант",
+      "wordAudio": "words/0446-kelner.wav",
+      "examples": []
+    },
+    {
+      "id": "447",
+      "rank": 447,
+      "polish": "menu",
+      "russian": "меню",
+      "wordAudio": "words/0447-menu.wav",
+      "examples": []
+    },
+    {
+      "id": "448",
+      "rank": 448,
+      "polish": "zamawiać",
+      "russian": "заказывать",
+      "wordAudio": "words/0448-zamawiac.wav",
+      "examples": []
+    },
+    {
+      "id": "449",
+      "rank": 449,
+      "polish": "paragon",
+      "russian": "кассовый чек",
+      "wordAudio": "words/0449-paragon.wav",
+      "examples": []
+    },
+    {
+      "id": "450",
+      "rank": 450,
+      "polish": "napiwek",
+      "russian": "чаевые",
+      "wordAudio": "words/0450-napiwek.wav",
+      "examples": []
+    },
+    {
+      "id": "451",
+      "rank": 451,
+      "polish": "sprzątać",
+      "russian": "убирать",
+      "wordAudio": "words/0451-sprzatac.wav",
+      "examples": []
+    },
+    {
+      "id": "452",
+      "rank": 452,
+      "polish": "czyścić",
+      "russian": "чистить",
+      "wordAudio": "words/0452-czyscic.wav",
+      "examples": []
+    },
+    {
+      "id": "453",
+      "rank": 453,
+      "polish": "naprawiać",
+      "russian": "ремонтировать",
+      "wordAudio": "words/0453-naprawiac.wav",
+      "examples": []
+    },
+    {
+      "id": "454",
+      "rank": 454,
+      "polish": "prać",
+      "russian": "стирать",
+      "wordAudio": "words/0454-prac.wav",
+      "examples": []
+    },
+    {
+      "id": "455",
+      "rank": 455,
+      "polish": "prasować",
+      "russian": "гладить",
+      "wordAudio": "words/0455-prasowac.wav",
+      "examples": []
+    },
+    {
+      "id": "456",
+      "rank": 456,
+      "polish": "odkurzać",
+      "russian": "пылесосить",
+      "wordAudio": "words/0456-odkurzac.wav",
+      "examples": []
+    },
+    {
+      "id": "457",
+      "rank": 457,
+      "polish": "przeprowadzać się",
+      "russian": "переезжать",
+      "wordAudio": "words/0457-przeprowadzac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "458",
+      "rank": 458,
+      "polish": "wynajmować",
+      "russian": "арендовать",
+      "wordAudio": "words/0458-wynajmowac.wav",
+      "examples": []
+    },
+    {
+      "id": "459",
+      "rank": 459,
+      "polish": "kupować",
+      "russian": "покупать",
+      "wordAudio": "words/0459-kupowac.wav",
+      "examples": []
+    },
+    {
+      "id": "460",
+      "rank": 460,
+      "polish": "sprzedawać",
+      "russian": "продавать",
+      "wordAudio": "words/0460-sprzedawac.wav",
+      "examples": []
+    },
+    {
+      "id": "461",
+      "rank": 461,
+      "polish": "mieszkaniec",
+      "russian": "житель",
+      "wordAudio": "words/0461-mieszkaniec.wav",
+      "examples": []
+    },
+    {
+      "id": "462",
+      "rank": 462,
+      "polish": "budynek",
+      "russian": "здание",
+      "wordAudio": "words/0462-budynek.wav",
+      "examples": []
+    },
+    {
+      "id": "463",
+      "rank": 463,
+      "polish": "piętro",
+      "russian": "этаж",
+      "wordAudio": "words/0463-pietro.wav",
+      "examples": []
+    },
+    {
+      "id": "464",
+      "rank": 464,
+      "polish": "winda",
+      "russian": "лифт",
+      "wordAudio": "words/0464-winda.wav",
+      "examples": []
+    },
+    {
+      "id": "465",
+      "rank": 465,
+      "polish": "schody",
+      "russian": "лестница",
+      "wordAudio": "words/0465-schody.wav",
+      "examples": []
+    },
+    {
+      "id": "466",
+      "rank": 466,
+      "polish": "drzwi",
+      "russian": "дверь",
+      "wordAudio": "words/0466-drzwi.wav",
+      "examples": []
+    },
+    {
+      "id": "467",
+      "rank": 467,
+      "polish": "okno",
+      "russian": "окно",
+      "wordAudio": "words/0467-okno.wav",
+      "examples": []
+    },
+    {
+      "id": "468",
+      "rank": 468,
+      "polish": "balkon",
+      "russian": "балкон",
+      "wordAudio": "words/0468-balkon.wav",
+      "examples": []
+    },
+    {
+      "id": "469",
+      "rank": 469,
+      "polish": "ogrzewanie",
+      "russian": "отопление",
+      "wordAudio": "words/0469-ogrzewanie.wav",
+      "examples": []
+    },
+    {
+      "id": "470",
+      "rank": 470,
+      "polish": "prąd",
+      "russian": "электричество",
+      "wordAudio": "words/0470-prad.wav",
+      "examples": []
+    },
+    {
+      "id": "471",
+      "rank": 471,
+      "polish": "internet",
+      "russian": "интернет",
+      "wordAudio": "words/0471-internet.wav",
+      "examples": []
+    },
+    {
+      "id": "472",
+      "rank": 472,
+      "polish": "sieć",
+      "russian": "сеть",
+      "wordAudio": "words/0472-siec.wav",
+      "examples": []
+    },
+    {
+      "id": "473",
+      "rank": 473,
+      "polish": "hasło",
+      "russian": "пароль",
+      "wordAudio": "words/0473-haslo.wav",
+      "examples": []
+    },
+    {
+      "id": "474",
+      "rank": 474,
+      "polish": "użytkownik",
+      "russian": "пользователь",
+      "wordAudio": "words/0474-uzytkownik.wav",
+      "examples": []
+    },
+    {
+      "id": "475",
+      "rank": 475,
+      "polish": "konto",
+      "russian": "аккаунт, счёт",
+      "wordAudio": "words/0475-konto.wav",
+      "examples": []
+    },
+    {
+      "id": "476",
+      "rank": 476,
+      "polish": "logować się",
+      "russian": "входить в систему",
+      "wordAudio": "words/0476-logowac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "477",
+      "rank": 477,
+      "polish": "pobierać",
+      "russian": "скачивать",
+      "wordAudio": "words/0477-pobierac.wav",
+      "examples": []
+    },
+    {
+      "id": "478",
+      "rank": 478,
+      "polish": "aktualizacja",
+      "russian": "обновление",
+      "wordAudio": "words/0478-aktualizacja.wav",
+      "examples": []
+    },
+    {
+      "id": "479",
+      "rank": 479,
+      "polish": "urządzenie",
+      "russian": "устройство",
+      "wordAudio": "words/0479-urzadzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "480",
+      "rank": 480,
+      "polish": "awaria techniczna",
+      "russian": "техническая неисправность",
+      "wordAudio": "words/0480-awaria-techniczna.wav",
+      "examples": []
+    },
+    {
+      "id": "481",
+      "rank": 481,
+      "polish": "telefon komórkowy",
+      "russian": "мобильный телефон",
+      "wordAudio": "words/0481-telefon-komorkowy.wav",
+      "examples": []
+    },
+    {
+      "id": "482",
+      "rank": 482,
+      "polish": "ładowarka",
+      "russian": "зарядное устройство",
+      "wordAudio": "words/0482-ladowarka.wav",
+      "examples": []
+    },
+    {
+      "id": "483",
+      "rank": 483,
+      "polish": "bateria",
+      "russian": "батарея",
+      "wordAudio": "words/0483-bateria.wav",
+      "examples": []
+    },
+    {
+      "id": "484",
+      "rank": 484,
+      "polish": "wiadomość",
+      "russian": "сообщение",
+      "wordAudio": "words/0484-wiadomosc.wav",
+      "examples": []
+    },
+    {
+      "id": "485",
+      "rank": 485,
+      "polish": "połączenie telefoniczne",
+      "russian": "телефонный звонок",
+      "wordAudio": "words/0485-polaczenie-telefoniczne.wav",
+      "examples": []
+    },
+    {
+      "id": "486",
+      "rank": 486,
+      "polish": "usługa",
+      "russian": "услуга",
+      "wordAudio": "words/0486-usluga.wav",
+      "examples": []
+    },
+    {
+      "id": "487",
+      "rank": 487,
+      "polish": "serwis",
+      "russian": "сервис",
+      "wordAudio": "words/0487-serwis.wav",
+      "examples": []
+    },
+    {
+      "id": "488",
+      "rank": 488,
+      "polish": "zgłoszenie awarii",
+      "russian": "сообщение о неисправности",
+      "wordAudio": "words/0488-zgloszenie-awarii.wav",
+      "examples": []
+    },
+    {
+      "id": "489",
+      "rank": 489,
+      "polish": "naprawa gwarancyjna",
+      "russian": "гарантийный ремонт",
+      "wordAudio": "words/0489-naprawa-gwarancyjna.wav",
+      "examples": []
+    },
+    {
+      "id": "490",
+      "rank": 490,
+      "polish": "rachunek za media",
+      "russian": "счёт за коммунальные услуги",
+      "wordAudio": "words/0490-rachunek-za-media.wav",
+      "examples": []
+    },
+    {
+      "id": "491",
+      "rank": 491,
+      "polish": "dostawca",
+      "russian": "поставщик",
+      "wordAudio": "words/0491-dostawca.wav",
+      "examples": []
+    },
+    {
+      "id": "492",
+      "rank": 492,
+      "polish": "porozumienie stron",
+      "russian": "соглашение сторон",
+      "wordAudio": "words/0492-porozumienie-stron.wav",
+      "examples": []
+    },
+    {
+      "id": "493",
+      "rank": 493,
+      "polish": "wypowiedzenie",
+      "russian": "расторжение договора",
+      "wordAudio": "words/0493-wypowiedzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "494",
+      "rank": 494,
+      "polish": "abonament",
+      "russian": "абонемент",
+      "wordAudio": "words/0494-abonament.wav",
+      "examples": []
+    },
+    {
+      "id": "495",
+      "rank": 495,
+      "polish": "komunikować się",
+      "russian": "общаться",
+      "wordAudio": "words/0495-komunikowac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "496",
+      "rank": 496,
+      "polish": "odpowiadać",
+      "russian": "отвечать",
+      "wordAudio": "words/0496-odpowiadac.wav",
+      "examples": []
+    },
+    {
+      "id": "497",
+      "rank": 497,
+      "polish": "rozwiązać problem",
+      "russian": "решить проблему",
+      "wordAudio": "words/0497-rozwiazac-problem.wav",
+      "examples": []
+    },
+    {
+      "id": "498",
+      "rank": 498,
+      "polish": "działać",
+      "russian": "работать, функционировать",
+      "wordAudio": "words/0498-dzialac.wav",
+      "examples": []
+    },
+    {
+      "id": "499",
+      "rank": 499,
+      "polish": "przestać działać",
+      "russian": "перестать работать",
+      "wordAudio": "words/0499-przestac-dzialac.wav",
+      "examples": []
+    },
+    {
+      "id": "500",
+      "rank": 500,
+      "polish": "alternatywa",
+      "russian": "альтернатива",
+      "wordAudio": "words/0500-alternatywa.wav",
+      "examples": []
+    },
+    {
+      "id": "501",
+      "rank": 501,
+      "polish": "zespół",
+      "russian": "команда",
+      "wordAudio": "words/0501-zespol.wav",
+      "examples": []
+    },
+    {
+      "id": "502",
+      "rank": 502,
+      "polish": "partnerstwo",
+      "russian": "партнерство",
+      "wordAudio": "words/0502-partnerstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "503",
+      "rank": 503,
+      "polish": "partner",
+      "russian": "партнёр",
+      "wordAudio": "words/0503-partner.wav",
+      "examples": []
+    },
+    {
+      "id": "504",
+      "rank": 504,
+      "polish": "projekt",
+      "russian": "проект",
+      "wordAudio": "words/0504-projekt.wav",
+      "examples": []
+    },
+    {
+      "id": "505",
+      "rank": 505,
+      "polish": "zadanie",
+      "russian": "задача",
+      "wordAudio": "words/0505-zadanie.wav",
+      "examples": []
+    },
+    {
+      "id": "506",
+      "rank": 506,
+      "polish": "priorytet",
+      "russian": "приоритет",
+      "wordAudio": "words/0506-priorytet.wav",
+      "examples": []
+    },
+    {
+      "id": "507",
+      "rank": 507,
+      "polish": "rachunkowość",
+      "russian": "бухгалтерский учет",
+      "wordAudio": "words/0507-rachunkowosc.wav",
+      "examples": []
+    },
+    {
+      "id": "508",
+      "rank": 508,
+      "polish": "spotkanie online",
+      "russian": "онлайн-встреча",
+      "wordAudio": "words/0508-spotkanie-online.wav",
+      "examples": []
+    },
+    {
+      "id": "509",
+      "rank": 509,
+      "polish": "uczestnictwo",
+      "russian": "участие",
+      "wordAudio": "words/0509-uczestnictwo.wav",
+      "examples": []
+    },
+    {
+      "id": "510",
+      "rank": 510,
+      "polish": "prezentacja",
+      "russian": "презентация",
+      "wordAudio": "words/0510-prezentacja.wav",
+      "examples": []
+    },
+    {
+      "id": "511",
+      "rank": 511,
+      "polish": "raport",
+      "russian": "отчёт",
+      "wordAudio": "words/0511-raport.wav",
+      "examples": []
+    },
+    {
+      "id": "512",
+      "rank": 512,
+      "polish": "kandydatura",
+      "russian": "кандидатура",
+      "wordAudio": "words/0512-kandydatura.wav",
+      "examples": []
+    },
+    {
+      "id": "513",
+      "rank": 513,
+      "polish": "dane",
+      "russian": "данные",
+      "wordAudio": "words/0513-dane.wav",
+      "examples": []
+    },
+    {
+      "id": "514",
+      "rank": 514,
+      "polish": "informacja",
+      "russian": "информация",
+      "wordAudio": "words/0514-informacja.wav",
+      "examples": []
+    },
+    {
+      "id": "515",
+      "rank": 515,
+      "polish": "źródło",
+      "russian": "источник",
+      "wordAudio": "words/0515-zrodlo.wav",
+      "examples": []
+    },
+    {
+      "id": "516",
+      "rank": 516,
+      "polish": "statystyka",
+      "russian": "статистика",
+      "wordAudio": "words/0516-statystyka.wav",
+      "examples": []
+    },
+    {
+      "id": "517",
+      "rank": 517,
+      "polish": "produktywność",
+      "russian": "продуктивность",
+      "wordAudio": "words/0517-produktywnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "518",
+      "rank": 518,
+      "polish": "rozwiązanie problemu",
+      "russian": "решение проблемы",
+      "wordAudio": "words/0518-rozwiazanie-problemu.wav",
+      "examples": []
+    },
+    {
+      "id": "519",
+      "rank": 519,
+      "polish": "błąd",
+      "russian": "ошибка",
+      "wordAudio": "words/0519-blad.wav",
+      "examples": []
+    },
+    {
+      "id": "520",
+      "rank": 520,
+      "polish": "poprawka",
+      "russian": "исправление",
+      "wordAudio": "words/0520-poprawka.wav",
+      "examples": []
+    },
+    {
+      "id": "521",
+      "rank": 521,
+      "polish": "test",
+      "russian": "тест",
+      "wordAudio": "words/0521-test.wav",
+      "examples": []
+    },
+    {
+      "id": "522",
+      "rank": 522,
+      "polish": "sprawdzać",
+      "russian": "проверять",
+      "wordAudio": "words/0522-sprawdzac.wav",
+      "examples": []
+    },
+    {
+      "id": "523",
+      "rank": 523,
+      "polish": "potwierdzić",
+      "russian": "подтвердить",
+      "wordAudio": "words/0523-potwierdzic.wav",
+      "examples": []
+    },
+    {
+      "id": "524",
+      "rank": 524,
+      "polish": "przesłać",
+      "russian": "отправить, переслать",
+      "wordAudio": "words/0524-przeslac.wav",
+      "examples": []
+    },
+    {
+      "id": "525",
+      "rank": 525,
+      "polish": "załączyć",
+      "russian": "приложить",
+      "wordAudio": "words/0525-zalaczyc.wav",
+      "examples": []
+    },
+    {
+      "id": "526",
+      "rank": 526,
+      "polish": "plik",
+      "russian": "файл",
+      "wordAudio": "words/0526-plik.wav",
+      "examples": []
+    },
+    {
+      "id": "527",
+      "rank": 527,
+      "polish": "folder",
+      "russian": "папка",
+      "wordAudio": "words/0527-folder.wav",
+      "examples": []
+    },
+    {
+      "id": "528",
+      "rank": 528,
+      "polish": "wersja",
+      "russian": "версия",
+      "wordAudio": "words/0528-wersja.wav",
+      "examples": []
+    },
+    {
+      "id": "529",
+      "rank": 529,
+      "polish": "funkcja",
+      "russian": "функция",
+      "wordAudio": "words/0529-funkcja.wav",
+      "examples": []
+    },
+    {
+      "id": "530",
+      "rank": 530,
+      "polish": "narzędzie",
+      "russian": "инструмент",
+      "wordAudio": "words/0530-narzedzie.wav",
+      "examples": []
+    },
+    {
+      "id": "531",
+      "rank": 531,
+      "polish": "komunikacja",
+      "russian": "коммуникация",
+      "wordAudio": "words/0531-komunikacja.wav",
+      "examples": []
+    },
+    {
+      "id": "532",
+      "rank": 532,
+      "polish": "negocjacje",
+      "russian": "переговоры",
+      "wordAudio": "words/0532-negocjacje.wav",
+      "examples": []
+    },
+    {
+      "id": "533",
+      "rank": 533,
+      "polish": "sugestia",
+      "russian": "предложение",
+      "wordAudio": "words/0533-sugestia.wav",
+      "examples": []
+    },
+    {
+      "id": "534",
+      "rank": 534,
+      "polish": "inicjatywa",
+      "russian": "инициатива",
+      "wordAudio": "words/0534-inicjatywa.wav",
+      "examples": []
+    },
+    {
+      "id": "535",
+      "rank": 535,
+      "polish": "uzgodnienie",
+      "russian": "согласование",
+      "wordAudio": "words/0535-uzgodnienie.wav",
+      "examples": []
+    },
+    {
+      "id": "536",
+      "rank": 536,
+      "polish": "delegować",
+      "russian": "делегировать",
+      "wordAudio": "words/0536-delegowac.wav",
+      "examples": []
+    },
+    {
+      "id": "537",
+      "rank": 537,
+      "polish": "koordynować",
+      "russian": "координировать",
+      "wordAudio": "words/0537-koordynowac.wav",
+      "examples": []
+    },
+    {
+      "id": "538",
+      "rank": 538,
+      "polish": "monitorować",
+      "russian": "отслеживать",
+      "wordAudio": "words/0538-monitorowac.wav",
+      "examples": []
+    },
+    {
+      "id": "539",
+      "rank": 539,
+      "polish": "zarządzać",
+      "russian": "управлять",
+      "wordAudio": "words/0539-zarzadzac.wav",
+      "examples": []
+    },
+    {
+      "id": "540",
+      "rank": 540,
+      "polish": "samodzielność",
+      "russian": "самостоятельность",
+      "wordAudio": "words/0540-samodzielnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "541",
+      "rank": 541,
+      "polish": "kierownik",
+      "russian": "руководитель",
+      "wordAudio": "words/0541-kierownik.wav",
+      "examples": []
+    },
+    {
+      "id": "542",
+      "rank": 542,
+      "polish": "bezrobocie",
+      "russian": "безработица",
+      "wordAudio": "words/0542-bezrobocie.wav",
+      "examples": []
+    },
+    {
+      "id": "543",
+      "rank": 543,
+      "polish": "etatowy",
+      "russian": "штатный",
+      "wordAudio": "words/0543-etatowy.wav",
+      "examples": []
+    },
+    {
+      "id": "544",
+      "rank": 544,
+      "polish": "rekruter",
+      "russian": "рекрутер",
+      "wordAudio": "words/0544-rekruter.wav",
+      "examples": []
+    },
+    {
+      "id": "545",
+      "rank": 545,
+      "polish": "oferta pracy",
+      "russian": "вакансия",
+      "wordAudio": "words/0545-oferta-pracy.wav",
+      "examples": []
+    },
+    {
+      "id": "546",
+      "rank": 546,
+      "polish": "pensja",
+      "russian": "зарплата",
+      "wordAudio": "words/0546-pensja.wav",
+      "examples": []
+    },
+    {
+      "id": "547",
+      "rank": 547,
+      "polish": "podwyżka",
+      "russian": "повышение зарплаты",
+      "wordAudio": "words/0547-podwyzka.wav",
+      "examples": []
+    },
+    {
+      "id": "548",
+      "rank": 548,
+      "polish": "promocja zawodowa",
+      "russian": "карьерный рост",
+      "wordAudio": "words/0548-promocja-zawodowa.wav",
+      "examples": []
+    },
+    {
+      "id": "549",
+      "rank": 549,
+      "polish": "kurs",
+      "russian": "курс",
+      "wordAudio": "words/0549-kurs.wav",
+      "examples": []
+    },
+    {
+      "id": "550",
+      "rank": 550,
+      "polish": "zdolności",
+      "russian": "способности",
+      "wordAudio": "words/0550-zdolnosci.wav",
+      "examples": []
+    },
+    {
+      "id": "551",
+      "rank": 551,
+      "polish": "certyfikat",
+      "russian": "сертификат",
+      "wordAudio": "words/0551-certyfikat.wav",
+      "examples": []
+    },
+    {
+      "id": "552",
+      "rank": 552,
+      "polish": "doświadczenie zawodowe",
+      "russian": "опыт работы",
+      "wordAudio": "words/0552-doswiadczenie-zawodowe.wav",
+      "examples": []
+    },
+    {
+      "id": "553",
+      "rank": 553,
+      "polish": "obowiązki",
+      "russian": "обязанности",
+      "wordAudio": "words/0553-obowiazki.wav",
+      "examples": []
+    },
+    {
+      "id": "554",
+      "rank": 554,
+      "polish": "dyżur",
+      "russian": "дежурство",
+      "wordAudio": "words/0554-dyzur.wav",
+      "examples": []
+    },
+    {
+      "id": "555",
+      "rank": 555,
+      "polish": "zwolnienie lekarskie",
+      "russian": "больничный",
+      "wordAudio": "words/0555-zwolnienie-lekarskie.wav",
+      "examples": []
+    },
+    {
+      "id": "556",
+      "rank": 556,
+      "polish": "wolne",
+      "russian": "выходной",
+      "wordAudio": "words/0556-wolne.wav",
+      "examples": []
+    },
+    {
+      "id": "557",
+      "rank": 557,
+      "polish": "godziny pracy",
+      "russian": "рабочие часы",
+      "wordAudio": "words/0557-godziny-pracy.wav",
+      "examples": []
+    },
+    {
+      "id": "558",
+      "rank": 558,
+      "polish": "nadgodziny",
+      "russian": "сверхурочные",
+      "wordAudio": "words/0558-nadgodziny.wav",
+      "examples": []
+    },
+    {
+      "id": "559",
+      "rank": 559,
+      "polish": "pracować zdalnie",
+      "russian": "работать удалённо",
+      "wordAudio": "words/0559-pracowac-zdalnie.wav",
+      "examples": []
+    },
+    {
+      "id": "560",
+      "rank": 560,
+      "polish": "biuro",
+      "russian": "офис",
+      "wordAudio": "words/0560-biuro.wav",
+      "examples": []
+    },
+    {
+      "id": "561",
+      "rank": 561,
+      "polish": "firma",
+      "russian": "фирма",
+      "wordAudio": "words/0561-firma.wav",
+      "examples": []
+    },
+    {
+      "id": "562",
+      "rank": 562,
+      "polish": "eksport",
+      "russian": "экспорт",
+      "wordAudio": "words/0562-eksport.wav",
+      "examples": []
+    },
+    {
+      "id": "563",
+      "rank": 563,
+      "polish": "dział",
+      "russian": "отдел",
+      "wordAudio": "words/0563-dzial.wav",
+      "examples": []
+    },
+    {
+      "id": "564",
+      "rank": 564,
+      "polish": "zarząd",
+      "russian": "руководство",
+      "wordAudio": "words/0564-zarzad.wav",
+      "examples": []
+    },
+    {
+      "id": "565",
+      "rank": 565,
+      "polish": "finanse",
+      "russian": "финансы",
+      "wordAudio": "words/0565-finanse.wav",
+      "examples": []
+    },
+    {
+      "id": "566",
+      "rank": 566,
+      "polish": "import",
+      "russian": "импорт",
+      "wordAudio": "words/0566-import.wav",
+      "examples": []
+    },
+    {
+      "id": "567",
+      "rank": 567,
+      "polish": "obrót",
+      "russian": "оборот",
+      "wordAudio": "words/0567-obrot.wav",
+      "examples": []
+    },
+    {
+      "id": "568",
+      "rank": 568,
+      "polish": "zysk",
+      "russian": "прибыль",
+      "wordAudio": "words/0568-zysk.wav",
+      "examples": []
+    },
+    {
+      "id": "569",
+      "rank": 569,
+      "polish": "strata",
+      "russian": "убыток",
+      "wordAudio": "words/0569-strata.wav",
+      "examples": []
+    },
+    {
+      "id": "570",
+      "rank": 570,
+      "polish": "inwestycja",
+      "russian": "инвестиция",
+      "wordAudio": "words/0570-inwestycja.wav",
+      "examples": []
+    },
+    {
+      "id": "571",
+      "rank": 571,
+      "polish": "dochodowość",
+      "russian": "рентабельность",
+      "wordAudio": "words/0571-dochodowosc.wav",
+      "examples": []
+    },
+    {
+      "id": "572",
+      "rank": 572,
+      "polish": "rynek",
+      "russian": "рынок",
+      "wordAudio": "words/0572-rynek.wav",
+      "examples": []
+    },
+    {
+      "id": "573",
+      "rank": 573,
+      "polish": "klient biznesowy",
+      "russian": "бизнес-клиент",
+      "wordAudio": "words/0573-klient-biznesowy.wav",
+      "examples": []
+    },
+    {
+      "id": "574",
+      "rank": 574,
+      "polish": "oferta",
+      "russian": "предложение",
+      "wordAudio": "words/0574-oferta.wav",
+      "examples": []
+    },
+    {
+      "id": "575",
+      "rank": 575,
+      "polish": "umowa współpracy",
+      "russian": "договор о сотрудничестве",
+      "wordAudio": "words/0575-umowa-wspolpracy.wav",
+      "examples": []
+    },
+    {
+      "id": "576",
+      "rank": 576,
+      "polish": "sprzedaż",
+      "russian": "продажи",
+      "wordAudio": "words/0576-sprzedaz.wav",
+      "examples": []
+    },
+    {
+      "id": "577",
+      "rank": 577,
+      "polish": "regulamin",
+      "russian": "регламент",
+      "wordAudio": "words/0577-regulamin.wav",
+      "examples": []
+    },
+    {
+      "id": "578",
+      "rank": 578,
+      "polish": "termin płatności",
+      "russian": "срок оплаты",
+      "wordAudio": "words/0578-termin-platnosci.wav",
+      "examples": []
+    },
+    {
+      "id": "579",
+      "rank": 579,
+      "polish": "rozliczenie podatkowe",
+      "russian": "налоговая декларация",
+      "wordAudio": "words/0579-rozliczenie-podatkowe.wav",
+      "examples": []
+    },
+    {
+      "id": "580",
+      "rank": 580,
+      "polish": "operacja bankowa",
+      "russian": "банковская операция",
+      "wordAudio": "words/0580-operacja-bankowa.wav",
+      "examples": []
+    },
+    {
+      "id": "581",
+      "rank": 581,
+      "polish": "bank",
+      "russian": "банк",
+      "wordAudio": "words/0581-bank.wav",
+      "examples": []
+    },
+    {
+      "id": "582",
+      "rank": 582,
+      "polish": "konto bankowe",
+      "russian": "банковский счёт",
+      "wordAudio": "words/0582-konto-bankowe.wav",
+      "examples": []
+    },
+    {
+      "id": "583",
+      "rank": 583,
+      "polish": "koszty",
+      "russian": "затраты",
+      "wordAudio": "words/0583-koszty.wav",
+      "examples": []
+    },
+    {
+      "id": "584",
+      "rank": 584,
+      "polish": "saldo",
+      "russian": "баланс",
+      "wordAudio": "words/0584-saldo.wav",
+      "examples": []
+    },
+    {
+      "id": "585",
+      "rank": 585,
+      "polish": "oszczędności",
+      "russian": "сбережения",
+      "wordAudio": "words/0585-oszczednosci.wav",
+      "examples": []
+    },
+    {
+      "id": "586",
+      "rank": 586,
+      "polish": "zarobek",
+      "russian": "заработок",
+      "wordAudio": "words/0586-zarobek.wav",
+      "examples": []
+    },
+    {
+      "id": "587",
+      "rank": 587,
+      "polish": "hipoteczny",
+      "russian": "ипотечный",
+      "wordAudio": "words/0587-hipoteczny.wav",
+      "examples": []
+    },
+    {
+      "id": "588",
+      "rank": 588,
+      "polish": "budżet domowy",
+      "russian": "семейный бюджет",
+      "wordAudio": "words/0588-budzet-domowy.wav",
+      "examples": []
+    },
+    {
+      "id": "589",
+      "rank": 589,
+      "polish": "kapitał",
+      "russian": "капитал",
+      "wordAudio": "words/0589-kapital.wav",
+      "examples": []
+    },
+    {
+      "id": "590",
+      "rank": 590,
+      "polish": "kredyt hipoteczny",
+      "russian": "ипотека",
+      "wordAudio": "words/0590-kredyt-hipoteczny.wav",
+      "examples": []
+    },
+    {
+      "id": "591",
+      "rank": 591,
+      "polish": "marża",
+      "russian": "маржа",
+      "wordAudio": "words/0591-marza.wav",
+      "examples": []
+    },
+    {
+      "id": "592",
+      "rank": 592,
+      "polish": "VAT",
+      "russian": "НДС",
+      "wordAudio": "words/0592-vat.wav",
+      "examples": []
+    },
+    {
+      "id": "593",
+      "rank": 593,
+      "polish": "księgowość",
+      "russian": "бухгалтерия",
+      "wordAudio": "words/0593-ksiegowosc.wav",
+      "examples": []
+    },
+    {
+      "id": "594",
+      "rank": 594,
+      "polish": "dług",
+      "russian": "долг",
+      "wordAudio": "words/0594-dlug.wav",
+      "examples": []
+    },
+    {
+      "id": "595",
+      "rank": 595,
+      "polish": "spłacać",
+      "russian": "выплачивать, погашать",
+      "wordAudio": "words/0595-splacac.wav",
+      "examples": []
+    },
+    {
+      "id": "596",
+      "rank": 596,
+      "polish": "zakład",
+      "russian": "предприятие",
+      "wordAudio": "words/0596-zaklad.wav",
+      "examples": []
+    },
+    {
+      "id": "597",
+      "rank": 597,
+      "polish": "znaczenie",
+      "russian": "значение",
+      "wordAudio": "words/0597-znaczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "598",
+      "rank": 598,
+      "polish": "oddział",
+      "russian": "филиал",
+      "wordAudio": "words/0598-oddzial.wav",
+      "examples": []
+    },
+    {
+      "id": "599",
+      "rank": 599,
+      "polish": "nastawienie",
+      "russian": "настрой",
+      "wordAudio": "words/0599-nastawienie.wav",
+      "examples": []
+    },
+    {
+      "id": "600",
+      "rank": 600,
+      "polish": "majątek",
+      "russian": "имущество",
+      "wordAudio": "words/0600-majatek.wav",
+      "examples": []
+    },
+    {
+      "id": "601",
+      "rank": 601,
+      "polish": "społeczeństwo",
+      "russian": "общество",
+      "wordAudio": "words/0601-spoleczenstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "602",
+      "rank": 602,
+      "polish": "obyczaj",
+      "russian": "обычай",
+      "wordAudio": "words/0602-obyczaj.wav",
+      "examples": []
+    },
+    {
+      "id": "603",
+      "rank": 603,
+      "polish": "tradycja",
+      "russian": "традиция",
+      "wordAudio": "words/0603-tradycja.wav",
+      "examples": []
+    },
+    {
+      "id": "604",
+      "rank": 604,
+      "polish": "kultura",
+      "russian": "культура",
+      "wordAudio": "words/0604-kultura.wav",
+      "examples": []
+    },
+    {
+      "id": "605",
+      "rank": 605,
+      "polish": "oddziaływanie",
+      "russian": "воздействие",
+      "wordAudio": "words/0605-oddzialywanie.wav",
+      "examples": []
+    },
+    {
+      "id": "606",
+      "rank": 606,
+      "polish": "doskonalić się",
+      "russian": "совершенствоваться",
+      "wordAudio": "words/0606-doskonalic-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "607",
+      "rank": 607,
+      "polish": "postawa",
+      "russian": "позиция, отношение",
+      "wordAudio": "words/0607-postawa.wav",
+      "examples": []
+    },
+    {
+      "id": "608",
+      "rank": 608,
+      "polish": "odnosić się",
+      "russian": "относиться",
+      "wordAudio": "words/0608-odnosic-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "609",
+      "rank": 609,
+      "polish": "delegacja",
+      "russian": "командировка",
+      "wordAudio": "words/0609-delegacja.wav",
+      "examples": []
+    },
+    {
+      "id": "610",
+      "rank": 610,
+      "polish": "świadomość",
+      "russian": "осознанность, осведомлённость",
+      "wordAudio": "words/0610-swiadomosc.wav",
+      "examples": []
+    },
+    {
+      "id": "611",
+      "rank": 611,
+      "polish": "zawierać",
+      "russian": "содержать",
+      "wordAudio": "words/0611-zawierac.wav",
+      "examples": []
+    },
+    {
+      "id": "612",
+      "rank": 612,
+      "polish": "poprawiać się",
+      "russian": "улучшаться",
+      "wordAudio": "words/0612-poprawiac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "613",
+      "rank": 613,
+      "polish": "pogarszać się",
+      "russian": "ухудшаться",
+      "wordAudio": "words/0613-pogarszac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "614",
+      "rank": 614,
+      "polish": "zmieniać się",
+      "russian": "меняться",
+      "wordAudio": "words/0614-zmieniac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "615",
+      "rank": 615,
+      "polish": "zależeć od",
+      "russian": "зависеть от",
+      "wordAudio": "words/0615-zalezec-od.wav",
+      "examples": []
+    },
+    {
+      "id": "616",
+      "rank": 616,
+      "polish": "sukces",
+      "russian": "успех",
+      "wordAudio": "words/0616-sukces.wav",
+      "examples": []
+    },
+    {
+      "id": "617",
+      "rank": 617,
+      "polish": "reakcja",
+      "russian": "реакция",
+      "wordAudio": "words/0617-reakcja.wav",
+      "examples": []
+    },
+    {
+      "id": "618",
+      "rank": 618,
+      "polish": "polegać na",
+      "russian": "заключаться в",
+      "wordAudio": "words/0618-polegac-na.wav",
+      "examples": []
+    },
+    {
+      "id": "619",
+      "rank": 619,
+      "polish": "wynikać z",
+      "russian": "следовать из",
+      "wordAudio": "words/0619-wynikac-z.wav",
+      "examples": []
+    },
+    {
+      "id": "620",
+      "rank": 620,
+      "polish": "prowadzić do",
+      "russian": "приводить к",
+      "wordAudio": "words/0620-prowadzic-do.wav",
+      "examples": []
+    },
+    {
+      "id": "621",
+      "rank": 621,
+      "polish": "wyjście",
+      "russian": "выход",
+      "wordAudio": "words/0621-wyjscie.wav",
+      "examples": []
+    },
+    {
+      "id": "622",
+      "rank": 622,
+      "polish": "kontrakt",
+      "russian": "контракт",
+      "wordAudio": "words/0622-kontrakt.wav",
+      "examples": []
+    },
+    {
+      "id": "623",
+      "rank": 623,
+      "polish": "porażka",
+      "russian": "неудача",
+      "wordAudio": "words/0623-porazka.wav",
+      "examples": []
+    },
+    {
+      "id": "624",
+      "rank": 624,
+      "polish": "wyzwanie",
+      "russian": "вызов",
+      "wordAudio": "words/0624-wyzwanie.wav",
+      "examples": []
+    },
+    {
+      "id": "625",
+      "rank": 625,
+      "polish": "teza",
+      "russian": "тезис",
+      "wordAudio": "words/0625-teza.wav",
+      "examples": []
+    },
+    {
+      "id": "626",
+      "rank": 626,
+      "polish": "uzasadnienie",
+      "russian": "обоснование",
+      "wordAudio": "words/0626-uzasadnienie.wav",
+      "examples": []
+    },
+    {
+      "id": "627",
+      "rank": 627,
+      "polish": "szacować",
+      "russian": "оценивать",
+      "wordAudio": "words/0627-szacowac.wav",
+      "examples": []
+    },
+    {
+      "id": "628",
+      "rank": 628,
+      "polish": "wspólnik",
+      "russian": "партнер по бизнесу",
+      "wordAudio": "words/0628-wspolnik.wav",
+      "examples": []
+    },
+    {
+      "id": "629",
+      "rank": 629,
+      "polish": "przykład",
+      "russian": "пример",
+      "wordAudio": "words/0629-przyklad.wav",
+      "examples": []
+    },
+    {
+      "id": "630",
+      "rank": 630,
+      "polish": "odrzucenie",
+      "russian": "отклонение",
+      "wordAudio": "words/0630-odrzucenie.wav",
+      "examples": []
+    },
+    {
+      "id": "631",
+      "rank": 631,
+      "polish": "namówić",
+      "russian": "уговорить",
+      "wordAudio": "words/0631-namowic.wav",
+      "examples": []
+    },
+    {
+      "id": "632",
+      "rank": 632,
+      "polish": "punkt widzenia",
+      "russian": "точка зрения",
+      "wordAudio": "words/0632-punkt-widzenia.wav",
+      "examples": []
+    },
+    {
+      "id": "633",
+      "rank": 633,
+      "polish": "analizować",
+      "russian": "анализировать",
+      "wordAudio": "words/0633-analizowac.wav",
+      "examples": []
+    },
+    {
+      "id": "634",
+      "rank": 634,
+      "polish": "rozumieć",
+      "russian": "понимать",
+      "wordAudio": "words/0634-rozumiec.wav",
+      "examples": []
+    },
+    {
+      "id": "635",
+      "rank": 635,
+      "polish": "wyjaśniać",
+      "russian": "объяснять",
+      "wordAudio": "words/0635-wyjasniac.wav",
+      "examples": []
+    },
+    {
+      "id": "636",
+      "rank": 636,
+      "polish": "potencjał",
+      "russian": "потенциал",
+      "wordAudio": "words/0636-potencjal.wav",
+      "examples": []
+    },
+    {
+      "id": "637",
+      "rank": 637,
+      "polish": "zaakceptować",
+      "russian": "принять",
+      "wordAudio": "words/0637-zaakceptowac.wav",
+      "examples": []
+    },
+    {
+      "id": "638",
+      "rank": 638,
+      "polish": "kryterium",
+      "russian": "критерий",
+      "wordAudio": "words/0638-kryterium.wav",
+      "examples": []
+    },
+    {
+      "id": "639",
+      "rank": 639,
+      "polish": "zarządzanie",
+      "russian": "управление",
+      "wordAudio": "words/0639-zarzadzanie.wav",
+      "examples": []
+    },
+    {
+      "id": "640",
+      "rank": 640,
+      "polish": "wątpić",
+      "russian": "сомневаться",
+      "wordAudio": "words/0640-watpic.wav",
+      "examples": []
+    },
+    {
+      "id": "641",
+      "rank": 641,
+      "polish": "opinia publiczna",
+      "russian": "общественное мнение",
+      "wordAudio": "words/0641-opinia-publiczna.wav",
+      "examples": []
+    },
+    {
+      "id": "642",
+      "rank": 642,
+      "polish": "debata",
+      "russian": "дебаты",
+      "wordAudio": "words/0642-debata.wav",
+      "examples": []
+    },
+    {
+      "id": "643",
+      "rank": 643,
+      "polish": "temat",
+      "russian": "тема",
+      "wordAudio": "words/0643-temat.wav",
+      "examples": []
+    },
+    {
+      "id": "644",
+      "rank": 644,
+      "polish": "uprawnienie",
+      "russian": "полномочие, право",
+      "wordAudio": "words/0644-uprawnienie.wav",
+      "examples": []
+    },
+    {
+      "id": "645",
+      "rank": 645,
+      "polish": "wymóg formalny",
+      "russian": "формальное требование",
+      "wordAudio": "words/0645-wymog-formalny.wav",
+      "examples": []
+    },
+    {
+      "id": "646",
+      "rank": 646,
+      "polish": "rola",
+      "russian": "роль",
+      "wordAudio": "words/0646-rola.wav",
+      "examples": []
+    },
+    {
+      "id": "647",
+      "rank": 647,
+      "polish": "odpowiedzialność społeczna",
+      "russian": "социальная ответственность",
+      "wordAudio": "words/0647-odpowiedzialnosc-spoleczna.wav",
+      "examples": []
+    },
+    {
+      "id": "648",
+      "rank": 648,
+      "polish": "środowisko naturalne",
+      "russian": "окружающая среда",
+      "wordAudio": "words/0648-srodowisko-naturalne.wav",
+      "examples": []
+    },
+    {
+      "id": "649",
+      "rank": 649,
+      "polish": "ekologia",
+      "russian": "экология",
+      "wordAudio": "words/0649-ekologia.wav",
+      "examples": []
+    },
+    {
+      "id": "650",
+      "rank": 650,
+      "polish": "ochrona środowiska",
+      "russian": "охрана окружающей среды",
+      "wordAudio": "words/0650-ochrona-srodowiska.wav",
+      "examples": []
+    },
+    {
+      "id": "651",
+      "rank": 651,
+      "polish": "mieszkać",
+      "russian": "проживать",
+      "wordAudio": "words/0651-mieszkac.wav",
+      "examples": []
+    },
+    {
+      "id": "652",
+      "rank": 652,
+      "polish": "przenosić się",
+      "russian": "переезжать",
+      "wordAudio": "words/0652-przenosic-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "653",
+      "rank": 653,
+      "polish": "uczestniczyć",
+      "russian": "участвовать",
+      "wordAudio": "words/0653-uczestniczyc.wav",
+      "examples": []
+    },
+    {
+      "id": "654",
+      "rank": 654,
+      "polish": "angażować się",
+      "russian": "вовлекаться",
+      "wordAudio": "words/0654-angazowac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "655",
+      "rank": 655,
+      "polish": "wspierać",
+      "russian": "поддерживать",
+      "wordAudio": "words/0655-wspierac.wav",
+      "examples": []
+    },
+    {
+      "id": "656",
+      "rank": 656,
+      "polish": "szanować",
+      "russian": "уважать",
+      "wordAudio": "words/0656-szanowac.wav",
+      "examples": []
+    },
+    {
+      "id": "657",
+      "rank": 657,
+      "polish": "doceniać",
+      "russian": "ценить",
+      "wordAudio": "words/0657-doceniac.wav",
+      "examples": []
+    },
+    {
+      "id": "658",
+      "rank": 658,
+      "polish": "wpływać na",
+      "russian": "влиять на",
+      "wordAudio": "words/0658-wplywac-na.wav",
+      "examples": []
+    },
+    {
+      "id": "659",
+      "rank": 659,
+      "polish": "reagować",
+      "russian": "реагировать",
+      "wordAudio": "words/0659-reagowac.wav",
+      "examples": []
+    },
+    {
+      "id": "660",
+      "rank": 660,
+      "polish": "dostosować się",
+      "russian": "адаптироваться",
+      "wordAudio": "words/0660-dostosowac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "661",
+      "rank": 661,
+      "polish": "zamysł",
+      "russian": "замысел",
+      "wordAudio": "words/0661-zamysl.wav",
+      "examples": []
+    },
+    {
+      "id": "662",
+      "rank": 662,
+      "polish": "perspektywy",
+      "russian": "перспективы",
+      "wordAudio": "words/0662-perspektywy.wav",
+      "examples": []
+    },
+    {
+      "id": "663",
+      "rank": 663,
+      "polish": "awansować",
+      "russian": "повышаться",
+      "wordAudio": "words/0663-awansowac.wav",
+      "examples": []
+    },
+    {
+      "id": "664",
+      "rank": 664,
+      "polish": "potrzeba",
+      "russian": "потребность",
+      "wordAudio": "words/0664-potrzeba.wav",
+      "examples": []
+    },
+    {
+      "id": "665",
+      "rank": 665,
+      "polish": "prezes",
+      "russian": "директор",
+      "wordAudio": "words/0665-prezes.wav",
+      "examples": []
+    },
+    {
+      "id": "666",
+      "rank": 666,
+      "polish": "zainteresowanie",
+      "russian": "интерес",
+      "wordAudio": "words/0666-zainteresowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "667",
+      "rank": 667,
+      "polish": "obywatel UE",
+      "russian": "гражданин ЕС",
+      "wordAudio": "words/0667-obywatel-ue.wav",
+      "examples": []
+    },
+    {
+      "id": "668",
+      "rank": 668,
+      "polish": "zatrudniający",
+      "russian": "работодатель",
+      "wordAudio": "words/0668-zatrudniajacy.wav",
+      "examples": []
+    },
+    {
+      "id": "669",
+      "rank": 669,
+      "polish": "tempo rozwoju",
+      "russian": "темп развития",
+      "wordAudio": "words/0669-tempo-rozwoju.wav",
+      "examples": []
+    },
+    {
+      "id": "670",
+      "rank": 670,
+      "polish": "sekretariat",
+      "russian": "секретариат",
+      "wordAudio": "words/0670-sekretariat.wav",
+      "examples": []
+    },
+    {
+      "id": "671",
+      "rank": 671,
+      "polish": "warto inwestować",
+      "russian": "стоит инвестировать",
+      "wordAudio": "words/0671-warto-inwestowac.wav",
+      "examples": []
+    },
+    {
+      "id": "672",
+      "rank": 672,
+      "polish": "podejmować decyzję",
+      "russian": "принимать решение",
+      "wordAudio": "words/0672-podejmowac-decyzje.wav",
+      "examples": []
+    },
+    {
+      "id": "673",
+      "rank": 673,
+      "polish": "rozwiązywać problem",
+      "russian": "решать проблему",
+      "wordAudio": "words/0673-rozwiazywac-problem.wav",
+      "examples": []
+    },
+    {
+      "id": "674",
+      "rank": 674,
+      "polish": "osiągnąć cel",
+      "russian": "достичь цели",
+      "wordAudio": "words/0674-osiagnac-cel.wav",
+      "examples": []
+    },
+    {
+      "id": "675",
+      "rank": 675,
+      "polish": "wyciągać wnioski",
+      "russian": "делать выводы",
+      "wordAudio": "words/0675-wyciagac-wnioski.wav",
+      "examples": []
+    },
+    {
+      "id": "676",
+      "rank": 676,
+      "polish": "zwracać uwagę",
+      "russian": "обращать внимание",
+      "wordAudio": "words/0676-zwracac-uwage.wav",
+      "examples": []
+    },
+    {
+      "id": "677",
+      "rank": 677,
+      "polish": "mieć znaczenie",
+      "russian": "иметь значение",
+      "wordAudio": "words/0677-miec-znaczenie.wav",
+      "examples": []
+    },
+    {
+      "id": "678",
+      "rank": 678,
+      "polish": "państwo",
+      "russian": "государство",
+      "wordAudio": "words/0678-panstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "679",
+      "rank": 679,
+      "polish": "rząd",
+      "russian": "правительство",
+      "wordAudio": "words/0679-rzad.wav",
+      "examples": []
+    },
+    {
+      "id": "680",
+      "rank": 680,
+      "polish": "ministerstwo",
+      "russian": "министерство",
+      "wordAudio": "words/0680-ministerstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "681",
+      "rank": 681,
+      "polish": "samorząd",
+      "russian": "местное самоуправление",
+      "wordAudio": "words/0681-samorzad.wav",
+      "examples": []
+    },
+    {
+      "id": "682",
+      "rank": 682,
+      "polish": "wybory",
+      "russian": "выборы",
+      "wordAudio": "words/0682-wybory.wav",
+      "examples": []
+    },
+    {
+      "id": "683",
+      "rank": 683,
+      "polish": "głosować",
+      "russian": "голосовать",
+      "wordAudio": "words/0683-glosowac.wav",
+      "examples": []
+    },
+    {
+      "id": "684",
+      "rank": 684,
+      "polish": "planować z wyprzedzeniem",
+      "russian": "планировать заранее",
+      "wordAudio": "words/0684-planowac-z-wyprzedzeniem.wav",
+      "examples": []
+    },
+    {
+      "id": "685",
+      "rank": 685,
+      "polish": "prawo jazdy",
+      "russian": "водительское удостоверение",
+      "wordAudio": "words/0685-prawo-jazdy.wav",
+      "examples": []
+    },
+    {
+      "id": "686",
+      "rank": 686,
+      "polish": "paszport",
+      "russian": "паспорт",
+      "wordAudio": "words/0686-paszport.wav",
+      "examples": []
+    },
+    {
+      "id": "687",
+      "rank": 687,
+      "polish": "dowód osobisty",
+      "russian": "удостоверение личности",
+      "wordAudio": "words/0687-dowod-osobisty.wav",
+      "examples": []
+    },
+    {
+      "id": "688",
+      "rank": 688,
+      "polish": "wydział",
+      "russian": "отдел, факультет",
+      "wordAudio": "words/0688-wydzial.wav",
+      "examples": []
+    },
+    {
+      "id": "689",
+      "rank": 689,
+      "polish": "wzrost gospodarczy",
+      "russian": "экономический рост",
+      "wordAudio": "words/0689-wzrost-gospodarczy.wav",
+      "examples": []
+    },
+    {
+      "id": "690",
+      "rank": 690,
+      "polish": "inflacja",
+      "russian": "инфляция",
+      "wordAudio": "words/0690-inflacja.wav",
+      "examples": []
+    },
+    {
+      "id": "691",
+      "rank": 691,
+      "polish": "zgodność",
+      "russian": "соответствие",
+      "wordAudio": "words/0691-zgodnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "692",
+      "rank": 692,
+      "polish": "rynek pracy",
+      "russian": "рынок труда",
+      "wordAudio": "words/0692-rynek-pracy.wav",
+      "examples": []
+    },
+    {
+      "id": "693",
+      "rank": 693,
+      "polish": "zatwierdzać",
+      "russian": "утверждать",
+      "wordAudio": "words/0693-zatwierdzac.wav",
+      "examples": []
+    },
+    {
+      "id": "694",
+      "rank": 694,
+      "polish": "wynik finansowy",
+      "russian": "финансовый результат",
+      "wordAudio": "words/0694-wynik-finansowy.wav",
+      "examples": []
+    },
+    {
+      "id": "695",
+      "rank": 695,
+      "polish": "pomijać",
+      "russian": "пропускать",
+      "wordAudio": "words/0695-pomijac.wav",
+      "examples": []
+    },
+    {
+      "id": "696",
+      "rank": 696,
+      "polish": "wiadomości",
+      "russian": "новости",
+      "wordAudio": "words/0696-wiadomosci.wav",
+      "examples": []
+    },
+    {
+      "id": "697",
+      "rank": 697,
+      "polish": "mimo że",
+      "russian": "несмотря на то что",
+      "wordAudio": "words/0697-mimo-ze.wav",
+      "examples": []
+    },
+    {
+      "id": "698",
+      "rank": 698,
+      "polish": "chociaż",
+      "russian": "хотя",
+      "wordAudio": "words/0698-chociaz.wav",
+      "examples": []
+    },
+    {
+      "id": "699",
+      "rank": 699,
+      "polish": "jednak",
+      "russian": "однако",
+      "wordAudio": "words/0699-jednak.wav",
+      "examples": []
+    },
+    {
+      "id": "700",
+      "rank": 700,
+      "polish": "natomiast",
+      "russian": "в то время как",
+      "wordAudio": "words/0700-natomiast.wav",
+      "examples": []
+    },
+    {
+      "id": "701",
+      "rank": 701,
+      "polish": "ponadto",
+      "russian": "кроме того",
+      "wordAudio": "words/0701-ponadto.wav",
+      "examples": []
+    },
+    {
+      "id": "702",
+      "rank": 702,
+      "polish": "w związku z",
+      "russian": "в связи с",
+      "wordAudio": "words/0702-w-zwiazku-z.wav",
+      "examples": []
+    },
+    {
+      "id": "703",
+      "rank": 703,
+      "polish": "z tego powodu",
+      "russian": "по этой причине",
+      "wordAudio": "words/0703-z-tego-powodu.wav",
+      "examples": []
+    },
+    {
+      "id": "704",
+      "rank": 704,
+      "polish": "w rezultacie",
+      "russian": "в результате",
+      "wordAudio": "words/0704-w-rezultacie.wav",
+      "examples": []
+    },
+    {
+      "id": "705",
+      "rank": 705,
+      "polish": "w porównaniu do",
+      "russian": "по сравнению с",
+      "wordAudio": "words/0705-w-porownaniu-do.wav",
+      "examples": []
+    },
+    {
+      "id": "706",
+      "rank": 706,
+      "polish": "pod warunkiem że",
+      "russian": "при условии что",
+      "wordAudio": "words/0706-pod-warunkiem-ze.wav",
+      "examples": []
+    },
+    {
+      "id": "707",
+      "rank": 707,
+      "polish": "zakładać",
+      "russian": "предполагать",
+      "wordAudio": "words/0707-zakladac.wav",
+      "examples": []
+    },
+    {
+      "id": "708",
+      "rank": 708,
+      "polish": "druk",
+      "russian": "печатная форма",
+      "wordAudio": "words/0708-druk.wav",
+      "examples": []
+    },
+    {
+      "id": "709",
+      "rank": 709,
+      "polish": "rozpatrywać",
+      "russian": "рассматривать",
+      "wordAudio": "words/0709-rozpatrywac.wav",
+      "examples": []
+    },
+    {
+      "id": "710",
+      "rank": 710,
+      "polish": "uwzględniać",
+      "russian": "учитывать",
+      "wordAudio": "words/0710-uwzgledniac.wav",
+      "examples": []
+    },
+    {
+      "id": "711",
+      "rank": 711,
+      "polish": "określać",
+      "russian": "определять",
+      "wordAudio": "words/0711-okreslac.wav",
+      "examples": []
+    },
+    {
+      "id": "712",
+      "rank": 712,
+      "polish": "wskazywać",
+      "russian": "указывать",
+      "wordAudio": "words/0712-wskazywac.wav",
+      "examples": []
+    },
+    {
+      "id": "713",
+      "rank": 713,
+      "polish": "autograf",
+      "russian": "подпись",
+      "wordAudio": "words/0713-autograf.wav",
+      "examples": []
+    },
+    {
+      "id": "714",
+      "rank": 714,
+      "polish": "zaprzeczać",
+      "russian": "отрицать",
+      "wordAudio": "words/0714-zaprzeczac.wav",
+      "examples": []
+    },
+    {
+      "id": "715",
+      "rank": 715,
+      "polish": "przyczyniać się do",
+      "russian": "способствовать",
+      "wordAudio": "words/0715-przyczyniac-sie-do.wav",
+      "examples": []
+    },
+    {
+      "id": "716",
+      "rank": 716,
+      "polish": "dzięki temu",
+      "russian": "благодаря этому",
+      "wordAudio": "words/0716-dzieki-temu.wav",
+      "examples": []
+    },
+    {
+      "id": "717",
+      "rank": 717,
+      "polish": "zamiast",
+      "russian": "вместо",
+      "wordAudio": "words/0717-zamiast.wav",
+      "examples": []
+    },
+    {
+      "id": "718",
+      "rank": 718,
+      "polish": "zarówno... jak i...",
+      "russian": "как... так и...",
+      "wordAudio": "words/0718-zarowno-jak-i.wav",
+      "examples": []
+    },
+    {
+      "id": "719",
+      "rank": 719,
+      "polish": "nie tylko... ale także...",
+      "russian": "не только... но и...",
+      "wordAudio": "words/0719-nie-tylko-ale-takze.wav",
+      "examples": []
+    },
+    {
+      "id": "720",
+      "rank": 720,
+      "polish": "choćby",
+      "russian": "хотя бы",
+      "wordAudio": "words/0720-chocby.wav",
+      "examples": []
+    },
+    {
+      "id": "721",
+      "rank": 721,
+      "polish": "szczególnie",
+      "russian": "особенно",
+      "wordAudio": "words/0721-szczegolnie.wav",
+      "examples": []
+    },
+    {
+      "id": "722",
+      "rank": 722,
+      "polish": "głównie",
+      "russian": "главным образом",
+      "wordAudio": "words/0722-glownie.wav",
+      "examples": []
+    },
+    {
+      "id": "723",
+      "rank": 723,
+      "polish": "wyłącznie",
+      "russian": "исключительно",
+      "wordAudio": "words/0723-wylacznie.wav",
+      "examples": []
+    },
+    {
+      "id": "724",
+      "rank": 724,
+      "polish": "prawdopodobnie",
+      "russian": "вероятно",
+      "wordAudio": "words/0724-prawdopodobnie.wav",
+      "examples": []
+    },
+    {
+      "id": "725",
+      "rank": 725,
+      "polish": "niewątpliwie",
+      "russian": "несомненно",
+      "wordAudio": "words/0725-niewatpliwie.wav",
+      "examples": []
+    },
+    {
+      "id": "726",
+      "rank": 726,
+      "polish": "rzeczywiście",
+      "russian": "действительно",
+      "wordAudio": "words/0726-rzeczywiscie.wav",
+      "examples": []
+    },
+    {
+      "id": "727",
+      "rank": 727,
+      "polish": "ostatecznie",
+      "russian": "в конечном итоге",
+      "wordAudio": "words/0727-ostatecznie.wav",
+      "examples": []
+    },
+    {
+      "id": "728",
+      "rank": 728,
+      "polish": "dodatkowo",
+      "russian": "дополнительно",
+      "wordAudio": "words/0728-dodatkowo.wav",
+      "examples": []
+    },
+    {
+      "id": "729",
+      "rank": 729,
+      "polish": "stopniowo",
+      "russian": "постепенно",
+      "wordAudio": "words/0729-stopniowo.wav",
+      "examples": []
+    },
+    {
+      "id": "730",
+      "rank": 730,
+      "polish": "wcześniej czy później",
+      "russian": "рано или поздно",
+      "wordAudio": "words/0730-wczesniej-czy-pozniej.wav",
+      "examples": []
+    },
+    {
+      "id": "731",
+      "rank": 731,
+      "polish": "z punktu widzenia",
+      "russian": "с точки зрения",
+      "wordAudio": "words/0731-z-punktu-widzenia.wav",
+      "examples": []
+    },
+    {
+      "id": "732",
+      "rank": 732,
+      "polish": "w praktyce",
+      "russian": "на практике",
+      "wordAudio": "words/0732-w-praktyce.wav",
+      "examples": []
+    },
+    {
+      "id": "733",
+      "rank": 733,
+      "polish": "w rzeczywistości",
+      "russian": "на самом деле",
+      "wordAudio": "words/0733-w-rzeczywistosci.wav",
+      "examples": []
+    },
+    {
+      "id": "734",
+      "rank": 734,
+      "polish": "zgodnie z",
+      "russian": "в соответствии с",
+      "wordAudio": "words/0734-zgodnie-z.wav",
+      "examples": []
+    },
+    {
+      "id": "735",
+      "rank": 735,
+      "polish": "w przeciwieństwie do",
+      "russian": "в отличие от",
+      "wordAudio": "words/0735-w-przeciwienstwie-do.wav",
+      "examples": []
+    },
+    {
+      "id": "736",
+      "rank": 736,
+      "polish": "na przykład",
+      "russian": "например",
+      "wordAudio": "words/0736-na-przyklad.wav",
+      "examples": []
+    },
+    {
+      "id": "737",
+      "rank": 737,
+      "polish": "między innymi",
+      "russian": "в том числе",
+      "wordAudio": "words/0737-miedzy-innymi.wav",
+      "examples": []
+    },
+    {
+      "id": "738",
+      "rank": 738,
+      "polish": "przede wszystkim",
+      "russian": "прежде всего",
+      "wordAudio": "words/0738-przede-wszystkim.wav",
+      "examples": []
+    },
+    {
+      "id": "739",
+      "rank": 739,
+      "polish": "w szczególności",
+      "russian": "в частности",
+      "wordAudio": "words/0739-w-szczegolnosci.wav",
+      "examples": []
+    },
+    {
+      "id": "740",
+      "rank": 740,
+      "polish": "bez względu na",
+      "russian": "независимо от",
+      "wordAudio": "words/0740-bez-wzgledu-na.wav",
+      "examples": []
+    },
+    {
+      "id": "741",
+      "rank": 741,
+      "polish": "w zależności od",
+      "russian": "в зависимости от",
+      "wordAudio": "words/0741-w-zaleznosci-od.wav",
+      "examples": []
+    },
+    {
+      "id": "742",
+      "rank": 742,
+      "polish": "na podstawie",
+      "russian": "на основании",
+      "wordAudio": "words/0742-na-podstawie.wav",
+      "examples": []
+    },
+    {
+      "id": "743",
+      "rank": 743,
+      "polish": "zamiar",
+      "russian": "намерение",
+      "wordAudio": "words/0743-zamiar.wav",
+      "examples": []
+    },
+    {
+      "id": "744",
+      "rank": 744,
+      "polish": "celowo",
+      "russian": "намеренно",
+      "wordAudio": "words/0744-celowo.wav",
+      "examples": []
+    },
+    {
+      "id": "745",
+      "rank": 745,
+      "polish": "przypadkowo",
+      "russian": "случайно",
+      "wordAudio": "words/0745-przypadkowo.wav",
+      "examples": []
+    },
+    {
+      "id": "746",
+      "rank": 746,
+      "polish": "świadomie",
+      "russian": "осознанно",
+      "wordAudio": "words/0746-swiadomie.wav",
+      "examples": []
+    },
+    {
+      "id": "747",
+      "rank": 747,
+      "polish": "nieświadomie",
+      "russian": "неосознанно",
+      "wordAudio": "words/0747-nieswiadomie.wav",
+      "examples": []
+    },
+    {
+      "id": "748",
+      "rank": 748,
+      "polish": "prawdą jest",
+      "russian": "правда в том, что",
+      "wordAudio": "words/0748-prawda-jest.wav",
+      "examples": []
+    },
+    {
+      "id": "749",
+      "rank": 749,
+      "polish": "wydaje się",
+      "russian": "кажется",
+      "wordAudio": "words/0749-wydaje-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "750",
+      "rank": 750,
+      "polish": "oznaczać",
+      "russian": "означать",
+      "wordAudio": "words/0750-oznaczac.wav",
+      "examples": []
+    },
+    {
+      "id": "751",
+      "rank": 751,
+      "polish": "zakres",
+      "russian": "объём, диапазон",
+      "wordAudio": "words/0751-zakres.wav",
+      "examples": []
+    },
+    {
+      "id": "752",
+      "rank": 752,
+      "polish": "obszar",
+      "russian": "область",
+      "wordAudio": "words/0752-obszar.wav",
+      "examples": []
+    },
+    {
+      "id": "753",
+      "rank": 753,
+      "polish": "dziedzina",
+      "russian": "сфера, область",
+      "wordAudio": "words/0753-dziedzina.wav",
+      "examples": []
+    },
+    {
+      "id": "754",
+      "rank": 754,
+      "polish": "poziom życia",
+      "russian": "уровень жизни",
+      "wordAudio": "words/0754-poziom-zycia.wav",
+      "examples": []
+    },
+    {
+      "id": "755",
+      "rank": 755,
+      "polish": "sytuacja życiowa",
+      "russian": "жизненная ситуация",
+      "wordAudio": "words/0755-sytuacja-zyciowa.wav",
+      "examples": []
+    },
+    {
+      "id": "756",
+      "rank": 756,
+      "polish": "radzić sobie",
+      "russian": "справляться",
+      "wordAudio": "words/0756-radzic-sobie.wav",
+      "examples": []
+    },
+    {
+      "id": "757",
+      "rank": 757,
+      "polish": "stawić czoła",
+      "russian": "столкнуться с",
+      "wordAudio": "words/0757-stawic-czola.wav",
+      "examples": []
+    },
+    {
+      "id": "758",
+      "rank": 758,
+      "polish": "postępowanie",
+      "russian": "процедура",
+      "wordAudio": "words/0758-postepowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "759",
+      "rank": 759,
+      "polish": "przezwyciężyć",
+      "russian": "преодолеть",
+      "wordAudio": "words/0759-przezwyciezyc.wav",
+      "examples": []
+    },
+    {
+      "id": "760",
+      "rank": 760,
+      "polish": "utrzymać",
+      "russian": "поддерживать, сохранять",
+      "wordAudio": "words/0760-utrzymac.wav",
+      "examples": []
+    },
+    {
+      "id": "761",
+      "rank": 761,
+      "polish": "zachować",
+      "russian": "сохранить",
+      "wordAudio": "words/0761-zachowac.wav",
+      "examples": []
+    },
+    {
+      "id": "762",
+      "rank": 762,
+      "polish": "osiągalny",
+      "russian": "достижимый",
+      "wordAudio": "words/0762-osiagalny.wav",
+      "examples": []
+    },
+    {
+      "id": "763",
+      "rank": 763,
+      "polish": "realistyczny",
+      "russian": "реалистичный",
+      "wordAudio": "words/0763-realistyczny.wav",
+      "examples": []
+    },
+    {
+      "id": "764",
+      "rank": 764,
+      "polish": "praktyczny",
+      "russian": "практичный",
+      "wordAudio": "words/0764-praktyczny.wav",
+      "examples": []
+    },
+    {
+      "id": "765",
+      "rank": 765,
+      "polish": "skutecznie",
+      "russian": "эффективно",
+      "wordAudio": "words/0765-skutecznie.wav",
+      "examples": []
+    },
+    {
+      "id": "766",
+      "rank": 766,
+      "polish": "efektywnie",
+      "russian": "эффективно",
+      "wordAudio": "words/0766-efektywnie.wav",
+      "examples": []
+    },
+    {
+      "id": "767",
+      "rank": 767,
+      "polish": "odpowiednio",
+      "russian": "соответствующим образом",
+      "wordAudio": "words/0767-odpowiednio.wav",
+      "examples": []
+    },
+    {
+      "id": "768",
+      "rank": 768,
+      "polish": "wystarczająco",
+      "russian": "достаточно",
+      "wordAudio": "words/0768-wystarczajaco.wav",
+      "examples": []
+    },
+    {
+      "id": "769",
+      "rank": 769,
+      "polish": "znacznie",
+      "russian": "значительно",
+      "wordAudio": "words/0769-znacznie.wav",
+      "examples": []
+    },
+    {
+      "id": "770",
+      "rank": 770,
+      "polish": "stosunkowo",
+      "russian": "относительно",
+      "wordAudio": "words/0770-stosunkowo.wav",
+      "examples": []
+    },
+    {
+      "id": "771",
+      "rank": 771,
+      "polish": "ostateczny",
+      "russian": "окончательный",
+      "wordAudio": "words/0771-ostateczny.wav",
+      "examples": []
+    },
+    {
+      "id": "772",
+      "rank": 772,
+      "polish": "zjawisko",
+      "russian": "явление",
+      "wordAudio": "words/0772-zjawisko.wav",
+      "examples": []
+    },
+    {
+      "id": "773",
+      "rank": 773,
+      "polish": "tendencja",
+      "russian": "тенденция",
+      "wordAudio": "words/0773-tendencja.wav",
+      "examples": []
+    },
+    {
+      "id": "774",
+      "rank": 774,
+      "polish": "podejście",
+      "russian": "подход",
+      "wordAudio": "words/0774-podejscie.wav",
+      "examples": []
+    },
+    {
+      "id": "775",
+      "rank": 775,
+      "polish": "strategia",
+      "russian": "стратегия",
+      "wordAudio": "words/0775-strategia.wav",
+      "examples": []
+    },
+    {
+      "id": "776",
+      "rank": 776,
+      "polish": "koncepcja",
+      "russian": "концепция",
+      "wordAudio": "words/0776-koncepcja.wav",
+      "examples": []
+    },
+    {
+      "id": "777",
+      "rank": 777,
+      "polish": "model",
+      "russian": "модель",
+      "wordAudio": "words/0777-model.wav",
+      "examples": []
+    },
+    {
+      "id": "778",
+      "rank": 778,
+      "polish": "struktura",
+      "russian": "структура",
+      "wordAudio": "words/0778-struktura.wav",
+      "examples": []
+    },
+    {
+      "id": "779",
+      "rank": 779,
+      "polish": "system",
+      "russian": "система",
+      "wordAudio": "words/0779-system.wav",
+      "examples": []
+    },
+    {
+      "id": "780",
+      "rank": 780,
+      "polish": "czynnik",
+      "russian": "фактор",
+      "wordAudio": "words/0780-czynnik.wav",
+      "examples": []
+    },
+    {
+      "id": "781",
+      "rank": 781,
+      "polish": "równowaga",
+      "russian": "баланс",
+      "wordAudio": "words/0781-rownowaga.wav",
+      "examples": []
+    },
+    {
+      "id": "782",
+      "rank": 782,
+      "polish": "recepcjonista",
+      "russian": "администратор",
+      "wordAudio": "words/0782-recepcjonista.wav",
+      "examples": []
+    },
+    {
+      "id": "783",
+      "rank": 783,
+      "polish": "społeczność",
+      "russian": "сообщество",
+      "wordAudio": "words/0783-spolecznosc.wav",
+      "examples": []
+    },
+    {
+      "id": "784",
+      "rank": 784,
+      "polish": "wspólnota",
+      "russian": "сообщество",
+      "wordAudio": "words/0784-wspolnota.wav",
+      "examples": []
+    },
+    {
+      "id": "785",
+      "rank": 785,
+      "polish": "uczciwość",
+      "russian": "честность",
+      "wordAudio": "words/0785-uczciwosc.wav",
+      "examples": []
+    },
+    {
+      "id": "786",
+      "rank": 786,
+      "polish": "wiarygodny",
+      "russian": "надёжный",
+      "wordAudio": "words/0786-wiarygodny.wav",
+      "examples": []
+    },
+    {
+      "id": "787",
+      "rank": 787,
+      "polish": "niekorzystny",
+      "russian": "невыгодный",
+      "wordAudio": "words/0787-niekorzystny.wav",
+      "examples": []
+    },
+    {
+      "id": "788",
+      "rank": 788,
+      "polish": "kluczowy",
+      "russian": "ключевой",
+      "wordAudio": "words/0788-kluczowy.wav",
+      "examples": []
+    },
+    {
+      "id": "789",
+      "rank": 789,
+      "polish": "powszechny",
+      "russian": "распространённый",
+      "wordAudio": "words/0789-powszechny.wav",
+      "examples": []
+    },
+    {
+      "id": "790",
+      "rank": 790,
+      "polish": "typowy",
+      "russian": "типичный",
+      "wordAudio": "words/0790-typowy.wav",
+      "examples": []
+    },
+    {
+      "id": "791",
+      "rank": 791,
+      "polish": "wyjątkowy",
+      "russian": "исключительный",
+      "wordAudio": "words/0791-wyjatkowy.wav",
+      "examples": []
+    },
+    {
+      "id": "792",
+      "rank": 792,
+      "polish": "podobny",
+      "russian": "похожий",
+      "wordAudio": "words/0792-podobny.wav",
+      "examples": []
+    },
+    {
+      "id": "793",
+      "rank": 793,
+      "polish": "różnorodny",
+      "russian": "разнообразный",
+      "wordAudio": "words/0793-roznorodny.wav",
+      "examples": []
+    },
+    {
+      "id": "794",
+      "rank": 794,
+      "polish": "elastyczny",
+      "russian": "гибкий",
+      "wordAudio": "words/0794-elastyczny.wav",
+      "examples": []
+    },
+    {
+      "id": "795",
+      "rank": 795,
+      "polish": "niezależny",
+      "russian": "независимый",
+      "wordAudio": "words/0795-niezalezny.wav",
+      "examples": []
+    },
+    {
+      "id": "796",
+      "rank": 796,
+      "polish": "samopoczucie",
+      "russian": "самочувствие",
+      "wordAudio": "words/0796-samopoczucie.wav",
+      "examples": []
+    },
+    {
+      "id": "797",
+      "rank": 797,
+      "polish": "obawa",
+      "russian": "опасение",
+      "wordAudio": "words/0797-obawa.wav",
+      "examples": []
+    },
+    {
+      "id": "798",
+      "rank": 798,
+      "polish": "niepokój",
+      "russian": "тревога",
+      "wordAudio": "words/0798-niepokoj.wav",
+      "examples": []
+    },
+    {
+      "id": "799",
+      "rank": 799,
+      "polish": "zadowolenie",
+      "russian": "удовлетворение",
+      "wordAudio": "words/0799-zadowolenie.wav",
+      "examples": []
+    },
+    {
+      "id": "800",
+      "rank": 800,
+      "polish": "szczęście",
+      "russian": "счастье",
+      "wordAudio": "words/0800-szczescie.wav",
+      "examples": []
+    },
+    {
+      "id": "801",
+      "rank": 801,
+      "polish": "radość",
+      "russian": "радость",
+      "wordAudio": "words/0801-radosc.wav",
+      "examples": []
+    },
+    {
+      "id": "802",
+      "rank": 802,
+      "polish": "smutek",
+      "russian": "грусть",
+      "wordAudio": "words/0802-smutek.wav",
+      "examples": []
+    },
+    {
+      "id": "803",
+      "rank": 803,
+      "polish": "złość",
+      "russian": "злость",
+      "wordAudio": "words/0803-zlosc.wav",
+      "examples": []
+    },
+    {
+      "id": "804",
+      "rank": 804,
+      "polish": "współczucie",
+      "russian": "сочувствие",
+      "wordAudio": "words/0804-wspolczucie.wav",
+      "examples": []
+    },
+    {
+      "id": "805",
+      "rank": 805,
+      "polish": "cierpliwość",
+      "russian": "терпение",
+      "wordAudio": "words/0805-cierpliwosc.wav",
+      "examples": []
+    },
+    {
+      "id": "806",
+      "rank": 806,
+      "polish": "odwaga",
+      "russian": "смелость",
+      "wordAudio": "words/0806-odwaga.wav",
+      "examples": []
+    },
+    {
+      "id": "807",
+      "rank": 807,
+      "polish": "dyscyplina",
+      "russian": "дисциплина",
+      "wordAudio": "words/0807-dyscyplina.wav",
+      "examples": []
+    },
+    {
+      "id": "808",
+      "rank": 808,
+      "polish": "zaangażowanie",
+      "russian": "вовлечённость",
+      "wordAudio": "words/0808-zaangazowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "809",
+      "rank": 809,
+      "polish": "wysiłek",
+      "russian": "усилие",
+      "wordAudio": "words/0809-wysilek.wav",
+      "examples": []
+    },
+    {
+      "id": "810",
+      "rank": 810,
+      "polish": "nawyk",
+      "russian": "привычка",
+      "wordAudio": "words/0810-nawyk.wav",
+      "examples": []
+    },
+    {
+      "id": "811",
+      "rank": 811,
+      "polish": "przyzwyczajenie",
+      "russian": "привычка",
+      "wordAudio": "words/0811-przyzwyczajenie.wav",
+      "examples": []
+    },
+    {
+      "id": "812",
+      "rank": 812,
+      "polish": "przekazywać",
+      "russian": "передавать",
+      "wordAudio": "words/0812-przekazywac.wav",
+      "examples": []
+    },
+    {
+      "id": "813",
+      "rank": 813,
+      "polish": "dzielić się",
+      "russian": "делиться",
+      "wordAudio": "words/0813-dzielic-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "814",
+      "rank": 814,
+      "polish": "współpracować",
+      "russian": "сотрудничать",
+      "wordAudio": "words/0814-wspolpracowac.wav",
+      "examples": []
+    },
+    {
+      "id": "815",
+      "rank": 815,
+      "polish": "dyskutować",
+      "russian": "обсуждать",
+      "wordAudio": "words/0815-dyskutowac.wav",
+      "examples": []
+    },
+    {
+      "id": "816",
+      "rank": 816,
+      "polish": "negocjować",
+      "russian": "вести переговоры",
+      "wordAudio": "words/0816-negocjowac.wav",
+      "examples": []
+    },
+    {
+      "id": "817",
+      "rank": 817,
+      "polish": "uzgadniać",
+      "russian": "согласовывать",
+      "wordAudio": "words/0817-uzgadniac.wav",
+      "examples": []
+    },
+    {
+      "id": "818",
+      "rank": 818,
+      "polish": "akceptować",
+      "russian": "принимать",
+      "wordAudio": "words/0818-akceptowac.wav",
+      "examples": []
+    },
+    {
+      "id": "819",
+      "rank": 819,
+      "polish": "odmawiać",
+      "russian": "отказывать",
+      "wordAudio": "words/0819-odmawiac.wav",
+      "examples": []
+    },
+    {
+      "id": "820",
+      "rank": 820,
+      "polish": "wiedza",
+      "russian": "знания",
+      "wordAudio": "words/0820-wiedza.wav",
+      "examples": []
+    },
+    {
+      "id": "821",
+      "rank": 821,
+      "polish": "zdolność",
+      "russian": "способность",
+      "wordAudio": "words/0821-zdolnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "822",
+      "rank": 822,
+      "polish": "talent",
+      "russian": "талант",
+      "wordAudio": "words/0822-talent.wav",
+      "examples": []
+    },
+    {
+      "id": "823",
+      "rank": 823,
+      "polish": "nauczanie",
+      "russian": "обучение",
+      "wordAudio": "words/0823-nauczanie.wav",
+      "examples": []
+    },
+    {
+      "id": "824",
+      "rank": 824,
+      "polish": "uczyć się",
+      "russian": "учиться",
+      "wordAudio": "words/0824-uczyc-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "825",
+      "rank": 825,
+      "polish": "zapamiętać",
+      "russian": "запомнить",
+      "wordAudio": "words/0825-zapamietac.wav",
+      "examples": []
+    },
+    {
+      "id": "826",
+      "rank": 826,
+      "polish": "pamiętać",
+      "russian": "помнить",
+      "wordAudio": "words/0826-pamietac.wav",
+      "examples": []
+    },
+    {
+      "id": "827",
+      "rank": 827,
+      "polish": "zapominać",
+      "russian": "забывать",
+      "wordAudio": "words/0827-zapominac.wav",
+      "examples": []
+    },
+    {
+      "id": "828",
+      "rank": 828,
+      "polish": "myśleć",
+      "russian": "думать",
+      "wordAudio": "words/0828-myslec.wav",
+      "examples": []
+    },
+    {
+      "id": "829",
+      "rank": 829,
+      "polish": "wnioskować",
+      "russian": "делать выводы",
+      "wordAudio": "words/0829-wnioskowac.wav",
+      "examples": []
+    },
+    {
+      "id": "830",
+      "rank": 830,
+      "polish": "przewidywanie",
+      "russian": "прогнозирование",
+      "wordAudio": "words/0830-przewidywanie.wav",
+      "examples": []
+    },
+    {
+      "id": "831",
+      "rank": 831,
+      "polish": "mądrość",
+      "russian": "мудрость",
+      "wordAudio": "words/0831-madrosc.wav",
+      "examples": []
+    },
+    {
+      "id": "832",
+      "rank": 832,
+      "polish": "realizacja",
+      "russian": "реализация",
+      "wordAudio": "words/0832-realizacja.wav",
+      "examples": []
+    },
+    {
+      "id": "833",
+      "rank": 833,
+      "polish": "osiągnięcie celu",
+      "russian": "достижение цели",
+      "wordAudio": "words/0833-osiagniecie-celu.wav",
+      "examples": []
+    },
+    {
+      "id": "834",
+      "rank": 834,
+      "polish": "udoskonalać",
+      "russian": "совершенствовать",
+      "wordAudio": "words/0834-udoskonalac.wav",
+      "examples": []
+    },
+    {
+      "id": "835",
+      "rank": 835,
+      "polish": "osiągać sukces",
+      "russian": "добиваться успеха",
+      "wordAudio": "words/0835-osiagac-sukces.wav",
+      "examples": []
+    },
+    {
+      "id": "836",
+      "rank": 836,
+      "polish": "ponosić odpowiedzialność",
+      "russian": "нести ответственность",
+      "wordAudio": "words/0836-ponosic-odpowiedzialnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "837",
+      "rank": 837,
+      "polish": "podejmować działania",
+      "russian": "предпринимать действия",
+      "wordAudio": "words/0837-podejmowac-dzialania.wav",
+      "examples": []
+    },
+    {
+      "id": "838",
+      "rank": 838,
+      "polish": "dążyć do",
+      "russian": "стремиться к",
+      "wordAudio": "words/0838-dazyc-do.wav",
+      "examples": []
+    },
+    {
+      "id": "839",
+      "rank": 839,
+      "polish": "mieć zastosowanie",
+      "russian": "применяться",
+      "wordAudio": "words/0839-miec-zastosowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "840",
+      "rank": 840,
+      "polish": "wynosić",
+      "russian": "составлять",
+      "wordAudio": "words/0840-wynosic.wav",
+      "examples": []
+    },
+    {
+      "id": "841",
+      "rank": 841,
+      "polish": "załącznik",
+      "russian": "приложение",
+      "wordAudio": "words/0841-zalacznik.wav",
+      "examples": []
+    },
+    {
+      "id": "842",
+      "rank": 842,
+      "polish": "oryginał",
+      "russian": "оригинал",
+      "wordAudio": "words/0842-oryginal.wav",
+      "examples": []
+    },
+    {
+      "id": "843",
+      "rank": 843,
+      "polish": "kopia",
+      "russian": "копия",
+      "wordAudio": "words/0843-kopia.wav",
+      "examples": []
+    },
+    {
+      "id": "844",
+      "rank": 844,
+      "polish": "pełnomocnictwo",
+      "russian": "доверенность",
+      "wordAudio": "words/0844-pelnomocnictwo.wav",
+      "examples": []
+    },
+    {
+      "id": "845",
+      "rank": 845,
+      "polish": "status",
+      "russian": "статус",
+      "wordAudio": "words/0845-status.wav",
+      "examples": []
+    },
+    {
+      "id": "846",
+      "rank": 846,
+      "polish": "konto rozliczeniowe",
+      "russian": "расчетный счет",
+      "wordAudio": "words/0846-konto-rozliczeniowe.wav",
+      "examples": []
+    },
+    {
+      "id": "847",
+      "rank": 847,
+      "polish": "magazyn",
+      "russian": "склад",
+      "wordAudio": "words/0847-magazyn.wav",
+      "examples": []
+    },
+    {
+      "id": "848",
+      "rank": 848,
+      "polish": "przedstawiciel",
+      "russian": "представитель",
+      "wordAudio": "words/0848-przedstawiciel.wav",
+      "examples": []
+    },
+    {
+      "id": "849",
+      "rank": 849,
+      "polish": "kurier",
+      "russian": "курьер",
+      "wordAudio": "words/0849-kurier.wav",
+      "examples": []
+    },
+    {
+      "id": "850",
+      "rank": 850,
+      "polish": "zgłaszać",
+      "russian": "сообщать, заявлять",
+      "wordAudio": "words/0850-zglaszac.wav",
+      "examples": []
+    },
+    {
+      "id": "851",
+      "rank": 851,
+      "polish": "składać wniosek",
+      "russian": "подавать заявление",
+      "wordAudio": "words/0851-skladac-wniosek.wav",
+      "examples": []
+    },
+    {
+      "id": "852",
+      "rank": 852,
+      "polish": "otrzymywać",
+      "russian": "получать",
+      "wordAudio": "words/0852-otrzymywac.wav",
+      "examples": []
+    },
+    {
+      "id": "853",
+      "rank": 853,
+      "polish": "wydawać",
+      "russian": "выдавать",
+      "wordAudio": "words/0853-wydawac.wav",
+      "examples": []
+    },
+    {
+      "id": "854",
+      "rank": 854,
+      "polish": "odbiorca",
+      "russian": "получатель",
+      "wordAudio": "words/0854-odbiorca.wav",
+      "examples": []
+    },
+    {
+      "id": "855",
+      "rank": 855,
+      "polish": "odwołanie",
+      "russian": "апелляция",
+      "wordAudio": "words/0855-odwolanie.wav",
+      "examples": []
+    },
+    {
+      "id": "856",
+      "rank": 856,
+      "polish": "rozpatrzenie",
+      "russian": "рассмотрение",
+      "wordAudio": "words/0856-rozpatrzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "857",
+      "rank": 857,
+      "polish": "terminowo",
+      "russian": "своевременно",
+      "wordAudio": "words/0857-terminowo.wav",
+      "examples": []
+    },
+    {
+      "id": "858",
+      "rank": 858,
+      "polish": "powiadomienie",
+      "russian": "уведомление",
+      "wordAudio": "words/0858-powiadomienie.wav",
+      "examples": []
+    },
+    {
+      "id": "859",
+      "rank": 859,
+      "polish": "komunikat",
+      "russian": "сообщение",
+      "wordAudio": "words/0859-komunikat.wav",
+      "examples": []
+    },
+    {
+      "id": "860",
+      "rank": 860,
+      "polish": "informować",
+      "russian": "информировать",
+      "wordAudio": "words/0860-informowac.wav",
+      "examples": []
+    },
+    {
+      "id": "861",
+      "rank": 861,
+      "polish": "ogłaszać",
+      "russian": "объявлять",
+      "wordAudio": "words/0861-oglaszac.wav",
+      "examples": []
+    },
+    {
+      "id": "862",
+      "rank": 862,
+      "polish": "publikować",
+      "russian": "публиковать",
+      "wordAudio": "words/0862-publikowac.wav",
+      "examples": []
+    },
+    {
+      "id": "863",
+      "rank": 863,
+      "polish": "badanie opinii",
+      "russian": "опрос",
+      "wordAudio": "words/0863-badanie-opinii.wav",
+      "examples": []
+    },
+    {
+      "id": "864",
+      "rank": 864,
+      "polish": "ekspert",
+      "russian": "эксперт",
+      "wordAudio": "words/0864-ekspert.wav",
+      "examples": []
+    },
+    {
+      "id": "865",
+      "rank": 865,
+      "polish": "specjalizacja",
+      "russian": "специализация",
+      "wordAudio": "words/0865-specjalizacja.wav",
+      "examples": []
+    },
+    {
+      "id": "866",
+      "rank": 866,
+      "polish": "wspólny",
+      "russian": "общий",
+      "wordAudio": "words/0866-wspolny.wav",
+      "examples": []
+    },
+    {
+      "id": "867",
+      "rank": 867,
+      "polish": "indywidualny",
+      "russian": "индивидуальный",
+      "wordAudio": "words/0867-indywidualny.wav",
+      "examples": []
+    },
+    {
+      "id": "868",
+      "rank": 868,
+      "polish": "ogólny",
+      "russian": "общий",
+      "wordAudio": "words/0868-ogolny.wav",
+      "examples": []
+    },
+    {
+      "id": "869",
+      "rank": 869,
+      "polish": "szczegółowy",
+      "russian": "подробный",
+      "wordAudio": "words/0869-szczegolowy.wav",
+      "examples": []
+    },
+    {
+      "id": "870",
+      "rank": 870,
+      "polish": "dokładny",
+      "russian": "точный",
+      "wordAudio": "words/0870-dokladny.wav",
+      "examples": []
+    },
+    {
+      "id": "871",
+      "rank": 871,
+      "polish": "aktualny",
+      "russian": "актуальный",
+      "wordAudio": "words/0871-aktualny.wav",
+      "examples": []
+    },
+    {
+      "id": "872",
+      "rank": 872,
+      "polish": "przydatny",
+      "russian": "полезный",
+      "wordAudio": "words/0872-przydatny.wav",
+      "examples": []
+    },
+    {
+      "id": "873",
+      "rank": 873,
+      "polish": "wartościowy",
+      "russian": "ценный",
+      "wordAudio": "words/0873-wartosciowy.wav",
+      "examples": []
+    },
+    {
+      "id": "874",
+      "rank": 874,
+      "polish": "niezwykle",
+      "russian": "чрезвычайно",
+      "wordAudio": "words/0874-niezwykle.wav",
+      "examples": []
+    },
+    {
+      "id": "875",
+      "rank": 875,
+      "polish": "wymagać",
+      "russian": "требовать",
+      "wordAudio": "words/0875-wymagac.wav",
+      "examples": []
+    },
+    {
+      "id": "876",
+      "rank": 876,
+      "polish": "zapewnić",
+      "russian": "обеспечить",
+      "wordAudio": "words/0876-zapewnic.wav",
+      "examples": []
+    },
+    {
+      "id": "877",
+      "rank": 877,
+      "polish": "przedstawiać",
+      "russian": "представлять",
+      "wordAudio": "words/0877-przedstawiac.wav",
+      "examples": []
+    },
+    {
+      "id": "878",
+      "rank": 878,
+      "polish": "dostarczać",
+      "russian": "предоставлять",
+      "wordAudio": "words/0878-dostarczac.wav",
+      "examples": []
+    },
+    {
+      "id": "879",
+      "rank": 879,
+      "polish": "okazywać się",
+      "russian": "оказываться",
+      "wordAudio": "words/0879-okazywac-sie.wav",
+      "examples": []
+    },
+    {
+      "id": "880",
+      "rank": 880,
+      "polish": "stanowić",
+      "russian": "составлять, представлять собой",
+      "wordAudio": "words/0880-stanowic.wav",
+      "examples": []
+    },
+    {
+      "id": "881",
+      "rank": 881,
+      "polish": "dążyć",
+      "russian": "стремиться",
+      "wordAudio": "words/0881-dazyc.wav",
+      "examples": []
+    },
+    {
+      "id": "882",
+      "rank": 882,
+      "polish": "przynosić",
+      "russian": "приносить",
+      "wordAudio": "words/0882-przynosic.wav",
+      "examples": []
+    },
+    {
+      "id": "883",
+      "rank": 883,
+      "polish": "dotychczasowy",
+      "russian": "прежний",
+      "wordAudio": "words/0883-dotychczasowy.wav",
+      "examples": []
+    },
+    {
+      "id": "884",
+      "rank": 884,
+      "polish": "przyszły",
+      "russian": "будущий",
+      "wordAudio": "words/0884-przyszly.wav",
+      "examples": []
+    },
+    {
+      "id": "885",
+      "rank": 885,
+      "polish": "obecny",
+      "russian": "текущий",
+      "wordAudio": "words/0885-obecny.wav",
+      "examples": []
+    },
+    {
+      "id": "886",
+      "rank": 886,
+      "polish": "pozostały",
+      "russian": "оставшийся",
+      "wordAudio": "words/0886-pozostaly.wav",
+      "examples": []
+    },
+    {
+      "id": "887",
+      "rank": 887,
+      "polish": "właściwy",
+      "russian": "правильный",
+      "wordAudio": "words/0887-wlasciwy.wav",
+      "examples": []
+    },
+    {
+      "id": "888",
+      "rank": 888,
+      "polish": "niewłaściwy",
+      "russian": "неправильный",
+      "wordAudio": "words/0888-niewlasciwy.wav",
+      "examples": []
+    },
+    {
+      "id": "889",
+      "rank": 889,
+      "polish": "zgodny",
+      "russian": "соответствующий",
+      "wordAudio": "words/0889-zgodny.wav",
+      "examples": []
+    },
+    {
+      "id": "890",
+      "rank": 890,
+      "polish": "podobnie",
+      "russian": "аналогично",
+      "wordAudio": "words/0890-podobnie.wav",
+      "examples": []
+    },
+    {
+      "id": "891",
+      "rank": 891,
+      "polish": "jednocześnie",
+      "russian": "одновременно",
+      "wordAudio": "words/0891-jednoczesnie.wav",
+      "examples": []
+    },
+    {
+      "id": "892",
+      "rank": 892,
+      "polish": "w konsekwencji",
+      "russian": "вследствие этого",
+      "wordAudio": "words/0892-w-konsekwencji.wav",
+      "examples": []
+    },
+    {
+      "id": "893",
+      "rank": 893,
+      "polish": "w odniesieniu do",
+      "russian": "в отношении",
+      "wordAudio": "words/0893-w-odniesieniu-do.wav",
+      "examples": []
+    },
+    {
+      "id": "894",
+      "rank": 894,
+      "polish": "zgodnie z planem",
+      "russian": "согласно плану",
+      "wordAudio": "words/0894-zgodnie-z-planem.wav",
+      "examples": []
+    },
+    {
+      "id": "895",
+      "rank": 895,
+      "polish": "na bieżąco",
+      "russian": "по мере поступления",
+      "wordAudio": "words/0895-na-biezaco.wav",
+      "examples": []
+    },
+    {
+      "id": "896",
+      "rank": 896,
+      "polish": "w związku z tym",
+      "russian": "в связи с этим",
+      "wordAudio": "words/0896-w-zwiazku-z-tym.wav",
+      "examples": []
+    },
+    {
+      "id": "897",
+      "rank": 897,
+      "polish": "co więcej",
+      "russian": "более того",
+      "wordAudio": "words/0897-co-wiecej.wav",
+      "examples": []
+    },
+    {
+      "id": "898",
+      "rank": 898,
+      "polish": "z drugiej strony",
+      "russian": "с другой стороны",
+      "wordAudio": "words/0898-z-drugiej-strony.wav",
+      "examples": []
+    },
+    {
+      "id": "899",
+      "rank": 899,
+      "polish": "warto zauważyć",
+      "russian": "стоит отметить",
+      "wordAudio": "words/0899-warto-zauwazyc.wav",
+      "examples": []
+    },
+    {
+      "id": "900",
+      "rank": 900,
+      "polish": "nie ma wątpliwości",
+      "russian": "нет сомнений",
+      "wordAudio": "words/0900-nie-ma-watpliwosci.wav",
+      "examples": []
+    },
+    {
+      "id": "901",
+      "rank": 901,
+      "polish": "podsumowanie",
+      "russian": "резюме",
+      "wordAudio": "words/0901-podsumowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "902",
+      "rank": 902,
+      "polish": "wniosek końcowy",
+      "russian": "итоговый вывод",
+      "wordAudio": "words/0902-wniosek-koncowy.wav",
+      "examples": []
+    },
+    {
+      "id": "903",
+      "rank": 903,
+      "polish": "priorytetowy",
+      "russian": "приоритетный",
+      "wordAudio": "words/0903-priorytetowy.wav",
+      "examples": []
+    },
+    {
+      "id": "904",
+      "rank": 904,
+      "polish": "długoterminowy",
+      "russian": "долгосрочный",
+      "wordAudio": "words/0904-dlugoterminowy.wav",
+      "examples": []
+    },
+    {
+      "id": "905",
+      "rank": 905,
+      "polish": "krótkoterminowy",
+      "russian": "краткосрочный",
+      "wordAudio": "words/0905-krotkoterminowy.wav",
+      "examples": []
+    },
+    {
+      "id": "906",
+      "rank": 906,
+      "polish": "efektywność",
+      "russian": "эффективность",
+      "wordAudio": "words/0906-efektywnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "907",
+      "rank": 907,
+      "polish": "nadawca",
+      "russian": "отправитель",
+      "wordAudio": "words/0907-nadawca.wav",
+      "examples": []
+    },
+    {
+      "id": "908",
+      "rank": 908,
+      "polish": "zasób",
+      "russian": "ресурс",
+      "wordAudio": "words/0908-zasob.wav",
+      "examples": []
+    },
+    {
+      "id": "909",
+      "rank": 909,
+      "polish": "przewoźnik",
+      "russian": "перевозчик",
+      "wordAudio": "words/0909-przewoznik.wav",
+      "examples": []
+    },
+    {
+      "id": "910",
+      "rank": 910,
+      "polish": "wartość dodana",
+      "russian": "добавленная ценность",
+      "wordAudio": "words/0910-wartosc-dodana.wav",
+      "examples": []
+    },
+    {
+      "id": "911",
+      "rank": 911,
+      "polish": "rozwój osobisty",
+      "russian": "личностное развитие",
+      "wordAudio": "words/0911-rozwoj-osobisty.wav",
+      "examples": []
+    },
+    {
+      "id": "912",
+      "rank": 912,
+      "polish": "równowaga życiowa",
+      "russian": "жизненный баланс",
+      "wordAudio": "words/0912-rownowaga-zyciowa.wav",
+      "examples": []
+    },
+    {
+      "id": "913",
+      "rank": 913,
+      "polish": "dobrobyt",
+      "russian": "благополучие",
+      "wordAudio": "words/0913-dobrobyt.wav",
+      "examples": []
+    },
+    {
+      "id": "914",
+      "rank": 914,
+      "polish": "przyszłość",
+      "russian": "будущее",
+      "wordAudio": "words/0914-przyszlosc.wav",
+      "examples": []
+    },
+    {
+      "id": "915",
+      "rank": 915,
+      "polish": "możliwości",
+      "russian": "возможности",
+      "wordAudio": "words/0915-mozliwosci.wav",
+      "examples": []
+    },
+    {
+      "id": "916",
+      "rank": 916,
+      "polish": "perspektywa rozwoju",
+      "russian": "перспектива развития",
+      "wordAudio": "words/0916-perspektywa-rozwoju.wav",
+      "examples": []
+    },
+    {
+      "id": "917",
+      "rank": 917,
+      "polish": "świadomy",
+      "russian": "осознанный",
+      "wordAudio": "words/0917-swiadomy.wav",
+      "examples": []
+    },
+    {
+      "id": "918",
+      "rank": 918,
+      "polish": "odpowiedzialnie",
+      "russian": "ответственно",
+      "wordAudio": "words/0918-odpowiedzialnie.wav",
+      "examples": []
+    },
+    {
+      "id": "919",
+      "rank": 919,
+      "polish": "konsekwentnie",
+      "russian": "последовательно",
+      "wordAudio": "words/0919-konsekwentnie.wav",
+      "examples": []
+    },
+    {
+      "id": "920",
+      "rank": 920,
+      "polish": "świadczyć o",
+      "russian": "свидетельствовать о",
+      "wordAudio": "words/0920-swiadczyc-o.wav",
+      "examples": []
+    },
+    {
+      "id": "921",
+      "rank": 921,
+      "polish": "ubezpieczony",
+      "russian": "застрахованный",
+      "wordAudio": "words/0921-ubezpieczony.wav",
+      "examples": []
+    },
+    {
+      "id": "922",
+      "rank": 922,
+      "polish": "wskazówka",
+      "russian": "подсказка",
+      "wordAudio": "words/0922-wskazowka.wav",
+      "examples": []
+    },
+    {
+      "id": "923",
+      "rank": 923,
+      "polish": "rekomendacja",
+      "russian": "рекомендация",
+      "wordAudio": "words/0923-rekomendacja.wav",
+      "examples": []
+    },
+    {
+      "id": "924",
+      "rank": 924,
+      "polish": "rozwijać kompetencje",
+      "russian": "развивать компетенции",
+      "wordAudio": "words/0924-rozwijac-kompetencje.wav",
+      "examples": []
+    },
+    {
+      "id": "925",
+      "rank": 925,
+      "polish": "rachunek bankowy",
+      "russian": "банковский счет",
+      "wordAudio": "words/0925-rachunek-bankowy.wav",
+      "examples": []
+    },
+    {
+      "id": "926",
+      "rank": 926,
+      "polish": "osiedle",
+      "russian": "жилой район",
+      "wordAudio": "words/0926-osiedle.wav",
+      "examples": []
+    },
+    {
+      "id": "927",
+      "rank": 927,
+      "polish": "dzielnica",
+      "russian": "район города",
+      "wordAudio": "words/0927-dzielnica.wav",
+      "examples": []
+    },
+    {
+      "id": "928",
+      "rank": 928,
+      "polish": "chodnik",
+      "russian": "тротуар",
+      "wordAudio": "words/0928-chodnik.wav",
+      "examples": []
+    },
+    {
+      "id": "929",
+      "rank": 929,
+      "polish": "przejście dla pieszych",
+      "russian": "пешеходный переход",
+      "wordAudio": "words/0929-przejscie-dla-pieszych.wav",
+      "examples": []
+    },
+    {
+      "id": "930",
+      "rank": 930,
+      "polish": "skrzyżowanie",
+      "russian": "перекресток",
+      "wordAudio": "words/0930-skrzyzowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "931",
+      "rank": 931,
+      "polish": "apteczka",
+      "russian": "аптечка",
+      "wordAudio": "words/0931-apteczka.wav",
+      "examples": []
+    },
+    {
+      "id": "932",
+      "rank": 932,
+      "polish": "pielęgniarka",
+      "russian": "медсестра",
+      "wordAudio": "words/0932-pielegniarka.wav",
+      "examples": []
+    },
+    {
+      "id": "933",
+      "rank": 933,
+      "polish": "rehabilitacja",
+      "russian": "реабилитация",
+      "wordAudio": "words/0933-rehabilitacja.wav",
+      "examples": []
+    },
+    {
+      "id": "934",
+      "rank": 934,
+      "polish": "badanie krwi",
+      "russian": "анализ крови",
+      "wordAudio": "words/0934-badanie-krwi.wav",
+      "examples": []
+    },
+    {
+      "id": "935",
+      "rank": 935,
+      "polish": "dowód osobisty",
+      "russian": "удостоверение личности",
+      "wordAudio": "words/0935-dowod-osobisty.wav",
+      "examples": []
+    },
+    {
+      "id": "936",
+      "rank": 936,
+      "polish": "paszport",
+      "russian": "паспорт",
+      "wordAudio": "words/0936-paszport.wav",
+      "examples": []
+    },
+    {
+      "id": "937",
+      "rank": 937,
+      "polish": "obywatelstwo",
+      "russian": "гражданство",
+      "wordAudio": "words/0937-obywatelstwo.wav",
+      "examples": []
+    },
+    {
+      "id": "938",
+      "rank": 938,
+      "polish": "legalizacja pobytu",
+      "russian": "легализация пребывания",
+      "wordAudio": "words/0938-legalizacja-pobytu.wav",
+      "examples": []
+    },
+    {
+      "id": "939",
+      "rank": 939,
+      "polish": "urzędowy",
+      "russian": "официальный",
+      "wordAudio": "words/0939-urzedowy.wav",
+      "examples": []
+    },
+    {
+      "id": "940",
+      "rank": 940,
+      "polish": "formularz",
+      "russian": "форма, бланк",
+      "wordAudio": "words/0940-formularz.wav",
+      "examples": []
+    },
+    {
+      "id": "941",
+      "rank": 941,
+      "polish": "załącznik",
+      "russian": "приложение к документу",
+      "wordAudio": "words/0941-zalacznik.wav",
+      "examples": []
+    },
+    {
+      "id": "942",
+      "rank": 942,
+      "polish": "podpis",
+      "russian": "подпись",
+      "wordAudio": "words/0942-podpis.wav",
+      "examples": []
+    },
+    {
+      "id": "943",
+      "rank": 943,
+      "polish": "pieczątka",
+      "russian": "печать",
+      "wordAudio": "words/0943-pieczatka.wav",
+      "examples": []
+    },
+    {
+      "id": "944",
+      "rank": 944,
+      "polish": "wydruk",
+      "russian": "распечатка",
+      "wordAudio": "words/0944-wydruk.wav",
+      "examples": []
+    },
+    {
+      "id": "945",
+      "rank": 945,
+      "polish": "księgowy",
+      "russian": "бухгалтер",
+      "wordAudio": "words/0945-ksiegowy.wav",
+      "examples": []
+    },
+    {
+      "id": "946",
+      "rank": 946,
+      "polish": "wynagrodzenie",
+      "russian": "заработная плата",
+      "wordAudio": "words/0946-wynagrodzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "947",
+      "rank": 947,
+      "polish": "premia",
+      "russian": "премия",
+      "wordAudio": "words/0947-premia.wav",
+      "examples": []
+    },
+    {
+      "id": "948",
+      "rank": 948,
+      "polish": "podwyżka",
+      "russian": "повышение зарплаты",
+      "wordAudio": "words/0948-podwyzka.wav",
+      "examples": []
+    },
+    {
+      "id": "949",
+      "rank": 949,
+      "polish": "zwolnienie lekarskie",
+      "russian": "больничный",
+      "wordAudio": "words/0949-zwolnienie-lekarskie.wav",
+      "examples": []
+    },
+    {
+      "id": "950",
+      "rank": 950,
+      "polish": "nadgodziny",
+      "russian": "сверхурочные",
+      "wordAudio": "words/0950-nadgodziny.wav",
+      "examples": []
+    },
+    {
+      "id": "951",
+      "rank": 951,
+      "polish": "rejestracja",
+      "russian": "регистрация",
+      "wordAudio": "words/0951-rejestracja.wav",
+      "examples": []
+    },
+    {
+      "id": "952",
+      "rank": 952,
+      "polish": "ubezpieczyciel",
+      "russian": "страховщик",
+      "wordAudio": "words/0952-ubezpieczyciel.wav",
+      "examples": []
+    },
+    {
+      "id": "953",
+      "rank": 953,
+      "polish": "właściciel firmy",
+      "russian": "владелец компании",
+      "wordAudio": "words/0953-wlasciciel-firmy.wav",
+      "examples": []
+    },
+    {
+      "id": "954",
+      "rank": 954,
+      "polish": "pracownik biurowy",
+      "russian": "офисный сотрудник",
+      "wordAudio": "words/0954-pracownik-biurowy.wav",
+      "examples": []
+    },
+    {
+      "id": "955",
+      "rank": 955,
+      "polish": "umowa o pracę",
+      "russian": "трудовой договор",
+      "wordAudio": "words/0955-umowa-o-prace.wav",
+      "examples": []
+    },
+    {
+      "id": "956",
+      "rank": 956,
+      "polish": "umowa zlecenie",
+      "russian": "договор подряда",
+      "wordAudio": "words/0956-umowa-zlecenie.wav",
+      "examples": []
+    },
+    {
+      "id": "957",
+      "rank": 957,
+      "polish": "umowa o dzieło",
+      "russian": "договор на выполнение работы",
+      "wordAudio": "words/0957-umowa-o-dzielo.wav",
+      "examples": []
+    },
+    {
+      "id": "958",
+      "rank": 958,
+      "polish": "rachunek telefoniczny",
+      "russian": "счет за телефон",
+      "wordAudio": "words/0958-rachunek-telefoniczny.wav",
+      "examples": []
+    },
+    {
+      "id": "959",
+      "rank": 959,
+      "polish": "oprogramowanie",
+      "russian": "программное обеспечение",
+      "wordAudio": "words/0959-oprogramowanie.wav",
+      "examples": []
+    },
+    {
+      "id": "960",
+      "rank": 960,
+      "polish": "plik",
+      "russian": "файл",
+      "wordAudio": "words/0960-plik.wav",
+      "examples": []
+    },
+    {
+      "id": "961",
+      "rank": 961,
+      "polish": "folder",
+      "russian": "папка",
+      "wordAudio": "words/0961-folder.wav",
+      "examples": []
+    },
+    {
+      "id": "962",
+      "rank": 962,
+      "polish": "wyszukiwarka",
+      "russian": "поисковая система",
+      "wordAudio": "words/0962-wyszukiwarka.wav",
+      "examples": []
+    },
+    {
+      "id": "963",
+      "rank": 963,
+      "polish": "strona internetowa",
+      "russian": "веб-сайт",
+      "wordAudio": "words/0963-strona-internetowa.wav",
+      "examples": []
+    },
+    {
+      "id": "964",
+      "rank": 964,
+      "polish": "przeglądarka",
+      "russian": "браузер",
+      "wordAudio": "words/0964-przegladarka.wav",
+      "examples": []
+    },
+    {
+      "id": "965",
+      "rank": 965,
+      "polish": "bezpieczeństwo danych",
+      "russian": "безопасность данных",
+      "wordAudio": "words/0965-bezpieczenstwo-danych.wav",
+      "examples": []
+    },
+    {
+      "id": "966",
+      "rank": 966,
+      "polish": "konto bankowe",
+      "russian": "przedsięwzięcie",
+      "wordAudio": "words/0966-konto-bankowe.wav",
+      "examples": []
+    },
+    {
+      "id": "967",
+      "rank": 967,
+      "polish": "karta płatnicza",
+      "russian": "платежная карта",
+      "wordAudio": "words/0967-karta-platnicza.wav",
+      "examples": []
+    },
+    {
+      "id": "968",
+      "rank": 968,
+      "polish": "bankomat",
+      "russian": "банкомат",
+      "wordAudio": "words/0968-bankomat.wav",
+      "examples": []
+    },
+    {
+      "id": "969",
+      "rank": 969,
+      "polish": "wypłata",
+      "russian": "снятие денег",
+      "wordAudio": "words/0969-wyplata.wav",
+      "examples": []
+    },
+    {
+      "id": "970",
+      "rank": 970,
+      "polish": "wpłata",
+      "russian": "внесение денег",
+      "wordAudio": "words/0970-wplata.wav",
+      "examples": []
+    },
+    {
+      "id": "971",
+      "rank": 971,
+      "polish": "saldo",
+      "russian": "баланс счета",
+      "wordAudio": "words/0971-saldo.wav",
+      "examples": []
+    },
+    {
+      "id": "972",
+      "rank": 972,
+      "polish": "oszczędnościowe",
+      "russian": "сберегательный",
+      "wordAudio": "words/0972-oszczednosciowe.wav",
+      "examples": []
+    },
+    {
+      "id": "973",
+      "rank": 973,
+      "polish": "lokata",
+      "russian": "депозит",
+      "wordAudio": "words/0973-lokata.wav",
+      "examples": []
+    },
+    {
+      "id": "974",
+      "rank": 974,
+      "polish": "inwestycja",
+      "russian": "инвестиция",
+      "wordAudio": "words/0974-inwestycja.wav",
+      "examples": []
+    },
+    {
+      "id": "975",
+      "rank": 975,
+      "polish": "doradca",
+      "russian": "консультант",
+      "wordAudio": "words/0975-doradca.wav",
+      "examples": []
+    },
+    {
+      "id": "976",
+      "rank": 976,
+      "polish": "sprzęt",
+      "russian": "оборудование",
+      "wordAudio": "words/0976-sprzet.wav",
+      "examples": []
+    },
+    {
+      "id": "977",
+      "rank": 977,
+      "polish": "narzędzie",
+      "russian": "инструмент",
+      "wordAudio": "words/0977-narzedzie.wav",
+      "examples": []
+    },
+    {
+      "id": "978",
+      "rank": 978,
+      "polish": "wyposażony",
+      "russian": "оборудованный",
+      "wordAudio": "words/0978-wyposazony.wav",
+      "examples": []
+    },
+    {
+      "id": "979",
+      "rank": 979,
+      "polish": "wydarzenie",
+      "russian": "мероприятие",
+      "wordAudio": "words/0979-wydarzenie.wav",
+      "examples": []
+    },
+    {
+      "id": "980",
+      "rank": 980,
+      "polish": "uczestnik",
+      "russian": "участник",
+      "wordAudio": "words/0980-uczestnik.wav",
+      "examples": []
+    },
+    {
+      "id": "981",
+      "rank": 981,
+      "polish": "organizator",
+      "russian": "организатор",
+      "wordAudio": "words/0981-organizator.wav",
+      "examples": []
+    },
+    {
+      "id": "982",
+      "rank": 982,
+      "polish": "publiczność",
+      "russian": "публика",
+      "wordAudio": "words/0982-publicznosc.wav",
+      "examples": []
+    },
+    {
+      "id": "983",
+      "rank": 983,
+      "polish": "kultura",
+      "russian": "культура",
+      "wordAudio": "words/0983-kultura.wav",
+      "examples": []
+    },
+    {
+      "id": "984",
+      "rank": 984,
+      "polish": "muzeum",
+      "russian": "музей",
+      "wordAudio": "words/0984-muzeum.wav",
+      "examples": []
+    },
+    {
+      "id": "985",
+      "rank": 985,
+      "polish": "wystawa",
+      "russian": "выставка",
+      "wordAudio": "words/0985-wystawa.wav",
+      "examples": []
+    },
+    {
+      "id": "986",
+      "rank": 986,
+      "polish": "biblioteka",
+      "russian": "библиотека",
+      "wordAudio": "words/0986-biblioteka.wav",
+      "examples": []
+    },
+    {
+      "id": "987",
+      "rank": 987,
+      "polish": "książka",
+      "russian": "книга",
+      "wordAudio": "words/0987-ksiazka.wav",
+      "examples": []
+    },
+    {
+      "id": "988",
+      "rank": 988,
+      "polish": "czytelnik",
+      "russian": "читатель",
+      "wordAudio": "words/0988-czytelnik.wav",
+      "examples": []
+    },
+    {
+      "id": "989",
+      "rank": 989,
+      "polish": "autor",
+      "russian": "автор",
+      "wordAudio": "words/0989-autor.wav",
+      "examples": []
+    },
+    {
+      "id": "990",
+      "rank": 990,
+      "polish": "artykuł",
+      "russian": "статья",
+      "wordAudio": "words/0990-artykul.wav",
+      "examples": []
+    },
+    {
+      "id": "991",
+      "rank": 991,
+      "polish": "gazeta",
+      "russian": "газета",
+      "wordAudio": "words/0991-gazeta.wav",
+      "examples": []
+    },
+    {
+      "id": "992",
+      "rank": 992,
+      "polish": "wiadomości",
+      "russian": "новости",
+      "wordAudio": "words/0992-wiadomosci.wav",
+      "examples": []
+    },
+    {
+      "id": "993",
+      "rank": 993,
+      "polish": "program",
+      "russian": "программа",
+      "wordAudio": "words/0993-program.wav",
+      "examples": []
+    },
+    {
+      "id": "994",
+      "rank": 994,
+      "polish": "kanał",
+      "russian": "канал",
+      "wordAudio": "words/0994-kanal.wav",
+      "examples": []
+    },
+    {
+      "id": "995",
+      "rank": 995,
+      "polish": "ekran",
+      "russian": "экран",
+      "wordAudio": "words/0995-ekran.wav",
+      "examples": []
+    },
+    {
+      "id": "996",
+      "rank": 996,
+      "polish": "podróżować",
+      "russian": "путешествовать",
+      "wordAudio": "words/0996-podrozowac.wav",
+      "examples": []
+    },
+    {
+      "id": "997",
+      "rank": 997,
+      "polish": "odpoczywać",
+      "russian": "отдыхать",
+      "wordAudio": "words/0997-odpoczywac.wav",
+      "examples": []
+    },
+    {
+      "id": "998",
+      "rank": 998,
+      "polish": "spacer",
+      "russian": "прогулка",
+      "wordAudio": "words/0998-spacer.wav",
+      "examples": []
+    },
+    {
+      "id": "999",
+      "rank": 999,
+      "polish": "aktywność",
+      "russian": "активность",
+      "wordAudio": "words/0999-aktywnosc.wav",
+      "examples": []
+    },
+    {
+      "id": "1000",
+      "rank": 1000,
+      "polish": "ćwiczenie",
+      "russian": "упражнение",
+      "wordAudio": "words/1000-cwiczenie.wav",
+      "examples": []
+    }
+  ]
+}

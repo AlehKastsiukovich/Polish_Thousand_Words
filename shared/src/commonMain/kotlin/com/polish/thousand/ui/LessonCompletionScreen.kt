@@ -18,6 +18,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.polish.thousand.content.LearningPath
-import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
@@ -45,7 +45,8 @@ internal fun LessonCompletionScreen(
     quickReviewWords: Int = 0,
     continuesToNextLesson: Boolean = false,
     onQuickReviewClick: () -> Unit = {},
-    onContinueClick: () -> Unit = {}
+    onContinueClick: () -> Unit = {},
+    onHomeClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
@@ -56,9 +57,8 @@ internal fun LessonCompletionScreen(
         ?: 0
     val remaining = (milestone.wordCount - learnedWords).coerceAtLeast(0)
     val milestoneProgress = LearningPath.milestoneProgress(learnedWords)
-    val totalProgress = (learnedWords.toFloat() / LearningTargetWords).coerceIn(0f, 1f)
     val missedWords = (attemptedWords - addedWords).coerceAtLeast(0)
-    val bottomContentPadding = if (quickReviewWords > 0) 154.dp else 92.dp
+    val bottomContentPadding = if (quickReviewWords > 0) 190.dp else 124.dp
 
     Box(
         modifier = Modifier
@@ -111,12 +111,6 @@ internal fun LessonCompletionScreen(
                 supportLanguage = supportLanguage
             )
 
-            Spacer(modifier = Modifier.height(spacing.md))
-
-            OverallPathCard(
-                totalProgress = totalProgress,
-                supportLanguage = supportLanguage
-            )
         }
 
         Column(
@@ -197,9 +191,26 @@ internal fun LessonCompletionScreen(
                     )
                 }
             }
+
+            TextButton(
+                onClick = onHomeClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(44.dp)
+            ) {
+                Text(
+                    text = completionHomeActionLabel(supportLanguage),
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                )
+            }
         }
     }
 }
+
+private fun completionHomeActionLabel(supportLanguage: SupportLanguage): String =
+    if (supportLanguage == SupportLanguage.Ukrainian) "На головну" else "На главную"
 
 private fun completionPrimaryActionLabel(
     supportLanguage: SupportLanguage,
@@ -370,46 +381,9 @@ private fun MilestoneProgressCard(
 }
 
 @Composable
-private fun OverallPathCard(
-    totalProgress: Float,
-    supportLanguage: SupportLanguage
-) {
-    val spacing = MaterialTheme.appSpacing
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = spacing.xl, vertical = spacing.lg),
-            verticalArrangement = Arrangement.spacedBy(spacing.sm)
-        ) {
-            Text(
-                text = if (supportLanguage == SupportLanguage.Ukrainian) "Загальний шлях" else "Общий путь",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
-            )
-            ProgressLine(progress = totalProgress, compact = true)
-            Text(
-                text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                    "Рух іде далі крок за кроком."
-                } else {
-                    "Движение идет дальше шаг за шагом."
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.56f)
-            )
-        }
-    }
-}
-
-@Composable
-private fun ProgressLine(
-    progress: Float,
-    compact: Boolean = false
-) {
+private fun ProgressLine(progress: Float) {
     val colors = MaterialTheme.appColors
-    val height = if (compact) 7.dp else 12.dp
+    val height = 12.dp
     Box(
         modifier = Modifier
             .fillMaxWidth()
