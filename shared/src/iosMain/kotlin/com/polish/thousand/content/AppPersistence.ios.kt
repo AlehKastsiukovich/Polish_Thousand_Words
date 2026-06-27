@@ -66,6 +66,24 @@ private class IosAppPersistence(
         }
     }
 
+    override fun loadActiveSession(): ActiveSession? = defaults
+        .stringForKey(ActiveSessionKey)
+        ?.toActiveSessionOrNull()
+
+    override fun saveActiveSession(session: ActiveSession?) {
+        if (session == null) defaults.removeObjectForKey(ActiveSessionKey)
+        else defaults.setObject(session.toStorageString(), forKey = ActiveSessionKey)
+    }
+
+    override fun loadLessonSession(): PersistedLessonSession? = defaults
+        .stringForKey(LessonSessionKey)
+        ?.toPersistedLessonSessionOrNull()
+
+    override fun saveLessonSession(session: PersistedLessonSession?) {
+        if (session == null) defaults.removeObjectForKey(LessonSessionKey)
+        else defaults.setObject(session.toStorageString(), forKey = LessonSessionKey)
+    }
+
     override fun loadHasPremium(): Boolean = defaults.boolForKey(HasPremiumKey)
 
     override fun saveHasPremium(hasPremium: Boolean) {
@@ -87,7 +105,11 @@ private const val ReviewStatesKey = "review_states"
 private const val ReviewStateSeparator = "|"
 private const val ReviewRecordSeparator = ";"
 private const val PendingQuickReviewKey = "pending_quick_review"
+private const val ActiveSessionKey = "active_session"
+private const val LessonSessionKey = "lesson_session"
 private const val PendingQuickReviewWordSeparator = ","
+private const val SessionFieldSeparator = "\u001F"
+private const val SessionItemSeparator = "\u001E"
 private const val HasPremiumKey = "has_premium"
 private const val HasSeenPaywallKey = "has_seen_paywall"
 
@@ -124,5 +146,53 @@ private fun String.toPendingQuickReviewOrNull(): PendingQuickReview? {
         wordIds = parts[2]
             .split(PendingQuickReviewWordSeparator)
             .filterTo(mutableSetOf()) { it.isNotBlank() }
+    )
+}
+
+private fun ActiveSession.toStorageString(): String = listOf(
+    type.name,
+    topicId,
+    lessonId,
+    wordIds.joinToString(SessionItemSeparator)
+).joinToString(SessionFieldSeparator)
+
+private fun String.toActiveSessionOrNull(): ActiveSession? {
+    val parts = split(SessionFieldSeparator)
+    if (parts.size != 4) return null
+    return ActiveSession(
+        type = ActiveSessionType.entries.firstOrNull { it.name == parts[0] } ?: return null,
+        topicId = parts[1],
+        lessonId = parts[2],
+        wordIds = parts[3].split(SessionItemSeparator).filter { it.isNotBlank() }
+    )
+}
+
+private fun PersistedLessonSession.toStorageString(): String = listOf(
+    sessionKey,
+    phase.name,
+    reviewIndex.toString(),
+    learnIndex.toString(),
+    practiceIndex.toString(),
+    selectedAnswer.orEmpty(),
+    submittedAnswer.orEmpty(),
+    correctPracticeWordIds.joinToString(SessionItemSeparator),
+    isReviewAnswerVisible.toString()
+).joinToString(SessionFieldSeparator)
+
+private fun String.toPersistedLessonSessionOrNull(): PersistedLessonSession? {
+    val parts = split(SessionFieldSeparator)
+    if (parts.size != 9) return null
+    return PersistedLessonSession(
+        sessionKey = parts[0],
+        phase = PersistedLessonPhase.entries.firstOrNull { it.name == parts[1] } ?: return null,
+        reviewIndex = parts[2].toIntOrNull() ?: return null,
+        learnIndex = parts[3].toIntOrNull() ?: return null,
+        practiceIndex = parts[4].toIntOrNull() ?: return null,
+        selectedAnswer = parts[5].ifBlank { null },
+        submittedAnswer = parts[6].ifBlank { null },
+        correctPracticeWordIds = parts[7]
+            .split(SessionItemSeparator)
+            .filterTo(mutableSetOf()) { it.isNotBlank() },
+        isReviewAnswerVisible = parts[8].toBooleanStrictOrNull() ?: false
     )
 }

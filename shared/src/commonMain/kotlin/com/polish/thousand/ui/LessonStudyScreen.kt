@@ -19,19 +19,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.PathFillType
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.vector.path
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.LessonItemContent
 import com.polish.thousand.content.MvpSeedContent
@@ -56,37 +57,28 @@ import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
 
-private enum class LessonPhase {
-    Review,
-    Learn,
-    Practice
-}
-
 @Composable
 internal fun LessonStudyScreen(
-    lesson: LessonContent,
-    reviewItems: List<LessonItemContent> = emptyList(),
-    reviewOnly: Boolean = false,
-    supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
+    state: LessonUiState,
     onBackClick: () -> Unit = {},
-    onReviewAnswer: (String, ReviewQuality) -> Unit = { _, _ -> },
-    onReviewCompleteClick: () -> Unit = {},
-    onCompleteClick: (Set<String>) -> Unit = {}
+    onIntent: (LessonIntent) -> Unit = {},
+    onPlayWordClick: (LessonItemContent) -> Unit = {},
+    onPlayExampleClick: (LessonItemContent, Int) -> Unit = { _, _ -> }
 ) {
+    val lesson = state.lesson ?: return
+    val reviewItems = state.reviewItems
+    val reviewOnly = state.reviewOnly
+    val supportLanguage = state.supportLanguage
+    val phase = state.phase
+    val reviewIndex = state.reviewIndex
+    val currentIndex = state.learnIndex
+    val quizIndex = state.practiceIndex
+    val selectedAnswer = state.selectedAnswer
+    val submittedAnswer = state.submittedAnswer
+    val isReviewAnswerVisible = state.isReviewAnswerVisible
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
     val text = supportLanguage.appText
-    val reviewKey = remember(reviewItems) { reviewItems.joinToString(separator = "|") { it.id } }
-    var phase by remember(lesson.id, reviewKey) {
-        mutableStateOf(if (reviewItems.isEmpty()) LessonPhase.Learn else LessonPhase.Review)
-    }
-    var reviewIndex by remember(lesson.id, reviewKey) { mutableIntStateOf(0) }
-    var currentIndex by remember(lesson.id) { mutableIntStateOf(0) }
-    var quizIndex by remember(lesson.id) { mutableIntStateOf(0) }
-    var selectedAnswer by remember(lesson.id) { mutableStateOf<String?>(null) }
-    var submittedAnswer by remember(lesson.id) { mutableStateOf<String?>(null) }
-    var correctPracticeWordIds by remember(lesson.id) { mutableStateOf(emptySet<String>()) }
-    var isReviewAnswerVisible by remember(lesson.id, reviewKey, reviewIndex) { mutableStateOf(false) }
 
     val reviewItem = reviewItems.getOrNull(reviewIndex)
     val learningItem = lesson.items[currentIndex]
@@ -103,19 +95,6 @@ internal fun LessonStudyScreen(
         LessonPhase.Review -> (reviewIndex + 1f) / totalSteps
         LessonPhase.Learn -> (reviewItems.size + currentIndex + 1f) / totalSteps
         LessonPhase.Practice -> (reviewItems.size + lesson.items.size + quizIndex + 1f) / totalSteps
-    }
-    val submitReviewAnswer: (LessonItemContent, ReviewQuality) -> Unit = { item, quality ->
-        onReviewAnswer(item.id, quality)
-        isReviewAnswerVisible = false
-        if (reviewIndex == reviewItems.lastIndex) {
-            if (reviewOnly) {
-                onReviewCompleteClick()
-            } else {
-                phase = LessonPhase.Learn
-            }
-        } else {
-            reviewIndex += 1
-        }
     }
 
     Box(
@@ -212,12 +191,16 @@ internal fun LessonStudyScreen(
                         LessonReviewCard(
                             item = item,
                             supportLanguage = supportLanguage,
-                            answerVisible = isReviewAnswerVisible
+                            answerVisible = isReviewAnswerVisible,
+                            onPlayWordClick = { onPlayWordClick(item) },
+                            onPlayExampleClick = { index -> onPlayExampleClick(item, index) }
                         )
                     }
                     LessonPhase.Learn -> LessonLearnCard(
                         item = learningItem,
-                        supportLanguage = supportLanguage
+                        supportLanguage = supportLanguage,
+                        onPlayWordClick = { onPlayWordClick(learningItem) },
+                        onPlayExampleClick = { index -> onPlayExampleClick(learningItem, index) }
                     )
                     LessonPhase.Practice -> LessonPracticeCard(
                         lesson = lesson,
@@ -226,9 +209,7 @@ internal fun LessonStudyScreen(
                         selectedAnswer = selectedAnswer,
                         submittedAnswer = submittedAnswer,
                         onAnswerSelected = { answer ->
-                            if (submittedAnswer == null) {
-                                selectedAnswer = answer
-                            }
+                            onIntent(LessonIntent.SelectAnswer(answer))
                         }
                     )
                 }
@@ -246,7 +227,9 @@ internal fun LessonStudyScreen(
                     ) {
                         if (isReviewAnswerVisible) {
                             Button(
-                                onClick = { submitReviewAnswer(item, ReviewQuality.Know) },
+                                onClick = {
+                                    onIntent(LessonIntent.SubmitReviewAnswer(ReviewQuality.Know))
+                                },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(56.dp),
@@ -270,18 +253,22 @@ internal fun LessonStudyScreen(
                                     text = reviewAnswerLabel(supportLanguage, ReviewQuality.Almost),
                                     quality = ReviewQuality.Almost,
                                     modifier = Modifier.weight(1f),
-                                    onAnswer = { submitReviewAnswer(item, it) }
+                                    onAnswer = { quality ->
+                                        onIntent(LessonIntent.SubmitReviewAnswer(quality))
+                                    }
                                 )
                                 ReviewAnswerButton(
                                     text = reviewAnswerLabel(supportLanguage, ReviewQuality.Forgot),
                                     quality = ReviewQuality.Forgot,
                                     modifier = Modifier.weight(1f),
-                                    onAnswer = { submitReviewAnswer(item, it) }
+                                    onAnswer = { quality ->
+                                        onIntent(LessonIntent.SubmitReviewAnswer(quality))
+                                    }
                                 )
                             }
                         } else {
                             Button(
-                                onClick = { isReviewAnswerVisible = true },
+                                onClick = { onIntent(LessonIntent.RevealReviewAnswer) },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(56.dp),
@@ -315,30 +302,8 @@ internal fun LessonStudyScreen(
                     ) {
                         Button(
                             onClick = {
-                                when (phase) {
-                                    LessonPhase.Review -> Unit
-                                    LessonPhase.Learn -> {
-                                        if (currentIndex > 0) currentIndex -= 1 else onBackClick()
-                                    }
-                                    LessonPhase.Practice -> {
-                                        if (quizIndex > 0) {
-                                            val currentItem = lesson.items[quizIndex]
-                                            val targetItem = lesson.items[quizIndex - 1]
-                                            correctPracticeWordIds = correctPracticeWordIds -
-                                                currentItem.id -
-                                                targetItem.id
-                                            quizIndex -= 1
-                                            selectedAnswer = null
-                                            submittedAnswer = null
-                                        } else {
-                                            correctPracticeWordIds -= quizItem.id
-                                            phase = LessonPhase.Learn
-                                            currentIndex = lesson.items.lastIndex
-                                            selectedAnswer = null
-                                            submittedAnswer = null
-                                        }
-                                    }
-                                }
+                                if (phase == LessonPhase.Learn && currentIndex == 0) onBackClick()
+                                else onIntent(LessonIntent.Previous)
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -358,38 +323,7 @@ internal fun LessonStudyScreen(
                     }
 
                     Button(
-                        onClick = {
-                            when (phase) {
-                                LessonPhase.Review -> Unit
-                                LessonPhase.Learn -> {
-                                    if (isLastLearningCard) {
-                                        phase = LessonPhase.Practice
-                                        selectedAnswer = null
-                                        submittedAnswer = null
-                                    } else {
-                                        currentIndex += 1
-                                    }
-                                }
-                                LessonPhase.Practice -> {
-                                    if (submittedAnswer == null) {
-                                        submittedAnswer = selectedAnswer
-                                        correctPracticeWordIds = if (
-                                            selectedAnswer == quizItem.translationForSelectedLanguage(supportLanguage)
-                                        ) {
-                                            correctPracticeWordIds + quizItem.id
-                                        } else {
-                                            correctPracticeWordIds - quizItem.id
-                                        }
-                                    } else if (isLastQuizQuestion) {
-                                        onCompleteClick(correctPracticeWordIds)
-                                    } else {
-                                        quizIndex += 1
-                                        selectedAnswer = null
-                                        submittedAnswer = null
-                                    }
-                                }
-                            }
-                        },
+                        onClick = { onIntent(LessonIntent.PrimaryAction) },
                         enabled = when (phase) {
                             LessonPhase.Review -> true
                             LessonPhase.Learn -> true
@@ -430,7 +364,9 @@ internal fun LessonStudyScreen(
 private fun LessonReviewCard(
     item: LessonItemContent,
     supportLanguage: SupportLanguage,
-    answerVisible: Boolean
+    answerVisible: Boolean,
+    onPlayWordClick: () -> Unit,
+    onPlayExampleClick: (Int) -> Unit
 ) {
     val spacing = MaterialTheme.appSpacing
     Surface(
@@ -441,12 +377,19 @@ private fun LessonReviewCard(
             modifier = Modifier.padding(spacing.xl),
             verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
-            AdaptiveWordText(
-                text = item.polish,
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                candidateSizes = lessonWordSizes
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                verticalAlignment = Alignment.Top
+            ) {
+                AdaptiveWordText(
+                    text = item.polish,
+                    modifier = Modifier.weight(1f),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    candidateSizes = lessonWordSizes
+                )
+                AudioActionButton(onClick = onPlayWordClick)
+            }
 
             if (answerVisible) {
                 Text(
@@ -460,7 +403,8 @@ private fun LessonReviewCard(
                         LessonExampleCard(
                             index = index + 1,
                             polish = example.polish,
-                            translation = example.translationForSelectedLanguage(supportLanguage)
+                            translation = example.translationForSelectedLanguage(supportLanguage),
+                            onPlayClick = null
                         )
                     }
                 }
@@ -518,7 +462,9 @@ private fun ReviewAnswerButton(
 @Composable
 private fun LessonLearnCard(
     item: LessonItemContent,
-    supportLanguage: SupportLanguage
+    supportLanguage: SupportLanguage,
+    onPlayWordClick: () -> Unit,
+    onPlayExampleClick: (Int) -> Unit
 ) {
     val spacing = MaterialTheme.appSpacing
 
@@ -530,12 +476,19 @@ private fun LessonLearnCard(
             modifier = Modifier.padding(spacing.xl),
             verticalArrangement = Arrangement.spacedBy(spacing.sm)
         ) {
-            AdaptiveWordText(
-                text = item.polish,
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                candidateSizes = lessonWordSizes
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                verticalAlignment = Alignment.Top
+            ) {
+                AdaptiveWordText(
+                    text = item.polish,
+                    modifier = Modifier.weight(1f),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    candidateSizes = lessonWordSizes
+                )
+                AudioActionButton(onClick = onPlayWordClick)
+            }
 
             Text(
                 text = item.translationForSelectedLanguage(supportLanguage),
@@ -551,7 +504,8 @@ private fun LessonLearnCard(
                     LessonExampleCard(
                         index = index + 1,
                         polish = example.polish,
-                        translation = example.translationForSelectedLanguage(supportLanguage)
+                        translation = example.translationForSelectedLanguage(supportLanguage),
+                        onPlayClick = null
                     )
                 }
             }
@@ -569,10 +523,102 @@ private val lessonTranslationStyle = TextStyle(
 )
 
 @Composable
+private fun AudioActionButton(
+    onClick: () -> Unit
+) {
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.extraLarge,
+        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.92f)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(46.dp)
+                .padding(10.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = SpeakerIcon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}
+
+@Composable
+private fun AudioExampleButton(
+    onClick: () -> Unit
+) {
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.extraLarge,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(34.dp)
+                .padding(7.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = SpeakerIcon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}
+
+private val SpeakerIcon: ImageVector by lazy {
+    ImageVector.Builder(
+        name = "SpeakerIcon",
+        defaultWidth = 24.dp,
+        defaultHeight = 24.dp,
+        viewportWidth = 24f,
+        viewportHeight = 24f
+    ).apply {
+        path(
+            fill = SolidColor(Color.Transparent),
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 1.9f,
+            pathFillType = PathFillType.NonZero
+        ) {
+            moveTo(5f, 9f)
+            verticalLineTo(15f)
+            horizontalLineTo(9f)
+            lineTo(14f, 19f)
+            verticalLineTo(5f)
+            lineTo(9f, 9f)
+            close()
+        }
+        path(
+            fill = SolidColor(Color.Transparent),
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 1.9f,
+            pathFillType = PathFillType.NonZero
+        ) {
+            moveTo(17f, 9.5f)
+            curveTo(19.4f, 11.3f, 19.4f, 12.7f, 17f, 14.5f)
+        }
+        path(
+            fill = SolidColor(Color.Transparent),
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 1.9f,
+            pathFillType = PathFillType.NonZero
+        ) {
+            moveTo(18.7f, 6.8f)
+            curveTo(22.0f, 10.0f, 22.0f, 14.0f, 18.7f, 17.2f)
+        }
+    }.build()
+}
+
+@Composable
 private fun LessonExampleCard(
     index: Int,
     polish: String,
-    translation: String
+    translation: String,
+    onPlayClick: (() -> Unit)?
 ) {
     Surface(
         shape = MaterialTheme.shapes.medium,
@@ -602,6 +648,9 @@ private fun LessonExampleCard(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
                 )
+            }
+            if (onPlayClick != null) {
+                AudioExampleButton(onClick = onPlayClick)
             }
         }
     }
@@ -853,7 +902,10 @@ private fun LessonStudyScreenPreview() {
     PolishThousandTheme {
         val topic = MvpSeedContent.path
         LessonStudyScreen(
-            lesson = topic.lessons.first()
+            state = LessonUiState(
+                sessionKey = "preview",
+                lesson = topic.lessons.first()
+            )
         )
     }
 }

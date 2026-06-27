@@ -16,27 +16,31 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.polish.thousand.content.LearningPath
 import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.LessonContent
@@ -99,18 +103,8 @@ internal fun WelcomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "PolishThousand",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    TextButton(onClick = onOpenSettingsClick) {
-                        Text(
-                            text = text.settings,
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    Spacer(modifier = Modifier.size(44.dp))
+                    SettingsActionButton(onClick = onOpenSettingsClick)
                 }
 
                 Spacer(modifier = Modifier.height(spacing.md))
@@ -135,7 +129,8 @@ internal fun WelcomeScreen(
                     ReviewDueCard(
                         dueReviewCount = dueReviewCount,
                         supportLanguage = supportLanguage,
-                        onClick = onOpenDueReviewClick
+                        onClick = onOpenDueReviewClick,
+                        tone = HomeCardTone.Review
                     )
 
                     Spacer(modifier = Modifier.height(spacing.lg))
@@ -145,7 +140,8 @@ internal fun WelcomeScreen(
                     QuickReviewCard(
                         quickReviewCount = quickReviewCount,
                         supportLanguage = supportLanguage,
-                        onClick = onOpenQuickReviewClick
+                        onClick = onOpenQuickReviewClick,
+                        tone = HomeCardTone.QuickReview
                     )
 
                     Spacer(modifier = Modifier.height(spacing.lg))
@@ -155,7 +151,8 @@ internal fun WelcomeScreen(
                     NextLessonCard(
                         lesson = lesson,
                         lessonNumber = completedLessonIds.size + 1,
-                        supportLanguage = supportLanguage
+                        supportLanguage = supportLanguage,
+                        tone = HomeCardTone.NextLesson
                     )
                 }
 
@@ -212,13 +209,14 @@ private fun reviewOnlyActionLabel(supportLanguage: SupportLanguage): String = wh
 private fun QuickReviewCard(
     quickReviewCount: Int,
     supportLanguage: SupportLanguage,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    tone: HomeCardTone
 ) {
     val spacing = MaterialTheme.appSpacing
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.88f),
+        color = tone.containerColor(),
         onClick = onClick
     ) {
         Row(
@@ -230,6 +228,7 @@ private fun QuickReviewCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
+                HomeCardAccent(tone = tone)
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
                         "Швидке повторення"
@@ -237,7 +236,7 @@ private fun QuickReviewCard(
                         "Быстрое повторение"
                     },
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary
+                    color = tone.titleColor()
                 )
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
@@ -259,7 +258,8 @@ private fun QuickReviewCard(
                 )
             }
             TimeChip(
-                text = reviewDurationLabel(quickReviewCount, supportLanguage)
+                text = reviewDurationLabel(quickReviewCount, supportLanguage),
+                tone = tone
             )
         }
     }
@@ -269,13 +269,14 @@ private fun QuickReviewCard(
 private fun ReviewDueCard(
     dueReviewCount: Int,
     supportLanguage: SupportLanguage,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    tone: HomeCardTone
 ) {
     val spacing = MaterialTheme.appSpacing
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f),
+        color = tone.containerColor(),
         onClick = onClick
     ) {
         Row(
@@ -287,6 +288,7 @@ private fun ReviewDueCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
+                HomeCardAccent(tone = tone)
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
                         "Повторення"
@@ -294,7 +296,7 @@ private fun ReviewDueCard(
                         "Повторение"
                     },
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary
+                    color = tone.titleColor()
                 )
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
@@ -312,7 +314,8 @@ private fun ReviewDueCard(
                 )
             }
             TimeChip(
-                text = reviewDurationLabel(dueReviewCount.coerceAtMost(10), supportLanguage)
+                text = reviewDurationLabel(dueReviewCount.coerceAtMost(10), supportLanguage),
+                tone = tone
             )
         }
     }
@@ -337,16 +340,19 @@ private fun reviewDurationLabel(
 }
 
 @Composable
-private fun TimeChip(text: String) {
+private fun TimeChip(
+    text: String,
+    tone: HomeCardTone
+) {
     Surface(
         shape = CircleShape,
-        color = MaterialTheme.colorScheme.primaryContainer
+        color = tone.chipContainerColor()
     ) {
         Text(
             text = text,
             modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = tone.chipContentColor()
         )
     }
 }
@@ -406,7 +412,10 @@ private fun OverallProgressRing(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = learnedWords.toString(),
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.displaySmall.copy(
+                    fontSize = 46.sp,
+                    lineHeight = 50.sp
+                ),
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -428,6 +437,14 @@ private fun MilestoneCard(
     val spacing = MaterialTheme.appSpacing
     val milestone = LearningPath.nextMilestone(learnedWords)
     val progress = (learnedWords.toFloat() / LearningTargetWords).coerceIn(0f, 1f)
+    val trackColor = MaterialTheme.appColors.progressTrack
+    val progressBrush = Brush.horizontalGradient(
+        colors = listOf(
+            MaterialTheme.appColors.progressStart,
+            MaterialTheme.appColors.progressMiddle,
+            MaterialTheme.appColors.progressEnd
+        )
+    )
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
@@ -468,30 +485,37 @@ private fun MilestoneCard(
                 }
             }
 
-            Box(
+            Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(9.dp)
-                    .background(
-                        color = MaterialTheme.appColors.progressTrack,
-                        shape = MaterialTheme.shapes.extraLarge
-                    )
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(progress)
-                        .height(9.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(
-                                    MaterialTheme.appColors.progressStart,
-                                    MaterialTheme.appColors.progressMiddle,
-                                    MaterialTheme.appColors.progressEnd
-                                )
-                            ),
-                            shape = MaterialTheme.shapes.extraLarge
-                        )
+                val strokeWidth = size.height
+                val centerY = size.height / 2f
+                val start = Offset(strokeWidth / 2f, centerY)
+                val end = Offset(size.width - strokeWidth / 2f, centerY)
+
+                drawLine(
+                    color = trackColor,
+                    start = start,
+                    end = end,
+                    strokeWidth = strokeWidth,
+                    cap = StrokeCap.Round
                 )
+
+                if (progress > 0f) {
+                    val progressEnd = Offset(
+                        x = start.x + ((end.x - start.x) * progress),
+                        y = centerY
+                    )
+                    drawLine(
+                        brush = progressBrush,
+                        start = start,
+                        end = progressEnd,
+                        strokeWidth = strokeWidth,
+                        cap = StrokeCap.Round
+                    )
+                }
             }
 
             MilestoneScale(
@@ -557,13 +581,14 @@ private fun MilestoneScale(
 private fun NextLessonCard(
     lesson: LessonContent,
     lessonNumber: Int,
-    supportLanguage: SupportLanguage
+    supportLanguage: SupportLanguage,
+    tone: HomeCardTone
 ) {
     val spacing = MaterialTheme.appSpacing
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface
+        color = tone.containerColor()
     ) {
         Row(
             modifier = Modifier.padding(spacing.lg),
@@ -574,6 +599,7 @@ private fun NextLessonCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
+                HomeCardAccent(tone = tone)
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
                         "Урок $lessonNumber · наступні ${lesson.items.size} слів"
@@ -581,7 +607,7 @@ private fun NextLessonCard(
                         "Урок $lessonNumber · следующие ${lesson.items.size} слов"
                     },
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
+                    color = tone.titleColor()
                 )
                 Text(
                     text = lesson.titleFor(supportLanguage),
@@ -596,17 +622,99 @@ private fun NextLessonCard(
             }
             Surface(
                 shape = CircleShape,
-                color = MaterialTheme.colorScheme.surfaceVariant
+                color = tone.chipContainerColor()
             ) {
                 Text(
                     text = "${lesson.estimatedMinutes} ${if (supportLanguage == SupportLanguage.Ukrainian) "хв" else "мин"}",
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 12.dp),
                     style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = tone.chipContentColor()
                 )
             }
         }
     }
+}
+
+@Composable
+private fun SettingsActionButton(onClick: () -> Unit) {
+    Surface(
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier.size(44.dp)
+        ) {
+            SettingsGlyph()
+        }
+    }
+}
+
+@Composable
+private fun SettingsGlyph() {
+    val color = MaterialTheme.colorScheme.primary
+    Canvas(modifier = Modifier.size(18.dp)) {
+        val stroke = 1.8.dp.toPx()
+        val left = size.width * 0.14f
+        val right = size.width * 0.86f
+        val top = size.height * 0.22f
+        val middle = size.height * 0.5f
+        val bottom = size.height * 0.78f
+        drawLine(color, Offset(left, top), Offset(right, top), strokeWidth = stroke, cap = StrokeCap.Round)
+        drawLine(color, Offset(size.width * 0.28f, middle), Offset(size.width * 0.72f, middle), strokeWidth = stroke, cap = StrokeCap.Round)
+        drawLine(color, Offset(size.width * 0.4f, bottom), Offset(size.width * 0.6f, bottom), strokeWidth = stroke, cap = StrokeCap.Round)
+    }
+}
+
+@Composable
+private fun HomeCardAccent(tone: HomeCardTone) {
+    Box(
+        modifier = Modifier
+            .width(44.dp)
+            .height(6.dp)
+            .background(color = tone.accentColor(), shape = CircleShape)
+    )
+}
+
+private enum class HomeCardTone {
+    Review,
+    QuickReview,
+    NextLesson
+}
+
+@Composable
+private fun HomeCardTone.containerColor(): Color = when (this) {
+    HomeCardTone.Review -> Color(0xFFF5FBF8)
+    HomeCardTone.QuickReview -> Color(0xFFF4FAFD)
+    HomeCardTone.NextLesson -> Color(0xFFFFFCF8)
+}
+
+@Composable
+private fun HomeCardTone.accentColor(): Color = when (this) {
+    HomeCardTone.Review -> Color(0xFF5EC0B0)
+    HomeCardTone.QuickReview -> Color(0xFF69A4E4)
+    HomeCardTone.NextLesson -> Color(0xFFE1C9A5)
+}
+
+@Composable
+private fun HomeCardTone.titleColor(): Color = when (this) {
+    HomeCardTone.Review -> Color(0xFF2A7B71)
+    HomeCardTone.QuickReview -> Color(0xFF2B7D9E)
+    HomeCardTone.NextLesson -> Color(0xFF8D7A63)
+}
+
+@Composable
+private fun HomeCardTone.chipContainerColor(): Color = when (this) {
+    HomeCardTone.Review -> Color(0xFFDFF1EB)
+    HomeCardTone.QuickReview -> Color(0xFFE3F0FB)
+    HomeCardTone.NextLesson -> Color(0xFFF4ECE2)
+}
+
+@Composable
+private fun HomeCardTone.chipContentColor(): Color = when (this) {
+    HomeCardTone.Review -> Color(0xFF255C54)
+    HomeCardTone.QuickReview -> Color(0xFF27587B)
+    HomeCardTone.NextLesson -> Color(0xFF5C534A)
 }
 
 @Preview

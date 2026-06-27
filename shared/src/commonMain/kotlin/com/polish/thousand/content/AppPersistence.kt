@@ -13,6 +13,10 @@ internal interface AppPersistence {
     fun saveReviewStates(states: Map<String, WordReviewState>)
     fun loadPendingQuickReview(): PendingQuickReview?
     fun savePendingQuickReview(review: PendingQuickReview?)
+    fun loadActiveSession(): ActiveSession?
+    fun saveActiveSession(session: ActiveSession?)
+    fun loadLessonSession(): PersistedLessonSession?
+    fun saveLessonSession(session: PersistedLessonSession?)
     fun loadHasPremium(): Boolean
     fun saveHasPremium(hasPremium: Boolean)
     fun loadHasSeenPaywall(): Boolean
@@ -26,4 +30,35 @@ internal data class PendingQuickReview(
     val lessonId: String,
     val wordIds: Set<String>,
     val createdEpochDay: Long
+)
+
+internal enum class ActiveSessionType {
+    Lesson,
+    ScheduledReview,
+    QuickReview
+}
+
+internal data class ActiveSession(
+    val type: ActiveSessionType,
+    val topicId: String,
+    val lessonId: String,
+    val wordIds: List<String> = emptyList()
+)
+
+internal enum class PersistedLessonPhase {
+    Review,
+    Learn,
+    Practice
+}
+
+internal data class PersistedLessonSession(
+    val sessionKey: String,
+    val phase: PersistedLessonPhase,
+    val reviewIndex: Int,
+    val learnIndex: Int,
+    val practiceIndex: Int,
+    val selectedAnswer: String?,
+    val submittedAnswer: String?,
+    val correctPracticeWordIds: Set<String>,
+    val isReviewAnswerVisible: Boolean
 )
