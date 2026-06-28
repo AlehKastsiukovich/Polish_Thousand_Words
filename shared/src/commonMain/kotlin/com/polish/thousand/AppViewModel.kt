@@ -4,6 +4,7 @@ import com.polish.thousand.content.ActiveSession
 import com.polish.thousand.content.ActiveSessionType
 import com.polish.thousand.content.AppPersistence
 import com.polish.thousand.content.LessonContent
+import com.polish.thousand.content.LearningPath
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.PendingQuickReview
 import com.polish.thousand.content.ReviewQuality
@@ -75,6 +76,7 @@ internal sealed interface AppIntent : UiIntent {
     data object ReviewCompleted : AppIntent
     data object QuickReviewCompleted : AppIntent
     data object OpenCompletionQuickReview : AppIntent
+    data object ContinueFromAchievement : AppIntent
     data object ContinueFromCompletion : AppIntent
     data object ReturnHomeFromCompletion : AppIntent
     data object PurchaseFullUnlock : AppIntent
@@ -118,6 +120,7 @@ internal class AppViewModel(
             AppIntent.ReviewCompleted -> resetToWelcome(clearSession = true)
             AppIntent.QuickReviewCompleted -> completeQuickReview()
             AppIntent.OpenCompletionQuickReview -> openCompletionQuickReview()
+            AppIntent.ContinueFromAchievement -> continueFromAchievement()
             AppIntent.ContinueFromCompletion -> continueFromCompletion()
             AppIntent.ReturnHomeFromCompletion -> resetToWelcome(clearSession = true)
             AppIntent.PurchaseFullUnlock -> purchaseFullUnlock()
@@ -218,6 +221,7 @@ internal class AppViewModel(
         val state = uiState.value
         val route = state.currentRoute as? AppRoute.LessonStudy ?: return
         val lessonRoute = resolveLessonRoute(route.topicId, route.lessonId) ?: return
+        val previousLearnedWords = state.learnedWordIds.size
         val addedWordIds = correctWordIds - state.learnedWordIds
         val learnedWordIds = state.learnedWordIds + correctWordIds
         val completedLessonIds = state.completedLessonIds + lessonRoute.lesson.id
@@ -251,25 +255,37 @@ internal class AppViewModel(
         persistence.savePendingQuickReview(pendingQuickReview)
         clearActiveSession()
 
+        val crossedMilestone = LearningPath.crossedMilestone(
+            previousLearnedWords = previousLearnedWords,
+            learnedWords = learnedWordIds.size
+        )
         val shouldShowPaywall = !state.hasPremium &&
             !state.hasSeenPaywall &&
             learnedWordIds.size >= FreeWordLimit
         if (shouldShowPaywall) persistence.saveHasSeenPaywall(true)
-        val nextRoute = if (shouldShowPaywall) {
-            AppRoute.Paywall(
+        val lessonResultRoute: LessonResultRoute = if (shouldShowPaywall) {
+            LessonResultRoute.Paywall(
                 topicId = route.topicId,
                 lessonId = route.lessonId,
                 addedWords = addedWordIds.size,
                 attemptedWords = lessonRoute.lesson.items.size
             )
         } else {
-            AppRoute.LessonCompletion(
+            LessonResultRoute.Completion(
                 topicId = route.topicId,
                 lessonId = route.lessonId,
                 addedWords = addedWordIds.size,
                 attemptedWords = lessonRoute.lesson.items.size
             )
         }
+        val nextRoute = crossedMilestone
+            ?.let { milestone ->
+                AppRoute.AchievementCelebration(
+                    milestoneWordCount = milestone.wordCount,
+                    nextRoute = lessonResultRoute
+                )
+            }
+            ?: lessonResultRoute.toAppRoute()
         setState(
             state.copy(
                 learnedWordIds = learnedWordIds,
@@ -339,6 +355,11 @@ internal class AppViewModel(
     private fun openCompletionQuickReview() {
         if (uiState.value.quickReviewItems.isNotEmpty()) openQuickReview()
         else resetToWelcome(clearSession = true)
+    }
+
+    private fun continueFromAchievement() {
+        val route = uiState.value.currentRoute as? AppRoute.AchievementCelebration ?: return
+        replace(route.nextRoute.toAppRoute())
     }
 
     private fun continueFromCompletion() {
@@ -550,6 +571,10 @@ internal sealed interface AppRoute {
         val lessonId: String,
         val wordIds: List<String>
     ) : AppRoute
+    data class AchievementCelebration(
+        val milestoneWordCount: Int,
+        val nextRoute: LessonResultRoute
+    ) : AppRoute
     data class LessonCompletion(
         val topicId: String,
         val lessonId: String,
@@ -564,6 +589,37 @@ internal sealed interface AppRoute {
     ) : AppRoute
     data class PaywallGate(val topicId: String, val lessonId: String) : AppRoute
     data object Settings : AppRoute
+}
+
+internal sealed interface LessonResultRoute {
+    data class Completion(
+        val topicId: String,
+        val lessonId: String,
+        val addedWords: Int,
+        val attemptedWords: Int
+    ) : LessonResultRoute
+
+    data class Paywall(
+        val topicId: String,
+        val lessonId: String,
+        val addedWords: Int,
+        val attemptedWords: Int
+    ) : LessonResultRoute
+}
+
+internal fun LessonResultRoute.toAppRoute(): AppRoute = when (this) {
+    is LessonResultRoute.Completion -> AppRoute.LessonCompletion(
+        topicId = topicId,
+        lessonId = lessonId,
+        addedWords = addedWords,
+        attemptedWords = attemptedWords
+    )
+    is LessonResultRoute.Paywall -> AppRoute.Paywall(
+        topicId = topicId,
+        lessonId = lessonId,
+        addedWords = addedWords,
+        attemptedWords = attemptedWords
+    )
 }
 
 internal data class ResolvedLessonRoute(
