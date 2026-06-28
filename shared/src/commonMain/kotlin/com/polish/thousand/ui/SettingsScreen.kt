@@ -1,6 +1,7 @@
 package com.polish.thousand.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,9 +43,13 @@ internal fun SettingsScreen(
     selectedLanguage: SupportLanguage,
     supportLanguage: SupportLanguage,
     hasPremium: Boolean,
+    isPaymentInProgress: Boolean = false,
+    paymentMessage: String? = null,
     completedLessonIds: Set<String>,
     learnedWords: Int,
     onBackClick: () -> Unit = {},
+    onRestorePurchasesClick: () -> Unit = {},
+    onPaymentMessageClick: () -> Unit = {},
     onLanguageSaved: (SupportLanguage) -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -152,6 +158,35 @@ internal fun SettingsScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
                     )
+                    if (!hasPremium) {
+                        TextButton(
+                            onClick = onRestorePurchasesClick,
+                            enabled = !isPaymentInProgress,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = text.restorePurchases,
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                    if (paymentMessage != null) {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable(onClick = onPaymentMessageClick),
+                            shape = MaterialTheme.shapes.medium,
+                            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                        ) {
+                            Text(
+                                text = paymentMessage,
+                                modifier = Modifier.padding(spacing.md),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
+                    }
                 }
             }
 

@@ -191,9 +191,13 @@ private fun AppContent(
             selectedLanguage = appState.supportLanguage,
             supportLanguage = appState.supportLanguage,
             hasPremium = appState.hasPremium,
+            isPaymentInProgress = appState.isPaymentInProgress,
+            paymentMessage = appState.paymentMessage,
             completedLessonIds = appState.completedLessonIds,
             learnedWords = appState.learnedWordIds.size,
             onBackClick = { dispatchAppIntent(AppIntent.Back) },
+            onRestorePurchasesClick = { dispatchAppIntent(AppIntent.RestorePurchases) },
+            onPaymentMessageClick = { dispatchAppIntent(AppIntent.DismissPaymentMessage) },
             onLanguageSaved = { language ->
                 dispatchAppIntent(AppIntent.SaveSettings(language))
             }
@@ -248,7 +252,13 @@ private fun PaywallContent(
     SoftPaywallScreen(
         supportLanguage = appState.supportLanguage,
         completedLessons = completedLessons,
-        onUnlockClick = { dispatchAppIntent(AppIntent.UnlockPremium) },
+        productPrice = appState.fullUnlockProduct?.displayPrice,
+        isStoreConfigured = appState.fullUnlockProduct?.isStoreConfigured == true,
+        isPaymentInProgress = appState.isPaymentInProgress,
+        paymentMessage = appState.paymentMessage,
+        onUnlockClick = { dispatchAppIntent(AppIntent.PurchaseFullUnlock) },
+        onRestoreClick = { dispatchAppIntent(AppIntent.RestorePurchases) },
+        onPaymentMessageClick = { dispatchAppIntent(AppIntent.DismissPaymentMessage) },
         onContinueFreeClick = { dispatchAppIntent(AppIntent.ContinueFree) },
         onCloseClick = { dispatchAppIntent(AppIntent.ClosePaywall) }
     )
