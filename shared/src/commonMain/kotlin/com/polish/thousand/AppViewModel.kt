@@ -4,6 +4,7 @@ import com.polish.thousand.content.ActiveSession
 import com.polish.thousand.content.ActiveSessionType
 import com.polish.thousand.content.AppPersistence
 import com.polish.thousand.content.LessonContent
+import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningPath
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.PendingQuickReview
@@ -33,6 +34,7 @@ internal data class AppUiState(
     val pendingQuickReview: PendingQuickReview?,
     val hasPremium: Boolean,
     val hasSeenPaywall: Boolean,
+    val activeDays: Set<Long>,
     val fullUnlockProduct: PaymentProduct?,
     val isPaymentInProgress: Boolean,
     val paymentMessage: String?,
@@ -59,6 +61,10 @@ internal data class AppUiState(
                 lesson.items.any { it.id in review.wordIds }
             }
     }
+    val activityOverview get() = LearningActivity.overview(
+        activeDays = activeDays,
+        todayEpochDay = todayEpochDay
+    )
 }
 
 internal sealed interface AppIntent : UiIntent {
@@ -117,7 +123,7 @@ internal class AppViewModel(
                 quality = intent.quality,
                 isEarlyReview = true
             )
-            AppIntent.ReviewCompleted -> resetToWelcome(clearSession = true)
+            AppIntent.ReviewCompleted -> registerActivityAndReset()
             AppIntent.QuickReviewCompleted -> completeQuickReview()
             AppIntent.OpenCompletionQuickReview -> openCompletionQuickReview()
             AppIntent.ContinueFromAchievement -> continueFromAchievement()
@@ -249,10 +255,13 @@ internal class AppViewModel(
                 )
             }
 
+        val activeDays = state.activeDays.markActive(state.todayEpochDay)
+
         persistence.saveLearnedWordIds(learnedWordIds)
         persistence.saveCompletedLessonIds(completedLessonIds)
         persistence.saveReviewStates(reviewStates)
         persistence.savePendingQuickReview(pendingQuickReview)
+        persistence.saveActiveDays(activeDays)
         clearActiveSession()
 
         val crossedMilestone = LearningPath.crossedCelebrationMilestone(
@@ -292,6 +301,7 @@ internal class AppViewModel(
                 completedLessonIds = completedLessonIds,
                 reviewStates = reviewStates,
                 pendingQuickReview = pendingQuickReview,
+                activeDays = activeDays,
                 hasSeenPaywall = state.hasSeenPaywall || shouldShowPaywall,
                 backStack = state.backStack + nextRoute
             )
@@ -349,7 +359,7 @@ internal class AppViewModel(
     }
 
     private fun completeQuickReview() {
-        resetToWelcome(clearSession = true)
+        registerActivityAndReset()
     }
 
     private fun openCompletionQuickReview() {
@@ -533,6 +543,14 @@ internal class AppViewModel(
         if (clearSession) clearActiveSession()
     }
 
+    private fun registerActivityAndReset() {
+        val state = uiState.value
+        val activeDays = state.activeDays.markActive(state.todayEpochDay)
+        persistence.saveActiveDays(activeDays)
+        resetToWelcome(clearSession = true)
+        setState(uiState.value.copy(activeDays = activeDays))
+    }
+
     private fun setState(state: AppUiState) {
         reduceState { state }
     }
@@ -675,6 +693,7 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
         pendingQuickReview = persistence.loadPendingQuickReview(),
         hasPremium = persistence.loadHasPremium(),
         hasSeenPaywall = persistence.loadHasSeenPaywall(),
+        activeDays = persistence.loadActiveDays(),
         fullUnlockProduct = null,
         isPaymentInProgress = false,
         paymentMessage = null,
@@ -698,5 +717,8 @@ private fun ActiveSession.toRoute(): AppRoute = when (type) {
     ActiveSessionType.ScheduledReview -> AppRoute.ReviewOnly(topicId, lessonId, wordIds)
     ActiveSessionType.QuickReview -> AppRoute.QuickReview(topicId, lessonId, wordIds)
 }
+
+private fun Set<Long>.markActive(todayEpochDay: Long): Set<Long> =
+    (this + todayEpochDay).filterTo(mutableSetOf()) { it >= todayEpochDay - 60 }
 
 private const val FreeWordLimit = 100

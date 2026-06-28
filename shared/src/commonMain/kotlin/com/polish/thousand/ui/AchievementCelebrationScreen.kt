@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,6 +50,7 @@ internal fun AchievementCelebrationScreen(
     val celebrationContent = milestone.celebrationContentFor(supportLanguage)
     val spacing = MaterialTheme.appSpacing
     val accent = milestone.accentColor()
+    val surface = milestone.surfaceColor()
     val glow = accent.copy(alpha = 0.16f)
     val progress = milestone.wordCount.toFloat() / LearningTargetWords
 
@@ -67,12 +70,25 @@ internal fun AchievementCelebrationScreen(
     ) {
         CelebrationGlow(
             modifier = Modifier
-                .align(Alignment.TopCenter)
+                .align(Alignment.TopEnd)
                 .statusBarsPadding()
-                .padding(top = 12.dp)
-                .size(220.dp),
+                .padding(top = 10.dp)
+                .size(180.dp),
             brush = Brush.radialGradient(
                 colors = listOf(glow, Color.Transparent)
+            )
+        )
+
+        CelebrationGlow(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 160.dp)
+                .size(120.dp),
+            brush = Brush.radialGradient(
+                colors = listOf(
+                    MaterialTheme.appColors.heroGlow.copy(alpha = 0.18f),
+                    Color.Transparent
+                )
             )
         )
 
@@ -80,38 +96,59 @@ internal fun AchievementCelebrationScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(top = 18.dp, bottom = 106.dp),
+                .padding(top = 20.dp, bottom = 106.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = celebrationContent.eyebrow,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.56f)
-            )
+            Surface(
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.78f)
+            ) {
+                Text(
+                    text = celebrationContent.eyebrow,
+                    modifier = Modifier.padding(horizontal = spacing.lg, vertical = 10.dp),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+                )
+            }
 
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-            Text(
-                text = milestone.wordCount.toString(),
-                style = MaterialTheme.typography.displaySmall.copy(
-                    fontSize = 92.sp,
-                    lineHeight = 82.sp,
-                    letterSpacing = (-5.2).sp
-                ),
-                fontWeight = FontWeight.ExtraBold,
-                color = accent
-            )
+            Surface(
+                modifier = Modifier.size(168.dp),
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
+                shadowElevation = 2.dp
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier
+                            .size(136.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.appColors.progressTrack)
+                    )
 
-            Spacer(modifier = Modifier.height(6.dp))
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = milestone.wordCount.toString(),
+                            style = MaterialTheme.typography.displaySmall.copy(
+                                fontSize = 58.sp,
+                                lineHeight = 54.sp,
+                                letterSpacing = (-2.4).sp
+                            ),
+                            fontWeight = FontWeight.ExtraBold,
+                            color = accent
+                        )
+                        Text(
+                            text = milestoneWordLabel(supportLanguage),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f)
+                        )
+                    }
+                }
+            }
 
-            Text(
-                text = milestoneWordLabel(supportLanguage),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.46f)
-            )
-
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             Text(
                 text = celebrationContent.headline,
@@ -131,29 +168,57 @@ internal fun AchievementCelebrationScreen(
                 text = celebrationContent.message,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = 17.sp,
-                    lineHeight = 28.sp
+                    lineHeight = 27.sp
                 ),
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.68f)
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(spacing.xl))
 
-            Column(
+            Surface(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                shape = MaterialTheme.shapes.large,
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
             ) {
-                Text(
-                    text = "${milestone.wordCount} / $LearningTargetWords",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.62f)
-                )
-                CelebrationProgressLine(progress = progress, accent = accent)
-                Text(
-                    text = "${(progress * 100).toInt()}%",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.46f)
-                )
+                Column(
+                    modifier = Modifier.padding(spacing.xl),
+                    verticalArrangement = Arrangement.spacedBy(spacing.md)
+                ) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                            "Шлях до 1000"
+                        } else {
+                            "Путь к 1000"
+                        },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f)
+                    )
+
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "${milestone.wordCount} / $LearningTargetWords",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Surface(
+                            modifier = Modifier.align(Alignment.CenterEnd),
+                            shape = CircleShape,
+                            color = surface
+                        ) {
+                            Text(
+                                text = "${(progress * 100).toInt()}%",
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 9.dp),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = accent
+                            )
+                        }
+                    }
+
+                    CelebrationProgressLine(progress = progress)
+                }
             }
         }
 
@@ -173,7 +238,7 @@ internal fun AchievementCelebrationScreen(
             Text(
                 text = if (supportLanguage == SupportLanguage.Ukrainian) "Продовжити" else "Продолжить",
                 style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.ExtraBold
             )
         }
     }
@@ -200,16 +265,22 @@ private fun LearningMilestone.accentColor(): Color = when (wordCount) {
     else -> Color(0xFF2D6F67)
 }
 
+private fun LearningMilestone.surfaceColor(): Color = when (wordCount) {
+    100 -> Color(0xFFF4FBF8)
+    250 -> Color(0xFFFFF6F1)
+    500 -> Color(0xFFF3F8FE)
+    750 -> Color(0xFFF6F3FE)
+    1000 -> Color(0xFFFFF8EE)
+    else -> Color(0xFFF4FBF8)
+}
+
 private fun milestoneWordLabel(supportLanguage: SupportLanguage): String =
     if (supportLanguage == SupportLanguage.Ukrainian) "слів" else "слов"
 
 @Composable
-private fun CelebrationProgressLine(
-    progress: Float,
-    accent: Color
-) {
+private fun CelebrationProgressLine(progress: Float) {
     val colors = MaterialTheme.appColors
-    val height = 6.dp
+    val height = 12.dp
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -224,7 +295,13 @@ private fun CelebrationProgressLine(
                 .fillMaxWidth(progress.coerceIn(0f, 1f))
                 .height(height)
                 .background(
-                    color = accent,
+                    brush = Brush.horizontalGradient(
+                        listOf(
+                            colors.progressStart,
+                            colors.progressMiddle,
+                            colors.progressEnd
+                        )
+                    ),
                     shape = MaterialTheme.shapes.extraLarge
                 )
         )

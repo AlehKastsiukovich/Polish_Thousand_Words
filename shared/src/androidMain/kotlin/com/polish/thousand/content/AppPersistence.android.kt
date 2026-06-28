@@ -98,6 +98,17 @@ private class AndroidAppPersistence(context: Context) : AppPersistence {
     override fun saveHasSeenPaywall(hasSeenPaywall: Boolean) {
         preferences.edit { putBoolean(HasSeenPaywallKey, hasSeenPaywall) }
     }
+
+    override fun loadActiveDays(): Set<Long> = preferences
+        .getStringSet(ActiveDaysKey, emptySet())
+        .orEmpty()
+        .mapNotNullTo(mutableSetOf()) { it.toLongOrNull() }
+
+    override fun saveActiveDays(days: Set<Long>) {
+        preferences.edit {
+            putStringSet(ActiveDaysKey, days.mapTo(mutableSetOf()) { it.toString() })
+        }
+    }
 }
 
 private const val PreferencesName = "polish_thousand_progress"
@@ -110,6 +121,7 @@ private const val ActiveSessionKey = "active_session"
 private const val LessonSessionKey = "lesson_session"
 private const val HasPremiumKey = "has_premium"
 private const val HasSeenPaywallKey = "has_seen_paywall"
+private const val ActiveDaysKey = "active_days"
 private const val ReviewStateSeparator = "|"
 private const val PendingQuickReviewWordSeparator = ","
 private const val SessionFieldSeparator = "\u001F"

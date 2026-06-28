@@ -95,6 +95,19 @@ private class IosAppPersistence(
     override fun saveHasSeenPaywall(hasSeenPaywall: Boolean) {
         defaults.setBool(hasSeenPaywall, forKey = HasSeenPaywallKey)
     }
+
+    override fun loadActiveDays(): Set<Long> = defaults
+        .stringForKey(ActiveDaysKey)
+        .orEmpty()
+        .split(LessonIdSeparator)
+        .mapNotNullTo(mutableSetOf()) { it.toLongOrNull() }
+
+    override fun saveActiveDays(days: Set<Long>) {
+        defaults.setObject(
+            days.sorted().joinToString(LessonIdSeparator),
+            forKey = ActiveDaysKey
+        )
+    }
 }
 
 private const val SupportLanguageKey = "support_language"
@@ -112,6 +125,7 @@ private const val SessionFieldSeparator = "\u001F"
 private const val SessionItemSeparator = "\u001E"
 private const val HasPremiumKey = "has_premium"
 private const val HasSeenPaywallKey = "has_seen_paywall"
+private const val ActiveDaysKey = "active_days"
 
 private fun WordReviewState.toStorageString(): String = listOf(
     wordId,

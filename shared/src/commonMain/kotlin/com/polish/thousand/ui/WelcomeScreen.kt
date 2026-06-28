@@ -41,7 +41,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.polish.thousand.content.ActivityOverview
 import com.polish.thousand.content.LearningPath
+import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
@@ -56,6 +58,10 @@ import com.polish.thousand.core.designsystem.appSpacing
 internal fun WelcomeScreen(
     supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
     learnedWords: Int = 0,
+    activityOverview: ActivityOverview = LearningActivity.overview(
+        activeDays = emptySet(),
+        todayEpochDay = 0
+    ),
     nextLesson: LessonContent? = MvpSeedContent.lessons.firstOrNull(),
     completedLessonIds: Set<String> = emptySet(),
     dueReviewCount: Int = 0,
@@ -120,6 +126,13 @@ internal fun WelcomeScreen(
                 MilestoneCard(
                     learnedWords = learnedWords,
                     remainingWords = remainingToMilestone,
+                    supportLanguage = supportLanguage
+                )
+
+                Spacer(modifier = Modifier.height(spacing.lg))
+
+                ActivityCard(
+                    activityOverview = activityOverview,
                     supportLanguage = supportLanguage
                 )
 
@@ -203,6 +216,138 @@ internal fun WelcomeScreen(
 private fun reviewOnlyActionLabel(supportLanguage: SupportLanguage): String = when (supportLanguage) {
     SupportLanguage.Ukrainian -> "Повторити слова"
     SupportLanguage.Russian -> "Повторить слова"
+}
+
+@Composable
+private fun ActivityCard(
+    activityOverview: ActivityOverview,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
+    val streakLabel = activityStreakLabel(activityOverview.streakDays, supportLanguage)
+    val historyLabel = activityHistoryLabel(
+        activeDays = activityOverview.activeDaysInWindow,
+        supportLanguage = supportLanguage
+    )
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = Color(0xFFFCFBF8)
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(spacing.md)
+        ) {
+            HomeCardAccent(tone = HomeCardTone.Activity)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Top
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) "Ритм" else "Ритм",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = HomeCardTone.Activity.titleColor()
+                    )
+                    Text(
+                        text = streakLabel,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = historyLabel,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                    )
+                }
+                Surface(
+                    shape = CircleShape,
+                    color = HomeCardTone.Activity.chipContainerColor()
+                ) {
+                    Text(
+                        text = "${activityOverview.activeDaysInWindow}/14",
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = HomeCardTone.Activity.chipContentColor()
+                    )
+                }
+            }
+
+            ActivityGrid(activityOverview = activityOverview)
+        }
+    }
+}
+
+@Composable
+private fun ActivityGrid(activityOverview: ActivityOverview) {
+    val days = activityOverview.recentDays
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        days.chunked(7).forEachIndexed { rowIndex, week ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                week.forEachIndexed { index, day ->
+                    val globalIndex = rowIndex * 7 + index
+                    val isRecent = globalIndex >= days.lastIndex - 1
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(24.dp)
+                            .background(
+                                color = when {
+                                    day.isActive && isRecent -> Color(0xFF78C8E8)
+                                    day.isActive -> Color(0xFF6BC5B7)
+                                    else -> Color(0xFFF1ECE5)
+                                },
+                                shape = MaterialTheme.shapes.small
+                            )
+                    )
+                }
+            }
+        }
+    }
+}
+
+private fun activityStreakLabel(
+    streakDays: Int,
+    supportLanguage: SupportLanguage
+): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> when {
+        streakDays <= 0 -> "Почніть новий ритм"
+        streakDays % 10 == 1 && streakDays % 100 != 11 -> "$streakDays день поспіль"
+        streakDays % 10 in 2..4 && streakDays % 100 !in 12..14 -> "$streakDays дні поспіль"
+        else -> "$streakDays днів поспіль"
+    }
+    SupportLanguage.Russian -> when {
+        streakDays <= 0 -> "Начните новый ритм"
+        streakDays % 10 == 1 && streakDays % 100 != 11 -> "$streakDays день подряд"
+        streakDays % 10 in 2..4 && streakDays % 100 !in 12..14 -> "$streakDays дня подряд"
+        else -> "$streakDays дней подряд"
+    }
+}
+
+private fun activityHistoryLabel(
+    activeDays: Int,
+    supportLanguage: SupportLanguage
+): String = when (supportLanguage) {
+    SupportLanguage.Ukrainian -> when {
+        activeDays == 1 -> "1 активний день за останні 14"
+        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активні дні за останні 14"
+        else -> "$activeDays активних днів за останні 14"
+    }
+    SupportLanguage.Russian -> when {
+        activeDays == 1 -> "1 активный день за последние 14"
+        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активных дня за последние 14"
+        else -> "$activeDays активных дней за последние 14"
+    }
 }
 
 @Composable
@@ -679,7 +824,8 @@ private fun HomeCardAccent(tone: HomeCardTone) {
 private enum class HomeCardTone {
     Review,
     QuickReview,
-    NextLesson
+    NextLesson,
+    Activity
 }
 
 @Composable
@@ -687,6 +833,7 @@ private fun HomeCardTone.containerColor(): Color = when (this) {
     HomeCardTone.Review -> Color(0xFFF5FBF8)
     HomeCardTone.QuickReview -> Color(0xFFF4FAFD)
     HomeCardTone.NextLesson -> Color(0xFFFFFCF8)
+    HomeCardTone.Activity -> Color(0xFFFCFBF8)
 }
 
 @Composable
@@ -694,6 +841,7 @@ private fun HomeCardTone.accentColor(): Color = when (this) {
     HomeCardTone.Review -> Color(0xFF5EC0B0)
     HomeCardTone.QuickReview -> Color(0xFF69A4E4)
     HomeCardTone.NextLesson -> Color(0xFFE1C9A5)
+    HomeCardTone.Activity -> Color(0xFFB99AF1)
 }
 
 @Composable
@@ -701,6 +849,7 @@ private fun HomeCardTone.titleColor(): Color = when (this) {
     HomeCardTone.Review -> Color(0xFF2A7B71)
     HomeCardTone.QuickReview -> Color(0xFF2B7D9E)
     HomeCardTone.NextLesson -> Color(0xFF8D7A63)
+    HomeCardTone.Activity -> Color(0xFF6D54A3)
 }
 
 @Composable
@@ -708,6 +857,7 @@ private fun HomeCardTone.chipContainerColor(): Color = when (this) {
     HomeCardTone.Review -> Color(0xFFDFF1EB)
     HomeCardTone.QuickReview -> Color(0xFFE3F0FB)
     HomeCardTone.NextLesson -> Color(0xFFF4ECE2)
+    HomeCardTone.Activity -> Color(0xFFF1E9FF)
 }
 
 @Composable
@@ -715,12 +865,19 @@ private fun HomeCardTone.chipContentColor(): Color = when (this) {
     HomeCardTone.Review -> Color(0xFF255C54)
     HomeCardTone.QuickReview -> Color(0xFF27587B)
     HomeCardTone.NextLesson -> Color(0xFF5C534A)
+    HomeCardTone.Activity -> Color(0xFF5F469C)
 }
 
 @Preview
 @Composable
 private fun WelcomeScreenPreview() {
     PolishThousandTheme {
-        WelcomeScreen(learnedWords = 20)
+        WelcomeScreen(
+            learnedWords = 20,
+            activityOverview = LearningActivity.overview(
+                activeDays = setOf(4L, 5L, 7L, 8L, 10L, 12L, 13L),
+                todayEpochDay = 13L
+            )
+        )
     }
 }

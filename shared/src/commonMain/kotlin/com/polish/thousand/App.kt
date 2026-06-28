@@ -115,6 +115,7 @@ private fun AppContent(
         AppRoute.Welcome -> WelcomeScreen(
             supportLanguage = appState.supportLanguage,
             learnedWords = appState.learnedWordIds.size,
+            activityOverview = appState.activityOverview,
             nextLesson = appState.nextLesson,
             completedLessonIds = appState.completedLessonIds,
             dueReviewCount = appState.dueReviewCount,

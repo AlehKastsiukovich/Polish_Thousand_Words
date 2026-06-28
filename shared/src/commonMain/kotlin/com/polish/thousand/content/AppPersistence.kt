@@ -21,6 +21,8 @@ internal interface AppPersistence {
     fun saveHasPremium(hasPremium: Boolean)
     fun loadHasSeenPaywall(): Boolean
     fun saveHasSeenPaywall(hasSeenPaywall: Boolean)
+    fun loadActiveDays(): Set<Long>
+    fun saveActiveDays(days: Set<Long>)
 }
 
 @Composable
