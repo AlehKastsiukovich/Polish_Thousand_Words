@@ -255,7 +255,7 @@ internal class AppViewModel(
         persistence.savePendingQuickReview(pendingQuickReview)
         clearActiveSession()
 
-        val crossedMilestone = LearningPath.crossedMilestone(
+        val crossedMilestone = LearningPath.crossedCelebrationMilestone(
             previousLearnedWords = previousLearnedWords,
             learnedWords = learnedWordIds.size
         )

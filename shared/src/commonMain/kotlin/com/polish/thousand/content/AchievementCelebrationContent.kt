@@ -13,13 +13,13 @@ internal fun LearningMilestone.celebrationContentFor(
         AchievementCelebrationContent(
             eyebrow = "Перша велика відмітка",
             headline = "Перші 100 слів уже ваші.",
-            message = "Сильний старт. Польська вже звучить знайоміше."
+            message = "Сильний старт. Польська вже звучить ближче."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Первая большая отметка",
             headline = "Первые 100 слов уже ваши.",
-            message = "Сильный старт. Польский уже звучит знакомо."
+            message = "Сильный старт. Польский уже звучит ближе."
         )
     }
 
@@ -27,13 +27,13 @@ internal fun LearningMilestone.celebrationContentFor(
         AchievementCelebrationContent(
             eyebrow = "Опора вже є",
             headline = "250 слів. Ви вже в мові.",
-            message = "База зібралась. Далі буде помітно легше."
+            message = "База зібрана. Далі буде легше."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Опора уже есть",
             headline = "250 слов. Вы уже в языке.",
-            message = "База собралась. Дальше будет заметно легче."
+            message = "База собрана. Дальше будет легче."
         )
     }
 
@@ -41,13 +41,13 @@ internal fun LearningMilestone.celebrationContentFor(
         AchievementCelebrationContent(
             eyebrow = "Половина шляху",
             headline = "500 слів. Це вже впевненість.",
-            message = "Ви не просто почали. Ви вже тримаєте хороший темп."
+            message = "Ви вже тримаєте хороший темп."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Половина пути",
             headline = "500 слов. Это уже уверенность.",
-            message = "Вы не просто начали. Вы уже держите хороший темп."
+            message = "Вы уже держите хороший темп."
         )
     }
 
@@ -55,13 +55,13 @@ internal fun LearningMilestone.celebrationContentFor(
         AchievementCelebrationContent(
             eyebrow = "Фініш уже близько",
             headline = "750 слів. Дуже сильний хід.",
-            message = "Лишився останній відрізок. Запас слів уже дуже міцний."
+            message = "Лишився останній відрізок."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Финиш уже близко",
             headline = "750 слов. Очень сильный ход.",
-            message = "Остался последний отрезок. Запас слов уже очень крепкий."
+            message = "Остался последний отрезок."
         )
     }
 
@@ -69,13 +69,13 @@ internal fun LearningMilestone.celebrationContentFor(
         AchievementCelebrationContent(
             eyebrow = "Повний маршрут пройдено",
             headline = "1000 слів. Тисяча взята.",
-            message = "Це вже не розігрів. Це справжня база для живої польської."
+            message = "Це вже жива база для польської."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Полный маршрут пройден",
             headline = "1000 слов. Тысяча взята.",
-            message = "Это уже не разогрев. Это настоящая база для живого польского."
+            message = "Это уже живая база для польского."
         )
     }
 
