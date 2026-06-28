@@ -14,6 +14,8 @@ internal data class LearningMilestone(
 }
 
 internal object LearningPath {
+    val celebrationMilestones = setOf(100, 500, 1000)
+
     val milestones = listOf(
         LearningMilestone(100, "Розігрів", "Разогрев"),
         LearningMilestone(250, "База", "База"),
@@ -35,4 +37,11 @@ internal object LearningPath {
 
     fun crossedMilestone(previousLearnedWords: Int, learnedWords: Int): LearningMilestone? =
         milestones.lastOrNull { previousLearnedWords < it.wordCount && learnedWords >= it.wordCount }
+
+    fun crossedCelebrationMilestone(previousLearnedWords: Int, learnedWords: Int): LearningMilestone? =
+        milestones.lastOrNull {
+            it.wordCount in celebrationMilestones &&
+                previousLearnedWords < it.wordCount &&
+                learnedWords >= it.wordCount
+        }
 }

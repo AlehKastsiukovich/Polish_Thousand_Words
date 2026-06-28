@@ -32,4 +32,25 @@ class LearningPathTest {
             )?.wordCount
         )
     }
+
+    @Test
+    fun crossedCelebrationMilestoneSkipsNonCelebrationThresholds() {
+        assertNull(
+            LearningPath.crossedCelebrationMilestone(
+                previousLearnedWords = 244,
+                learnedWords = 252
+            )
+        )
+    }
+
+    @Test
+    fun crossedCelebrationMilestoneReturnsFiveHundred() {
+        assertEquals(
+            expected = 500,
+            actual = LearningPath.crossedCelebrationMilestone(
+                previousLearnedWords = 492,
+                learnedWords = 503
+            )?.wordCount
+        )
+    }
 }
