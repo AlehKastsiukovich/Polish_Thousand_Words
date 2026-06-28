@@ -11,6 +11,7 @@ import com.polish.thousand.content.ReviewSchedule
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.TopicContent
 import com.polish.thousand.content.WordReviewState
+import com.polish.thousand.content.appText
 import com.polish.thousand.content.currentEpochDay
 import com.polish.thousand.content.itemsByIds
 import com.polish.thousand.core.mvi.AppDispatchers
@@ -18,6 +19,9 @@ import com.polish.thousand.core.mvi.StoreViewModel
 import com.polish.thousand.core.mvi.UiEffect
 import com.polish.thousand.core.mvi.UiIntent
 import com.polish.thousand.core.mvi.UiState
+import com.polish.thousand.payments.PaymentClient
+import com.polish.thousand.payments.PaymentProduct
+import com.polish.thousand.payments.PaymentResult
 
 internal data class AppUiState(
     val supportLanguage: SupportLanguage,
@@ -28,6 +32,9 @@ internal data class AppUiState(
     val pendingQuickReview: PendingQuickReview?,
     val hasPremium: Boolean,
     val hasSeenPaywall: Boolean,
+    val fullUnlockProduct: PaymentProduct?,
+    val isPaymentInProgress: Boolean,
+    val paymentMessage: String?,
     val todayEpochDay: Long,
     val restoredSession: ActiveSession?,
     val backStack: List<AppRoute> = listOf(AppRoute.Splash)
@@ -70,7 +77,9 @@ internal sealed interface AppIntent : UiIntent {
     data object OpenCompletionQuickReview : AppIntent
     data object ContinueFromCompletion : AppIntent
     data object ReturnHomeFromCompletion : AppIntent
-    data object UnlockPremium : AppIntent
+    data object PurchaseFullUnlock : AppIntent
+    data object RestorePurchases : AppIntent
+    data object DismissPaymentMessage : AppIntent
     data object ContinueFree : AppIntent
     data object ClosePaywall : AppIntent
 }
@@ -79,6 +88,7 @@ internal sealed interface AppEffect : UiEffect
 
 internal class AppViewModel(
     private val persistence: AppPersistence,
+    private val paymentClient: PaymentClient,
     appDispatchers: AppDispatchers
 ) : StoreViewModel<AppUiState, AppIntent, AppEffect>(
     initialUiState = initialAppState(persistence),
@@ -110,10 +120,32 @@ internal class AppViewModel(
             AppIntent.OpenCompletionQuickReview -> openCompletionQuickReview()
             AppIntent.ContinueFromCompletion -> continueFromCompletion()
             AppIntent.ReturnHomeFromCompletion -> resetToWelcome(clearSession = true)
-            AppIntent.UnlockPremium -> unlockPremium()
+            AppIntent.PurchaseFullUnlock -> purchaseFullUnlock()
+            AppIntent.RestorePurchases -> restorePurchases()
+            AppIntent.DismissPaymentMessage -> setState(uiState.value.copy(paymentMessage = null))
             AppIntent.ContinueFree -> continueFree()
             AppIntent.ClosePaywall -> closePaywall()
         }
+    }
+
+    init {
+        reduceAsync(
+            operation = {
+                PaymentStartupState(
+                    product = paymentClient.loadFullUnlockProduct(),
+                    isFullUnlockActive = paymentClient.isFullUnlockActive()
+                )
+            },
+            onSuccess = { state, paymentState ->
+                if (paymentState.isFullUnlockActive) {
+                    persistence.saveHasPremium(true)
+                }
+                state.copy(
+                    fullUnlockProduct = paymentState.product,
+                    hasPremium = state.hasPremium || paymentState.isFullUnlockActive
+                )
+            }
+        )
     }
 
     private fun finishSplash() {
@@ -315,31 +347,99 @@ internal class AppViewModel(
         else openLesson(nextLesson, clearHistory = true)
     }
 
-    private fun unlockPremium() {
-        persistence.saveHasPremium(true)
-        val state = uiState.value.copy(hasPremium = true)
-        setState(state)
-        continueFree()
+    private fun purchaseFullUnlock() {
+        reduceAsync(
+            onLoading = {
+                it.copy(
+                    isPaymentInProgress = true,
+                    paymentMessage = null
+                )
+            },
+            operation = paymentClient::purchaseFullUnlock,
+            onSuccess = { state, result ->
+                handlePaymentResult(state, result)
+            },
+            onError = { state, _ ->
+                state.copy(
+                    isPaymentInProgress = false,
+                    paymentMessage = state.supportLanguage.appText.paymentFailed
+                )
+            }
+        )
     }
 
-    private fun continueFree() {
-        val state = uiState.value
-        when (val route = state.currentRoute) {
-            is AppRoute.Paywall -> replace(
-                AppRoute.LessonCompletion(
+    private fun restorePurchases() {
+        reduceAsync(
+            onLoading = {
+                it.copy(
+                    isPaymentInProgress = true,
+                    paymentMessage = null
+                )
+            },
+            operation = paymentClient::restoreFullUnlock,
+            onSuccess = { state, result ->
+                handlePaymentResult(state, result)
+            },
+            onError = { state, _ ->
+                state.copy(
+                    isPaymentInProgress = false,
+                    paymentMessage = state.supportLanguage.appText.paymentFailed
+                )
+            }
+        )
+    }
+
+    private fun handlePaymentResult(state: AppUiState, result: PaymentResult): AppUiState {
+        return when (result) {
+            PaymentResult.Purchased,
+            PaymentResult.Restored -> {
+                persistence.saveHasPremium(true)
+                val nextState = stateAfterContinueFree(
+                    state.copy(
+                        hasPremium = true,
+                        isPaymentInProgress = false,
+                        paymentMessage = null
+                    )
+                )
+                persistActiveRoute(nextState.currentRoute)
+                nextState
+            }
+            PaymentResult.Cancelled -> state.copy(
+                isPaymentInProgress = false,
+                paymentMessage = null
+            )
+            is PaymentResult.Unavailable -> state.copy(
+                isPaymentInProgress = false,
+                paymentMessage = state.supportLanguage.appText.storeSetupRequired
+            )
+            is PaymentResult.Failed -> state.copy(
+                isPaymentInProgress = false,
+                paymentMessage = state.supportLanguage.appText.paymentFailed
+            )
+        }
+    }
+
+    private fun stateAfterContinueFree(state: AppUiState): AppUiState {
+        return when (val route = state.currentRoute) {
+            is AppRoute.Paywall -> state.copy(
+                backStack = state.backStack.dropLast(1) + AppRoute.LessonCompletion(
                     topicId = route.topicId,
                     lessonId = route.lessonId,
                     addedWords = route.addedWords,
                     attemptedWords = route.attemptedWords
                 )
             )
-            is AppRoute.PaywallGate -> openLessonRoute(
-                route = AppRoute.LessonStudy(route.topicId, route.lessonId),
-                clearHistory = true,
-                applyGate = false
+            is AppRoute.PaywallGate -> state.copy(
+                backStack = listOf(AppRoute.Welcome)
             )
-            else -> Unit
+            else -> state
         }
+    }
+
+    private fun continueFree() {
+        val nextState = stateAfterContinueFree(uiState.value)
+        setState(nextState)
+        persistActiveRoute(nextState.currentRoute)
     }
 
     private fun closePaywall() {
@@ -471,6 +571,11 @@ internal data class ResolvedLessonRoute(
     val lesson: LessonContent
 )
 
+private data class PaymentStartupState(
+    val product: PaymentProduct,
+    val isFullUnlockActive: Boolean
+)
+
 internal fun resolveLessonRoute(topicId: String, lessonId: String): ResolvedLessonRoute? {
     val topic = MvpSeedContent.path.takeIf { it.id == topicId } ?: return null
     val lesson = topic.lessons.firstOrNull { it.id == lessonId } ?: return null
@@ -514,6 +619,9 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
         pendingQuickReview = persistence.loadPendingQuickReview(),
         hasPremium = persistence.loadHasPremium(),
         hasSeenPaywall = persistence.loadHasSeenPaywall(),
+        fullUnlockProduct = null,
+        isPaymentInProgress = false,
+        paymentMessage = null,
         todayEpochDay = today,
         restoredSession = persistence.loadActiveSession()
     )

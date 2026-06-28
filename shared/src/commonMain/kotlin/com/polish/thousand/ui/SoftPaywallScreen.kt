@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,13 +42,23 @@ import com.polish.thousand.core.designsystem.appSpacing
 internal fun SoftPaywallScreen(
     supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
     completedLessons: Int,
+    productPrice: String? = null,
+    isStoreConfigured: Boolean = false,
+    isPaymentInProgress: Boolean = false,
+    paymentMessage: String? = null,
     onUnlockClick: () -> Unit = {},
+    onRestoreClick: () -> Unit = {},
+    onPaymentMessageClick: () -> Unit = {},
     onContinueFreeClick: () -> Unit = {},
     onCloseClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
     val text = supportLanguage.appText
+    val unlockButtonText = productPrice
+        ?.takeIf { it.isNotBlank() }
+        ?.let { "${text.unlockFullCourse} · $it" }
+        ?: text.unlockFullCourse
 
     Box(
         modifier = Modifier
@@ -148,7 +159,11 @@ internal fun SoftPaywallScreen(
 
                 Surface(
                     shape = MaterialTheme.shapes.large,
-                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.82f)
+                    color = if (isStoreConfigured) {
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.82f)
+                    } else {
+                        MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
+                    }
                 ) {
                     Row(
                         modifier = Modifier.padding(spacing.xl),
@@ -162,7 +177,7 @@ internal fun SoftPaywallScreen(
                                 .background(MaterialTheme.colorScheme.primary)
                         )
                         Text(
-                            text = text.paywallSoftNote,
+                            text = if (isStoreConfigured) text.paywallSoftNote else text.storeSetupRequired,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -171,8 +186,27 @@ internal fun SoftPaywallScreen(
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
+                if (paymentMessage != null) {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(onClick = onPaymentMessageClick),
+                        shape = MaterialTheme.shapes.medium,
+                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f)
+                    ) {
+                        Text(
+                            text = paymentMessage,
+                            modifier = Modifier.padding(spacing.md),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+                        )
+                    }
+                }
+
                 Button(
                     onClick = onUnlockClick,
+                    enabled = !isPaymentInProgress,
                     modifier = Modifier.fillMaxWidth().height(58.dp),
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(
@@ -181,9 +215,21 @@ internal fun SoftPaywallScreen(
                     )
                 ) {
                     Text(
-                        text = text.unlockFullCourse,
+                        text = unlockButtonText,
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                TextButton(
+                    onClick = onRestoreClick,
+                    enabled = !isPaymentInProgress,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = text.restorePurchases,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
 
