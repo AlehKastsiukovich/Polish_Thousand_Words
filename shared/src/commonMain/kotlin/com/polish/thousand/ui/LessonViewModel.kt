@@ -20,6 +20,11 @@ internal enum class LessonPhase {
     Practice
 }
 
+internal enum class PracticeQuestionMode {
+    Read,
+    Listen
+}
+
 internal data class LessonUiState(
     val sessionKey: String? = null,
     val lesson: LessonContent? = null,
@@ -36,6 +41,20 @@ internal data class LessonUiState(
     val isReviewAnswerVisible: Boolean = false
 ) : UiState {
     val isReady: Boolean get() = sessionKey != null && lesson != null
+
+    val reviewQuestionMode: PracticeQuestionMode
+        get() = if (reviewIndex % 5 == 0) {
+            PracticeQuestionMode.Listen
+        } else {
+            PracticeQuestionMode.Read
+        }
+
+    val practiceQuestionMode: PracticeQuestionMode
+        get() = if (practiceIndex % 5 == 1) {
+            PracticeQuestionMode.Listen
+        } else {
+            PracticeQuestionMode.Read
+        }
 }
 
 internal sealed interface LessonIntent : UiIntent {

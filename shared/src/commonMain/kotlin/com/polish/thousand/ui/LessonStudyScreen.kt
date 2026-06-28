@@ -71,8 +71,10 @@ internal fun LessonStudyScreen(
     val supportLanguage = state.supportLanguage
     val phase = state.phase
     val reviewIndex = state.reviewIndex
+    val reviewQuestionMode = state.reviewQuestionMode
     val currentIndex = state.learnIndex
     val quizIndex = state.practiceIndex
+    val practiceQuestionMode = state.practiceQuestionMode
     val selectedAnswer = state.selectedAnswer
     val submittedAnswer = state.submittedAnswer
     val isReviewAnswerVisible = state.isReviewAnswerVisible
@@ -191,6 +193,7 @@ internal fun LessonStudyScreen(
                         LessonReviewCard(
                             item = item,
                             supportLanguage = supportLanguage,
+                            questionMode = reviewQuestionMode,
                             answerVisible = isReviewAnswerVisible,
                             onPlayWordClick = { onPlayWordClick(item) },
                             onPlayExampleClick = { index -> onPlayExampleClick(item, index) }
@@ -206,8 +209,10 @@ internal fun LessonStudyScreen(
                         lesson = lesson,
                         item = quizItem,
                         supportLanguage = supportLanguage,
+                        questionMode = practiceQuestionMode,
                         selectedAnswer = selectedAnswer,
                         submittedAnswer = submittedAnswer,
+                        onPlayWordClick = { onPlayWordClick(quizItem) },
                         onAnswerSelected = { answer ->
                             onIntent(LessonIntent.SelectAnswer(answer))
                         }
@@ -364,6 +369,7 @@ internal fun LessonStudyScreen(
 private fun LessonReviewCard(
     item: LessonItemContent,
     supportLanguage: SupportLanguage,
+    questionMode: PracticeQuestionMode,
     answerVisible: Boolean,
     onPlayWordClick: () -> Unit,
     onPlayExampleClick: (Int) -> Unit
@@ -377,18 +383,20 @@ private fun LessonReviewCard(
             modifier = Modifier.padding(spacing.xl),
             verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                verticalAlignment = Alignment.Top
-            ) {
-                AdaptiveWordText(
-                    text = item.polish,
-                    modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    candidateSizes = lessonWordSizes
-                )
-                AudioActionButton(onClick = onPlayWordClick)
+            if (answerVisible || questionMode == PracticeQuestionMode.Read) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    AdaptiveWordText(
+                        text = item.polish,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        candidateSizes = lessonWordSizes
+                    )
+                    AudioActionButton(onClick = onPlayWordClick)
+                }
             }
 
             if (answerVisible) {
@@ -409,6 +417,21 @@ private fun LessonReviewCard(
                     }
                 }
             } else {
+                if (questionMode == PracticeQuestionMode.Listen) {
+                    Text(
+                        text = listeningQuestionTitle(supportLanguage),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                    )
+
+                    ListeningPrompt(
+                        submittedAnswer = null,
+                        item = item,
+                        supportLanguage = supportLanguage,
+                        onPlayWordClick = onPlayWordClick
+                    )
+                }
+
                 Text(
                     text = reviewRecallHint(supportLanguage),
                     style = MaterialTheme.typography.bodyLarge,
@@ -661,8 +684,10 @@ private fun LessonPracticeCard(
     lesson: LessonContent,
     item: LessonItemContent,
     supportLanguage: SupportLanguage,
+    questionMode: PracticeQuestionMode,
     selectedAnswer: String?,
     submittedAnswer: String?,
+    onPlayWordClick: () -> Unit,
     onAnswerSelected: (String) -> Unit
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -684,16 +709,27 @@ private fun LessonPracticeCard(
                 verticalArrangement = Arrangement.spacedBy(spacing.md)
             ) {
                 Text(
-                    text = supportLanguage.appText.chooseCorrectTranslation,
+                    text = when (questionMode) {
+                        PracticeQuestionMode.Read -> supportLanguage.appText.chooseCorrectTranslation
+                        PracticeQuestionMode.Listen -> listeningQuestionTitle(supportLanguage)
+                    },
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
                 )
-                AdaptiveWordText(
-                    text = item.polish,
-                    style = MaterialTheme.typography.displayMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    candidateSizes = listOf(62.sp, 58.sp, 54.sp, 50.sp, 46.sp, 42.sp, 38.sp, 34.sp, 30.sp, 28.sp)
-                )
+                when (questionMode) {
+                    PracticeQuestionMode.Read -> AdaptiveWordText(
+                        text = item.polish,
+                        style = MaterialTheme.typography.displayMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        candidateSizes = listOf(62.sp, 58.sp, 54.sp, 50.sp, 46.sp, 42.sp, 38.sp, 34.sp, 30.sp, 28.sp)
+                    )
+                    PracticeQuestionMode.Listen -> ListeningPrompt(
+                        submittedAnswer = submittedAnswer,
+                        item = item,
+                        supportLanguage = supportLanguage,
+                        onPlayWordClick = onPlayWordClick
+                    )
+                }
             }
         }
 
@@ -755,6 +791,111 @@ private fun LessonPracticeCard(
                         }
                     }
                 }
+            }
+        }
+
+        if (questionMode == PracticeQuestionMode.Listen && submittedAnswer != null) {
+            ListeningAnswerCard(
+                item = item,
+                supportLanguage = supportLanguage
+            )
+        }
+    }
+}
+
+@Composable
+private fun ListeningPrompt(
+    submittedAnswer: String?,
+    item: LessonItemContent,
+    supportLanguage: SupportLanguage,
+    onPlayWordClick: () -> Unit
+) {
+    val spacing = MaterialTheme.appSpacing
+
+    Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
+        Surface(
+            onClick = onPlayWordClick,
+            shape = MaterialTheme.shapes.medium,
+            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.72f)
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = spacing.md, vertical = spacing.md),
+                horizontalArrangement = Arrangement.spacedBy(spacing.md),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    shape = MaterialTheme.shapes.extraLarge,
+                    color = MaterialTheme.colorScheme.primary
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(54.dp)
+                            .padding(13.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = SpeakerIcon,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    Text(
+                        text = listeningPlayLabel(supportLanguage),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = listeningOnlyHint(supportLanguage),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                    )
+                }
+            }
+        }
+
+        if (submittedAnswer != null) {
+            AdaptiveWordText(
+                text = item.polish,
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                candidateSizes = lessonWordSizes
+            )
+            Text(
+                text = item.translationForSelectedLanguage(supportLanguage),
+                style = lessonTranslationStyle,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ListeningAnswerCard(
+    item: LessonItemContent,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
+
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.74f)
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(spacing.sm)
+        ) {
+            item.examples.take(2).forEachIndexed { index, example ->
+                LessonExampleCard(
+                    index = index + 1,
+                    polish = example.polish,
+                    translation = example.translationForSelectedLanguage(supportLanguage),
+                    onPlayClick = null
+                )
             }
         }
     }
@@ -824,6 +965,21 @@ private fun lessonCorrectOptionLabel(language: SupportLanguage): String = when (
 private fun lessonWrongOptionLabel(language: SupportLanguage): String = when (language) {
     SupportLanguage.Ukrainian -> "ні"
     SupportLanguage.Russian -> "нет"
+}
+
+private fun listeningQuestionTitle(language: SupportLanguage): String = when (language) {
+    SupportLanguage.Ukrainian -> "Прослухайте слово і виберіть переклад"
+    SupportLanguage.Russian -> "Прослушайте слово и выберите перевод"
+}
+
+private fun listeningPlayLabel(language: SupportLanguage): String = when (language) {
+    SupportLanguage.Ukrainian -> "Слухати слово"
+    SupportLanguage.Russian -> "Слушать слово"
+}
+
+private fun listeningOnlyHint(language: SupportLanguage): String = when (language) {
+    SupportLanguage.Ukrainian -> "Без тексту, тільки на слух"
+    SupportLanguage.Russian -> "Без текста, только на слух"
 }
 
 private fun reviewTitle(language: SupportLanguage): String = when (language) {
