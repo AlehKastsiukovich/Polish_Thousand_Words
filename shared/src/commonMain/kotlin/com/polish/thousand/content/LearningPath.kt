@@ -32,4 +32,7 @@ internal object LearningPath {
         val range = (next.wordCount - previous).coerceAtLeast(1)
         return ((learnedWords - previous).toFloat() / range).coerceIn(0f, 1f)
     }
+
+    fun crossedMilestone(previousLearnedWords: Int, learnedWords: Int): LearningMilestone? =
+        milestones.lastOrNull { previousLearnedWords < it.wordCount && learnedWords >= it.wordCount }
 }

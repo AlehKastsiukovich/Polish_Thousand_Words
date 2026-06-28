@@ -1,0 +1,95 @@
+package com.polish.thousand.content
+
+internal data class AchievementCelebrationContent(
+    val eyebrow: String,
+    val headline: String,
+    val message: String
+)
+
+internal fun LearningMilestone.celebrationContentFor(
+    language: SupportLanguage
+): AchievementCelebrationContent = when (wordCount) {
+    100 -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Перша велика відмітка",
+            headline = "Перші 100 слів уже ваші.",
+            message = "Сильний старт. Польська вже звучить знайоміше."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Первая большая отметка",
+            headline = "Первые 100 слов уже ваши.",
+            message = "Сильный старт. Польский уже звучит знакомо."
+        )
+    }
+
+    250 -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Опора вже є",
+            headline = "250 слів. Ви вже в мові.",
+            message = "База зібралась. Далі буде помітно легше."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Опора уже есть",
+            headline = "250 слов. Вы уже в языке.",
+            message = "База собралась. Дальше будет заметно легче."
+        )
+    }
+
+    500 -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Половина шляху",
+            headline = "500 слів. Це вже впевненість.",
+            message = "Ви не просто почали. Ви вже тримаєте хороший темп."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Половина пути",
+            headline = "500 слов. Это уже уверенность.",
+            message = "Вы не просто начали. Вы уже держите хороший темп."
+        )
+    }
+
+    750 -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Фініш уже близько",
+            headline = "750 слів. Дуже сильний хід.",
+            message = "Лишився останній відрізок. Запас слів уже дуже міцний."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Финиш уже близко",
+            headline = "750 слов. Очень сильный ход.",
+            message = "Остался последний отрезок. Запас слов уже очень крепкий."
+        )
+    }
+
+    1000 -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Повний маршрут пройдено",
+            headline = "1000 слів. Тисяча взята.",
+            message = "Це вже не розігрів. Це справжня база для живої польської."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Полный маршрут пройден",
+            headline = "1000 слов. Тысяча взята.",
+            message = "Это уже не разогрев. Это настоящая база для живого польского."
+        )
+    }
+
+    else -> if (language == SupportLanguage.Ukrainian) {
+        AchievementCelebrationContent(
+            eyebrow = "Нова відмітка",
+            headline = "${wordCount} слів уже з вами.",
+            message = "Рухайтесь далі у своєму темпі."
+        )
+    } else {
+        AchievementCelebrationContent(
+            eyebrow = "Новая отметка",
+            headline = "$wordCount слов уже с вами.",
+            message = "Продолжайте в своем темпе."
+        )
+    }
+}

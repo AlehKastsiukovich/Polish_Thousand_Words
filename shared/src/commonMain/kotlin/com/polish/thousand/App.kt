@@ -13,6 +13,7 @@ import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.itemsByIds
 import com.polish.thousand.content.rememberAppPersistence
 import com.polish.thousand.core.designsystem.PolishThousandTheme
+import com.polish.thousand.ui.AchievementCelebrationScreen
 import com.polish.thousand.ui.LanguageSelectionScreen
 import com.polish.thousand.ui.LessonCompletionScreen
 import com.polish.thousand.ui.LessonEffect
@@ -174,6 +175,12 @@ private fun AppContent(
                 )
             }
         }
+
+        is AppRoute.AchievementCelebration -> AchievementCelebrationScreen(
+            milestoneWordCount = route.milestoneWordCount,
+            supportLanguage = appState.supportLanguage,
+            onContinueClick = { dispatchAppIntent(AppIntent.ContinueFromAchievement) }
+        )
 
         is AppRoute.Paywall -> PaywallContent(
             completedLessons = appState.completedLessonIds.size,
