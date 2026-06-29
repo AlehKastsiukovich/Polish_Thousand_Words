@@ -224,9 +224,11 @@ private fun ActivityCard(
     supportLanguage: SupportLanguage
 ) {
     val spacing = MaterialTheme.appSpacing
+    val windowDays = activityOverview.recentDays.size.coerceAtLeast(1)
     val streakLabel = activityStreakLabel(activityOverview.streakDays, supportLanguage)
     val historyLabel = activityHistoryLabel(
         activeDays = activityOverview.activeDaysInWindow,
+        windowDays = windowDays,
         supportLanguage = supportLanguage
     )
 
@@ -236,19 +238,19 @@ private fun ActivityCard(
         color = Color(0xFFFCFBF8)
     ) {
         Column(
-            modifier = Modifier.padding(spacing.lg),
-            verticalArrangement = Arrangement.spacedBy(spacing.md)
+            modifier = Modifier.padding(horizontal = spacing.lg, vertical = spacing.md),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            HomeCardAccent(tone = HomeCardTone.Activity)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    verticalArrangement = Arrangement.spacedBy(3.dp)
                 ) {
+                    HomeCardAccent(tone = HomeCardTone.Activity)
                     Text(
                         text = if (supportLanguage == SupportLanguage.Ukrainian) "Ритм" else "Ритм",
                         style = MaterialTheme.typography.labelSmall,
@@ -270,8 +272,8 @@ private fun ActivityCard(
                     color = HomeCardTone.Activity.chipContainerColor()
                 ) {
                     Text(
-                        text = "${activityOverview.activeDaysInWindow}/14",
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                        text = "${activityOverview.activeDaysInWindow}/$windowDays",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                         style = MaterialTheme.typography.labelMedium,
                         color = HomeCardTone.Activity.chipContentColor()
                     )
@@ -286,32 +288,25 @@ private fun ActivityCard(
 @Composable
 private fun ActivityGrid(activityOverview: ActivityOverview) {
     val days = activityOverview.recentDays
-    Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(7.dp)
     ) {
-        days.chunked(7).forEachIndexed { rowIndex, week ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                week.forEachIndexed { index, day ->
-                    val globalIndex = rowIndex * 7 + index
-                    val isRecent = globalIndex >= days.lastIndex - 1
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(24.dp)
-                            .background(
-                                color = when {
-                                    day.isActive && isRecent -> Color(0xFF78C8E8)
-                                    day.isActive -> Color(0xFF6BC5B7)
-                                    else -> Color(0xFFF1ECE5)
-                                },
-                                shape = MaterialTheme.shapes.small
-                            )
+        days.forEachIndexed { index, day ->
+            val isRecent = index <= 1
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(16.dp)
+                    .background(
+                        color = when {
+                            day.isActive && isRecent -> Color(0xFF78C8E8)
+                            day.isActive -> Color(0xFF6BC5B7)
+                            else -> Color(0xFFF1ECE5)
+                        },
+                        shape = MaterialTheme.shapes.small
                     )
-                }
-            }
+            )
         }
     }
 }
@@ -336,17 +331,18 @@ private fun activityStreakLabel(
 
 private fun activityHistoryLabel(
     activeDays: Int,
+    windowDays: Int,
     supportLanguage: SupportLanguage
 ): String = when (supportLanguage) {
     SupportLanguage.Ukrainian -> when {
-        activeDays == 1 -> "1 активний день за останні 14"
-        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активні дні за останні 14"
-        else -> "$activeDays активних днів за останні 14"
+        activeDays == 1 -> "1 активний день за останні $windowDays"
+        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активні дні за останні $windowDays"
+        else -> "$activeDays активних днів за останні $windowDays"
     }
     SupportLanguage.Russian -> when {
-        activeDays == 1 -> "1 активный день за последние 14"
-        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активных дня за последние 14"
-        else -> "$activeDays активных дней за последние 14"
+        activeDays == 1 -> "1 активный день за последние $windowDays"
+        activeDays % 10 in 2..4 && activeDays % 100 !in 12..14 -> "$activeDays активных дня за последние $windowDays"
+        else -> "$activeDays активных дней за последние $windowDays"
     }
 }
 

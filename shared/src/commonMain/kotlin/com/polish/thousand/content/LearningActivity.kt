@@ -15,10 +15,10 @@ internal object LearningActivity {
     fun overview(
         activeDays: Set<Long>,
         todayEpochDay: Long,
-        windowDays: Int = 14
+        windowDays: Int = 7
     ): ActivityOverview {
         val normalizedWindow = windowDays.coerceAtLeast(1)
-        val recentDays = (normalizedWindow - 1 downTo 0).map { offset ->
+        val recentDays = (0 until normalizedWindow).map { offset ->
             val epochDay = todayEpochDay - offset
             ActivityDay(
                 epochDay = epochDay,

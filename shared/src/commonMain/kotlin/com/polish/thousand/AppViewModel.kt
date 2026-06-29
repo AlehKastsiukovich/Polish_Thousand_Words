@@ -219,8 +219,14 @@ internal class AppViewModel(
 
     private fun saveSettings(language: SupportLanguage) {
         persistence.saveSupportLanguage(language)
-        setState(uiState.value.copy(supportLanguage = language))
-        navigateBack()
+        val state = uiState.value
+        val backStack = if (state.backStack.size > 1) state.backStack.dropLast(1) else state.backStack
+        val nextState = state.copy(
+            supportLanguage = language,
+            backStack = backStack
+        )
+        setState(nextState)
+        persistActiveRoute(backStack.last())
     }
 
     private fun completeLesson(correctWordIds: Set<String>) {
