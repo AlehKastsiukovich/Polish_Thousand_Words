@@ -13,6 +13,8 @@ internal interface AppAudioPlayer {
     fun stop()
 }
 
+private const val WordAudioExtension = "m4a"
+
 internal class AppAudioPlayerImpl(
     dispatchers: AppDispatchers,
     private val platformAudioPlayer: PlatformAudioPlayer
@@ -22,7 +24,9 @@ internal class AppAudioPlayerImpl(
 
     override fun playWord(item: LessonItemContent) {
         scope.launch {
-            loadWordAudio(item)?.let(platformAudioPlayer::play)
+            loadWordAudio(item)?.let { bytes ->
+                platformAudioPlayer.play(bytes, WordAudioExtension)
+            }
         }
     }
 
@@ -34,11 +38,11 @@ internal class AppAudioPlayerImpl(
 }
 
 private suspend fun loadWordAudio(item: LessonItemContent): ByteArray? = runCatching {
-    Res.readBytes("files/audio/words/${item.id.replace('_', '-')}.wav")
+    Res.readBytes("files/audio/words/${item.id.replace('_', '-')}.${WordAudioExtension}")
 }.getOrNull()
 
 internal expect class PlatformAudioPlayer {
-    fun play(bytes: ByteArray)
+    fun play(bytes: ByteArray, extension: String)
     fun stop()
 }
 
