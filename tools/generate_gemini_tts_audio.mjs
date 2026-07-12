@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, writeFile, access } from "node:fs/promises";
+import { mkdir, readFile, writeFile, access, rm } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { spawn } from "node:child_process";
 
 const DEFAULT_MODEL = "gemini-3.1-flash-tts-preview";
 const DEFAULT_VOICE = "Kore";
@@ -13,6 +14,10 @@ const DEFAULT_RETRIES = 5;
 const SAMPLE_RATE = 24_000;
 const CHANNELS = 1;
 const BITS_PER_SAMPLE = 16;
+const OUTPUT_EXTENSION = "m4a";
+const OUTPUT_CONTAINER = "m4a";
+const OUTPUT_CODEC = "aac-lc";
+const OUTPUT_BITRATE_KBPS = 48;
 
 function parseArgs(argv) {
     const args = {
@@ -387,6 +392,35 @@ function pcmToWavBuffer(pcmBuffer) {
     return Buffer.concat([header, pcmBuffer]);
 }
 
+async function convertWavToM4a(tempWavPath, outputPath) {
+    await new Promise((resolve, reject) => {
+        const child = spawn("/usr/bin/afconvert", [
+            "-f", "m4af",
+            "-d", "aac",
+            "-u", "vbrq", "27",
+            "-u", "src", "c=1,r=24000",
+            tempWavPath,
+            outputPath
+        ], {
+            stdio: ["ignore", "pipe", "pipe"]
+        });
+
+        let stderr = "";
+        child.stderr.on("data", (chunk) => {
+            stderr += chunk.toString();
+        });
+
+        child.on("error", reject);
+        child.on("close", (code) => {
+            if (code === 0) {
+                resolve();
+                return;
+            }
+            reject(new Error(`afconvert failed with code ${code}: ${stderr.trim()}`));
+        });
+    });
+}
+
 async function fileExists(filePath) {
     try {
         await access(filePath);
@@ -440,7 +474,7 @@ function buildJobs(rows, args) {
                 id: row.id,
                 rank,
                 text: row.polish,
-                output: path.join("words", `${rankLabel}-${stem}.wav`),
+                output: path.join("words", `${rankLabel}-${stem}.${OUTPUT_EXTENSION}`),
                 prompt: buildWordPrompt(row.polish)
             });
         }
@@ -455,7 +489,7 @@ function buildJobs(rows, args) {
                     rank,
                     exampleIndex: index,
                     text: example,
-                    output: path.join("examples", `${rankLabel}-${stem}-${index}.wav`),
+                    output: path.join("examples", `${rankLabel}-${stem}-${index}.${OUTPUT_EXTENSION}`),
                     prompt: buildExamplePrompt(example)
                 });
             }
@@ -478,7 +512,7 @@ function buildManifestEntries(rows, args) {
             polish: row.polish,
             russian: row.russian,
             wordAudio: includeWordAudio
-                ? path.join("words", `${rankLabel}-${stem}.wav`)
+                ? path.join("words", `${rankLabel}-${stem}.${OUTPUT_EXTENSION}`)
                 : null,
             examples: includeExamples
                 ? [1, 2]
@@ -486,7 +520,7 @@ function buildManifestEntries(rows, args) {
                         index,
                         polish: row[`example_polish_${index}`],
                         russian: row[`example_russian_${index}`],
-                        audio: path.join("examples", `${rankLabel}-${stem}-${index}.wav`)
+                        audio: path.join("examples", `${rankLabel}-${stem}-${index}.${OUTPUT_EXTENSION}`)
                     } : null)
                     .filter(Boolean)
                 : []
@@ -535,10 +569,11 @@ function buildManifest(args, items) {
         model: [args.model, ...args.fallbackModels].join(", "),
         voice: args.voice,
         format: {
-            container: "wav",
+            container: OUTPUT_CONTAINER,
+            codec: OUTPUT_CODEC,
             sampleRateHz: SAMPLE_RATE,
             channels: CHANNELS,
-            bitsPerSample: BITS_PER_SAMPLE
+            bitrateKbps: OUTPUT_BITRATE_KBPS
         },
         items
     };
@@ -603,7 +638,13 @@ async function main() {
                     retries: args.retries
                 });
                 const wav = pcmToWavBuffer(pcm);
-                await writeFile(targetPath, wav);
+                const tempWavPath = `${targetPath}.tmp.wav`;
+                await writeFile(tempWavPath, wav);
+                try {
+                    await convertWavToM4a(tempWavPath, targetPath);
+                } finally {
+                    await rm(tempWavPath, { force: true });
+                }
                 generated = true;
                 break;
             } catch (error) {

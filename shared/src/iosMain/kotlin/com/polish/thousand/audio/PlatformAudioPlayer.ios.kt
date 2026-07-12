@@ -14,12 +14,12 @@ import platform.posix.fwrite
 @OptIn(ExperimentalForeignApi::class)
 internal actual class PlatformAudioPlayer {
     private var audioPlayer: AVAudioPlayer? = null
-    private val tempFilePath = "${NSTemporaryDirectory()}polish-thousand-word-audio.wav"
 
-    actual fun play(bytes: ByteArray) {
+    actual fun play(bytes: ByteArray, extension: String) {
         stop()
 
         runCatching {
+            val tempFilePath = "${NSTemporaryDirectory()}polish-thousand-word-audio.$extension"
             writeTempFile(tempFilePath, bytes)
             val preparedPlayer = AVAudioPlayer(
                 contentsOfURL = NSURL.fileURLWithPath(tempFilePath),
