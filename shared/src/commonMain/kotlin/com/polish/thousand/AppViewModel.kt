@@ -44,8 +44,12 @@ internal data class AppUiState(
 ) : UiState {
     val currentRoute: AppRoute get() = backStack.last()
     val nextLesson: LessonContent? get() = MvpSeedContent.nextLesson(completedLessonIds)
-    val dueReviewCount: Int get() = ReviewSchedule.dueWordCount(reviewStates, todayEpochDay)
-    val dueReviewWordIds: List<String> get() = ReviewSchedule.dueWordIds(reviewStates, todayEpochDay)
+    // Only words the learner has actually completed belong to scheduled review.
+    // Older app versions could retain states for incorrect lesson answers.
+    private val learnedReviewStates: Map<String, WordReviewState>
+        get() = reviewStates.filterKeys(learnedWordIds::contains)
+    val dueReviewCount: Int get() = ReviewSchedule.dueWordCount(learnedReviewStates, todayEpochDay)
+    val dueReviewWordIds: List<String> get() = ReviewSchedule.dueWordIds(learnedReviewStates, todayEpochDay)
     val dueReviewItems get() = MvpSeedContent.lessons.itemsByIds(dueReviewWordIds)
     val quickReviewWordIds: List<String> get() = pendingQuickReview
         ?.wordIds
@@ -238,8 +242,8 @@ internal class AppViewModel(
         val learnedWordIds = state.learnedWordIds + correctWordIds
         val completedLessonIds = state.completedLessonIds + lessonRoute.lesson.id
         val reviewStates = ReviewSchedule.scheduleNewWords(
-            states = state.reviewStates,
-            words = lessonRoute.lesson.items,
+            states = state.reviewStates.filterKeys(learnedWordIds::contains),
+            words = lessonRoute.lesson.items.filter { it.id in correctWordIds },
             todayEpochDay = state.todayEpochDay
         )
         val lessonWordIds = lessonRoute.lesson.items.mapTo(mutableSetOf()) { it.id }
@@ -690,12 +694,17 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
     if (pendingReview != storedPendingReview) {
         persistence.savePendingQuickReview(pendingReview)
     }
+    val storedReviewStates = persistence.loadReviewStates()
+    val reviewStates = storedReviewStates.filterKeys(learnedWordIds::contains)
+    if (reviewStates.size != storedReviewStates.size) {
+        persistence.saveReviewStates(reviewStates)
+    }
     return AppUiState(
         supportLanguage = language ?: SupportLanguage.Ukrainian,
         hasSelectedLanguage = language != null,
         completedLessonIds = completedLessonIds,
         learnedWordIds = learnedWordIds,
-        reviewStates = persistence.loadReviewStates(),
+        reviewStates = reviewStates,
         pendingQuickReview = persistence.loadPendingQuickReview(),
         hasPremium = persistence.loadHasPremium(),
         hasSeenPaywall = persistence.loadHasSeenPaywall(),
