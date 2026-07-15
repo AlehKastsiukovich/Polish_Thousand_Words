@@ -1,6 +1,7 @@
 package com.polish.thousand.content
 
 internal data class ActivityOverview(
+    val todayEpochDay: Long,
     val streakDays: Int,
     val activeDaysInWindow: Int,
     val recentDays: List<ActivityDay>
@@ -18,8 +19,9 @@ internal object LearningActivity {
         windowDays: Int = 7
     ): ActivityOverview {
         val normalizedWindow = windowDays.coerceAtLeast(1)
+        val weekStart = todayEpochDay - weekdayIndexMondayFirst(todayEpochDay)
         val recentDays = (0 until normalizedWindow).map { offset ->
-            val epochDay = todayEpochDay - offset
+            val epochDay = weekStart + offset
             ActivityDay(
                 epochDay = epochDay,
                 isActive = epochDay in activeDays
@@ -27,6 +29,7 @@ internal object LearningActivity {
         }
 
         return ActivityOverview(
+            todayEpochDay = todayEpochDay,
             streakDays = streakDays(activeDays, todayEpochDay),
             activeDaysInWindow = recentDays.count { it.isActive },
             recentDays = recentDays
@@ -45,4 +48,7 @@ internal object LearningActivity {
         }
         return streak
     }
+
+    private fun weekdayIndexMondayFirst(epochDay: Long): Int =
+        (((epochDay + 3) % 7 + 7) % 7).toInt()
 }

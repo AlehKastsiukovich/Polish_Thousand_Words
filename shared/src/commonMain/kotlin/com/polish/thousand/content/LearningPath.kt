@@ -20,8 +20,8 @@ internal object LearningPath {
         LearningMilestone(100, "Розігрів", "Разогрев"),
         LearningMilestone(250, "База", "База"),
         LearningMilestone(500, "Впевненість", "Уверенность"),
-        LearningMilestone(750, "Добрий темп", "Хороший темп"),
-        LearningMilestone(1000, "B1 готовий", "B1 готов")
+        LearningMilestone(750, "У потоці", "В потоке"),
+        LearningMilestone(1000, "Тисяча в дії", "Тысяча в деле")
     )
 
     fun nextMilestone(learnedWords: Int): LearningMilestone =
