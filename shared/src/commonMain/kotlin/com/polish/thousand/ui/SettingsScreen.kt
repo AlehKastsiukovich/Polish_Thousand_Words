@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.appText
+import com.polish.thousand.content.rememberAppVersion
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -60,6 +61,7 @@ internal fun SettingsScreen(
     onLanguageChanged: (SupportLanguage) -> Unit = {}
 ) {
     var isLanguagePickerVisible by rememberSaveable { mutableStateOf(false) }
+    val appVersion = rememberAppVersion()
 
     SettingsBackground {
         if (isLanguagePickerVisible) {
@@ -83,7 +85,8 @@ internal fun SettingsScreen(
                 onLanguageClick = { isLanguagePickerVisible = true },
                 onRestorePurchasesClick = onRestorePurchasesClick,
                 onUnlockClick = onUnlockClick,
-                onPaymentMessageClick = onPaymentMessageClick
+                onPaymentMessageClick = onPaymentMessageClick,
+                version = appVersion.displayValue()
             )
         }
     }
@@ -133,7 +136,8 @@ private fun CompactSettingsContent(
     onLanguageClick: () -> Unit,
     onRestorePurchasesClick: () -> Unit,
     onUnlockClick: () -> Unit,
-    onPaymentMessageClick: () -> Unit
+    onPaymentMessageClick: () -> Unit,
+    version: String
 ) {
     val spacing = MaterialTheme.appSpacing
     val text = supportLanguage.appText
@@ -191,6 +195,16 @@ private fun CompactSettingsContent(
                 }
             }
         }
+
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = "${text.settingsVersion} $version",
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = spacing.lg),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.72f)
+        )
     }
 }
 

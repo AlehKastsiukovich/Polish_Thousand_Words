@@ -13,6 +13,12 @@ internal data class LearningMilestone(
     }
 }
 
+internal sealed interface CompletionRecognition {
+    data object FirstStep : CompletionRecognition
+    data object HalfwayToFirstMilestone : CompletionRecognition
+    data class CompactMilestone(val wordCount: Int) : CompletionRecognition
+}
+
 internal object LearningPath {
     val celebrationMilestones = setOf(100, 500, 1000)
 
@@ -44,4 +50,15 @@ internal object LearningPath {
                 previousLearnedWords < it.wordCount &&
                 learnedWords >= it.wordCount
         }
+
+    fun completionRecognition(
+        previousLearnedWords: Int,
+        learnedWords: Int
+    ): CompletionRecognition? = when {
+        previousLearnedWords < 10 && learnedWords >= 10 -> CompletionRecognition.FirstStep
+        previousLearnedWords < 50 && learnedWords >= 50 -> CompletionRecognition.HalfwayToFirstMilestone
+        previousLearnedWords < 250 && learnedWords >= 250 -> CompletionRecognition.CompactMilestone(250)
+        previousLearnedWords < 750 && learnedWords >= 750 -> CompletionRecognition.CompactMilestone(750)
+        else -> null
+    }
 }

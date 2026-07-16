@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.polish.thousand.content.LearningPath
+import com.polish.thousand.content.CompletionRecognition
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.SupportLanguage
@@ -42,6 +43,7 @@ internal fun LessonCompletionScreen(
     learnedWords: Int,
     addedWords: Int,
     attemptedWords: Int,
+    recognition: CompletionRecognition? = null,
     quickReviewWords: Int = 0,
     continuesToNextLesson: Boolean = false,
     onQuickReviewClick: () -> Unit = {},
@@ -58,7 +60,9 @@ internal fun LessonCompletionScreen(
     val remaining = (milestone.wordCount - learnedWords).coerceAtLeast(0)
     val milestoneProgress = LearningPath.milestoneProgress(learnedWords)
     val missedWords = (attemptedWords - addedWords).coerceAtLeast(0)
-    val bottomContentPadding = if (quickReviewWords > 0) 190.dp else 124.dp
+    // The first-step screen has one deliberate next action; mistakes remain optional on Home.
+    val showQuickReview = quickReviewWords > 0 && recognition != CompletionRecognition.FirstStep
+    val bottomContentPadding = if (showQuickReview) 190.dp else 124.dp
 
     Box(
         modifier = Modifier
@@ -93,23 +97,37 @@ internal fun LessonCompletionScreen(
                 .padding(top = 46.dp, bottom = bottomContentPadding),
             verticalArrangement = Arrangement.Center
         ) {
-            CompletionResult(
-                addedWords = addedWords,
-                attemptedWords = attemptedWords,
-                missedWords = missedWords,
-                supportLanguage = supportLanguage
-            )
+            if (recognition == CompletionRecognition.FirstStep) {
+                FirstStepCompletion(
+                    learnedWords = learnedWords,
+                    supportLanguage = supportLanguage
+                )
+            } else {
+                CompletionResult(
+                    addedWords = addedWords,
+                    attemptedWords = attemptedWords,
+                    missedWords = missedWords,
+                    supportLanguage = supportLanguage
+                )
+            }
 
-            Spacer(modifier = Modifier.height(spacing.xl))
+            if (recognition != CompletionRecognition.FirstStep) {
+                Spacer(modifier = Modifier.height(spacing.xl))
 
-            MilestoneProgressCard(
-                stageStartWords = stageStartWords,
-                milestoneWords = milestone.wordCount,
-                milestoneTitle = milestone.titleFor(supportLanguage),
-                remaining = remaining,
-                milestoneProgress = milestoneProgress,
-                supportLanguage = supportLanguage
-            )
+                CompletionRecognitionNote(
+                    recognition = recognition,
+                    supportLanguage = supportLanguage
+                )
+
+                MilestoneProgressCard(
+                    stageStartWords = stageStartWords,
+                    milestoneWords = milestone.wordCount,
+                    milestoneTitle = milestone.titleFor(supportLanguage),
+                    remaining = remaining,
+                    milestoneProgress = milestoneProgress,
+                    supportLanguage = supportLanguage
+                )
+            }
 
         }
 
@@ -120,7 +138,7 @@ internal fun LessonCompletionScreen(
                 .navigationBarsPadding(),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            if (quickReviewWords > 0) {
+            if (showQuickReview) {
                 Button(
                     onClick = onQuickReviewClick,
                     modifier = Modifier
@@ -162,7 +180,8 @@ internal fun LessonCompletionScreen(
                         Text(
                             text = completionPrimaryActionLabel(
                                 supportLanguage = supportLanguage,
-                                continuesToNextLesson = continuesToNextLesson
+                                continuesToNextLesson = continuesToNextLesson,
+                                recognition = recognition
                             ),
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.Medium
@@ -184,7 +203,8 @@ internal fun LessonCompletionScreen(
                     Text(
                         text = completionPrimaryActionLabel(
                             supportLanguage = supportLanguage,
-                            continuesToNextLesson = continuesToNextLesson
+                            continuesToNextLesson = continuesToNextLesson,
+                            recognition = recognition
                         ),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
@@ -214,10 +234,19 @@ private fun completionHomeActionLabel(supportLanguage: SupportLanguage): String 
 
 private fun completionPrimaryActionLabel(
     supportLanguage: SupportLanguage,
-    continuesToNextLesson: Boolean
+    continuesToNextLesson: Boolean,
+    recognition: CompletionRecognition?
 ): String = when (supportLanguage) {
-    SupportLanguage.Ukrainian -> if (continuesToNextLesson) "Наступний урок" else "На головний екран"
-    SupportLanguage.Russian -> if (continuesToNextLesson) "Следующий урок" else "На главный экран"
+    SupportLanguage.Ukrainian -> when {
+        recognition == CompletionRecognition.FirstStep && continuesToNextLesson -> "Наступні 10 слів"
+        continuesToNextLesson -> "Наступний урок"
+        else -> "На головний екран"
+    }
+    SupportLanguage.Russian -> when {
+        recognition == CompletionRecognition.FirstStep && continuesToNextLesson -> "Следующие 10 слов"
+        continuesToNextLesson -> "Следующий урок"
+        else -> "На главный экран"
+    }
 }
 
 private fun completionQuickReviewActionLabel(
@@ -283,6 +312,91 @@ private fun CompletionResult(
 }
 
 @Composable
+private fun FirstStepCompletion(
+    learnedWords: Int,
+    supportLanguage: SupportLanguage
+) {
+    val remainingToFirstMilestone = (100 - learnedWords).coerceAtLeast(0)
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text(
+            text = if (supportLanguage == SupportLanguage.Ukrainian) "ПЕРШИЙ КРОК" else "ПЕРВЫЙ ШАГ",
+            style = MaterialTheme.typography.labelMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                if (learnedWords == 10) "Перші 10 слів пройдено."
+                else "Вже $learnedWords слів пройдено."
+            } else {
+                if (learnedWords == 10) "Первые 10 слов пройдены."
+                else "Уже $learnedWords слов пройдено."
+            },
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontSize = 38.sp,
+                lineHeight = 40.sp,
+                letterSpacing = (-1.7).sp
+            ),
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Text(
+            text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                "До першої великої відмітки залишилося $remainingToFirstMilestone."
+            } else {
+                "До первой большой отметки осталось $remainingToFirstMilestone."
+            },
+            style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp, lineHeight = 27.sp),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.66f)
+        )
+    }
+}
+
+@Composable
+private fun CompletionRecognitionNote(
+    recognition: CompletionRecognition?,
+    supportLanguage: SupportLanguage
+) {
+    val message = when (recognition) {
+        CompletionRecognition.HalfwayToFirstMilestone -> if (supportLanguage == SupportLanguage.Ukrainian) {
+            "Половина до першої відмітки."
+        } else {
+            "Половина до первой отметки."
+        }
+        is CompletionRecognition.CompactMilestone -> when (recognition.wordCount) {
+            250 -> if (supportLanguage == SupportLanguage.Ukrainian) {
+                "250 слів. База вже є."
+            } else {
+                "250 слов. База уже есть."
+            }
+            750 -> if (supportLanguage == SupportLanguage.Ukrainian) {
+                "750 слів. Фініш уже близько."
+            } else {
+                "750 слов. Финиш уже близко."
+            }
+            else -> null
+        }
+        else -> null
+    } ?: return
+
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.72f)
+    ) {
+        Text(
+            text = message,
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 13.dp),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+
+    Spacer(modifier = Modifier.height(14.dp))
+}
+
+@Composable
 private fun MilestoneProgressCard(
     stageStartWords: Int,
     milestoneWords: Int,
@@ -304,7 +418,7 @@ private fun MilestoneProgressCard(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text(
@@ -322,21 +436,17 @@ private fun MilestoneProgressCard(
                     shape = MaterialTheme.shapes.medium,
                     color = MaterialTheme.colorScheme.primaryContainer
                 ) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 11.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = remaining.toString(),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Text(
-                            text = if (supportLanguage == SupportLanguage.Ukrainian) "лишилось" else "осталось",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    Text(
+                        text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                            "ще $remaining"
+                        } else {
+                            "ещё $remaining"
+                        },
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
 
@@ -355,25 +465,6 @@ private fun MilestoneProgressCard(
                     text = milestoneWords.toString(),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.48f)
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(MaterialTheme.colorScheme.outlineVariant)
-            )
-
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                        "Ще $remaining слів до цієї відмітки."
-                    } else {
-                        "Еще $remaining слов до этой отметки."
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
                 )
             }
         }

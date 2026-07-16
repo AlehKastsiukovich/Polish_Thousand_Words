@@ -40,14 +40,14 @@ internal fun LearningMilestone.celebrationContentFor(
     500 -> if (language == SupportLanguage.Ukrainian) {
         AchievementCelebrationContent(
             eyebrow = "Половина шляху",
-            headline = "500 слів. Це вже впевненість.",
-            message = "Ви вже тримаєте хороший темп."
+            headline = "500 слів — уже впевнена база.",
+            message = "Продовжуйте у своєму ритмі — наступний крок уже чекає."
         )
     } else {
         AchievementCelebrationContent(
             eyebrow = "Половина пути",
-            headline = "500 слов. Это уже уверенность.",
-            message = "Вы уже держите хороший темп."
+            headline = "500 слов — уже уверенная база.",
+            message = "Продолжайте в своем ритме — следующий шаг уже ждёт."
         )
     }
 
@@ -67,15 +67,15 @@ internal fun LearningMilestone.celebrationContentFor(
 
     1000 -> if (language == SupportLanguage.Ukrainian) {
         AchievementCelebrationContent(
-            eyebrow = "Повний маршрут пройдено",
-            headline = "1000 слів. Тисяча взята.",
-            message = "Це вже жива база для польської."
+            eyebrow = "Режим закріплення",
+            headline = "Тисяча в дії.",
+            message = "Усі слова пройдено."
         )
     } else {
         AchievementCelebrationContent(
-            eyebrow = "Полный маршрут пройден",
-            headline = "1000 слов. Тысяча взята.",
-            message = "Это уже живая база для польского."
+            eyebrow = "Режим закрепления",
+            headline = "Тысяча в деле.",
+            message = "Все слова пройдены."
         )
     }
 

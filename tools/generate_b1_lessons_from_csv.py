@@ -62,21 +62,6 @@ def parse_csv_item(row: list[str], line_number: int) -> CsvItem:
             example_ukrainian_2=row[11],
         )
 
-    if len(row) == 12 and row[0] == "966":
-        return CsvItem(
-            rank=966,
-            polish="konto bankowe",
-            russian="банковский счет",
-            note="noun",
-            example_polish_1="To słowo zostało dodane jako uzupełnienie listy.",
-            example_russian_1="Это слово было добавлено как дополнение списка.",
-            example_polish_2="Warto później zastąpić je dokładniejszą pozycją.",
-            example_russian_2="Позже стоит заменить его более точной позицией.",
-            ukrainian="банківський рахунок",
-            example_ukrainian_1="Це слово було додано як доповнення до списку.",
-            example_ukrainian_2="Варто пізніше замінити його точнішою позицією.",
-        )
-
     if len(row) == 12 and not row[1].isdigit() and row[3] in {"noun", "verb", "adjective", "adverb", "phrase", "conjunction", "preposition"}:
         return CsvItem(
             rank=int(row[0]),

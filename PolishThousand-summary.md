@@ -89,6 +89,32 @@ The paywall appears only after the user has experienced enough value to reach th
 
 Ship a small, understandable, paid-capable MVP by June 21, 2026. Validate whether users understand the 1,000-word promise, complete short lessons, notice their progress, and consider paying to unlock the full path.
 
+## Current Release Plan
+
+The core learning flow is implemented: first-launch language selection, a progress-first home screen,
+ten-word lessons, examples, practice, word audio, optional quick review, scheduled review,
+local persistence, settings, milestones, and a soft paywall.
+
+The remaining work is ordered by release risk:
+
+1. **Content QA** — review all 1,000 learning units before release: Polish spelling and meaning,
+   Russian and Ukrainian translations, natural example sentences, duplicate detection, ordering,
+   and removal of any generated placeholders. The app must not claim a reviewed B1 list until this
+   pass is complete.
+2. **Store payments** — create the `polish_1000_full_unlock` non-consumable product in App Store
+   Connect and Google Play Console, then replace the intentionally unavailable payment adapters
+   with a verified RevenueCat or native store integration. Confirm purchase, restore, and the
+   100-word free gate with sandbox/license-test accounts.
+3. **Physical-device release pass** — test a clean install and the full journey on a real iPhone
+   and Android device: language selection, lesson completion, audio, review, app restart,
+   paywall, purchase, and restore.
+4. **Store package** — prepare the final product name, subtitle, keywords, localized store copy,
+   screenshots, privacy policy, age rating, support contact, and release notes.
+5. **Additional support languages** — after the RU/UA release validates demand, add English,
+   Spanish, Georgian, Belarusian, Vietnamese, and Romanian only together with reviewed UI and
+   content translations. The settings language-picker architecture is designed to scale to this
+   list.
+
 ## MVP Cut Line
 
 Must be complete before calling the MVP usable:
@@ -101,6 +127,17 @@ Must be complete before calling the MVP usable:
 - Persistence: support language, learned words, completed lessons, review schedule, premium state.
 - Monetization placeholder: free first 100 learned words, then soft paywall for the full 1,000-word path.
 - Android and iOS builds must compile; Android runtime flow should be smoke-tested on a device/emulator before release.
+
+## Achievement Journey
+
+Milestones should recognize progress without interrupting every lesson:
+
+- `10` — one-time emphasis inside the normal completion screen: the first step, with a direct path to the next ten words.
+- `50` — a small completion-screen acknowledgement that the learner is halfway to the first major milestone.
+- `100` — the first full achievement screen.
+- `250` and `750` — compact completion-screen acknowledgements only.
+- `500` — a full achievement screen for the halfway point.
+- `1000` — a dedicated transition to maintenance mode. The learner sees that the full path is complete and continues with short, optional scheduled reviews instead of new lessons.
 
 Explicitly out of MVP unless needed for store submission:
 

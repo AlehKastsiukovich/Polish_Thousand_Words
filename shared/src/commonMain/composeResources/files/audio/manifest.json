@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-29T13:25:28.831Z",
-  "sourceCsv": "/Users/alehkastsiukovich/Work/1000 slow/polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES.csv",
-  "model": "gemini-3.1-flash-tts-preview, gemini-2.5-flash-preview-tts",
+  "generatedAt": "2026-07-18T18:46:15.146Z",
+  "sourceCsv": "polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES_uk.csv",
+  "model": "gemini-3.1-flash-tts-preview",
   "voice": "Kore",
   "format": {
     "container": "m4a",
@@ -7487,25 +7487,25 @@
     {
       "id": "935",
       "rank": 935,
-      "polish": "dowód osobisty",
-      "russian": "удостоверение личности",
-      "wordAudio": "words/0935-dowod-osobisty.m4a",
+      "polish": "zarejestrować się",
+      "russian": "зарегистрироваться",
+      "wordAudio": "words/0935-zarejestrowac-sie.m4a",
       "examples": []
     },
     {
       "id": "936",
       "rank": 936,
-      "polish": "paszport",
-      "russian": "паспорт",
-      "wordAudio": "words/0936-paszport.m4a",
+      "polish": "wypełnić",
+      "russian": "заполнить",
+      "wordAudio": "words/0936-wypelnic.m4a",
       "examples": []
     },
     {
       "id": "937",
       "rank": 937,
-      "polish": "obywatelstwo",
-      "russian": "гражданство",
-      "wordAudio": "words/0937-obywatelstwo.m4a",
+      "polish": "odebrać",
+      "russian": "получить",
+      "wordAudio": "words/0937-odebrac.m4a",
       "examples": []
     },
     {
@@ -7527,25 +7527,25 @@
     {
       "id": "940",
       "rank": 940,
-      "polish": "formularz",
-      "russian": "форма, бланк",
-      "wordAudio": "words/0940-formularz.m4a",
+      "polish": "wymienić",
+      "russian": "обменять, заменить",
+      "wordAudio": "words/0940-wymienic.m4a",
       "examples": []
     },
     {
       "id": "941",
       "rank": 941,
-      "polish": "załącznik",
-      "russian": "приложение к документу",
-      "wordAudio": "words/0941-zalacznik.m4a",
+      "polish": "opłacać",
+      "russian": "оплачивать",
+      "wordAudio": "words/0941-oplacac.m4a",
       "examples": []
     },
     {
       "id": "942",
       "rank": 942,
-      "polish": "podpis",
-      "russian": "подпись",
-      "wordAudio": "words/0942-podpis.m4a",
+      "polish": "składka",
+      "russian": "взнос",
+      "wordAudio": "words/0942-skladka.m4a",
       "examples": []
     },
     {
@@ -7575,9 +7575,9 @@
     {
       "id": "946",
       "rank": 946,
-      "polish": "wynagrodzenie",
-      "russian": "заработная плата",
-      "wordAudio": "words/0946-wynagrodzenie.m4a",
+      "polish": "sąsiedztwo",
+      "russian": "соседство",
+      "wordAudio": "words/0946-sasiedztwo.m4a",
       "examples": []
     },
     {
@@ -7591,25 +7591,25 @@
     {
       "id": "948",
       "rank": 948,
-      "polish": "podwyżka",
-      "russian": "повышение зарплаты",
-      "wordAudio": "words/0948-podwyzka.m4a",
+      "polish": "wzrost",
+      "russian": "рост",
+      "wordAudio": "words/0948-wzrost.m4a",
       "examples": []
     },
     {
       "id": "949",
       "rank": 949,
-      "polish": "zwolnienie lekarskie",
-      "russian": "больничный",
-      "wordAudio": "words/0949-zwolnienie-lekarskie.m4a",
+      "polish": "spadek",
+      "russian": "снижение",
+      "wordAudio": "words/0949-spadek.m4a",
       "examples": []
     },
     {
       "id": "950",
       "rank": 950,
-      "polish": "nadgodziny",
-      "russian": "сверхурочные",
-      "wordAudio": "words/0950-nadgodziny.m4a",
+      "polish": "przeszkoda",
+      "russian": "препятствие",
+      "wordAudio": "words/0950-przeszkoda.m4a",
       "examples": []
     },
     {
@@ -7687,17 +7687,17 @@
     {
       "id": "960",
       "rank": 960,
-      "polish": "plik",
-      "russian": "файл",
-      "wordAudio": "words/0960-plik.m4a",
+      "polish": "zauważyć",
+      "russian": "заметить",
+      "wordAudio": "words/0960-zauwazyc.m4a",
       "examples": []
     },
     {
       "id": "961",
       "rank": 961,
-      "polish": "folder",
-      "russian": "папка",
-      "wordAudio": "words/0961-folder.m4a",
+      "polish": "zaufać",
+      "russian": "довериться",
+      "wordAudio": "words/0961-zaufac.m4a",
       "examples": []
     },
     {
@@ -7735,9 +7735,9 @@
     {
       "id": "966",
       "rank": 966,
-      "polish": "konto bankowe",
-      "russian": "przedsięwzięcie",
-      "wordAudio": "words/0966-konto-bankowe.m4a",
+      "polish": "rozpoznać",
+      "russian": "узнать, распознать",
+      "wordAudio": "words/0966-rozpoznac.m4a",
       "examples": []
     },
     {
@@ -7775,9 +7775,9 @@
     {
       "id": "971",
       "rank": 971,
-      "polish": "saldo",
-      "russian": "баланс счета",
-      "wordAudio": "words/0971-saldo.m4a",
+      "polish": "wystarczający",
+      "russian": "достаточный",
+      "wordAudio": "words/0971-wystarczajacy.m4a",
       "examples": []
     },
     {
@@ -7799,9 +7799,9 @@
     {
       "id": "974",
       "rank": 974,
-      "polish": "inwestycja",
-      "russian": "инвестиция",
-      "wordAudio": "words/0974-inwestycja.m4a",
+      "polish": "przynajmniej",
+      "russian": "по крайней мере",
+      "wordAudio": "words/0974-przynajmniej.m4a",
       "examples": []
     },
     {
@@ -7823,9 +7823,9 @@
     {
       "id": "977",
       "rank": 977,
-      "polish": "narzędzie",
-      "russian": "инструмент",
-      "wordAudio": "words/0977-narzedzie.m4a",
+      "polish": "zaległość",
+      "russian": "задолженность",
+      "wordAudio": "words/0977-zaleglosc.m4a",
       "examples": []
     },
     {
@@ -7839,17 +7839,17 @@
     {
       "id": "979",
       "rank": 979,
-      "polish": "wydarzenie",
-      "russian": "мероприятие",
-      "wordAudio": "words/0979-wydarzenie.m4a",
+      "polish": "wydatki",
+      "russian": "расходы",
+      "wordAudio": "words/0979-wydatki.m4a",
       "examples": []
     },
     {
       "id": "980",
       "rank": 980,
-      "polish": "uczestnik",
-      "russian": "участник",
-      "wordAudio": "words/0980-uczestnik.m4a",
+      "polish": "bezpłatny",
+      "russian": "бесплатный",
+      "wordAudio": "words/0980-bezplatny.m4a",
       "examples": []
     },
     {
@@ -7871,9 +7871,9 @@
     {
       "id": "983",
       "rank": 983,
-      "polish": "kultura",
-      "russian": "культура",
-      "wordAudio": "words/0983-kultura.m4a",
+      "polish": "odwołać",
+      "russian": "отменить",
+      "wordAudio": "words/0983-odwolac.m4a",
       "examples": []
     },
     {
@@ -7943,9 +7943,9 @@
     {
       "id": "992",
       "rank": 992,
-      "polish": "wiadomości",
-      "russian": "новости",
-      "wordAudio": "words/0992-wiadomosci.m4a",
+      "polish": "własność",
+      "russian": "собственность",
+      "wordAudio": "words/0992-wlasnosc.m4a",
       "examples": []
     },
     {

@@ -155,9 +155,9 @@ internal fun WelcomeScreen(
             if (nextLesson == null && dueReviewCount == 0 && quickReviewCount == 0) {
                 Text(
                     text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                        "Усі доступні уроки завершено. Нові слова вже готуються."
+                        "Режим закріплення відкрито. Повторення з'явиться за розкладом."
                     } else {
-                        "Все доступные уроки завершены. Новые слова уже готовятся."
+                        "Режим закрепления открыт. Повторение появится по расписанию."
                     },
                     modifier = Modifier.padding(vertical = spacing.xl),
                     style = MaterialTheme.typography.bodyLarge,
@@ -199,11 +199,9 @@ private fun AchievementProgress(
     val ringStroke = 15.dp
     val backgroundColor = MaterialTheme.colorScheme.background
     val trackColor = MaterialTheme.appColors.progressTrack
-    val currentColor = MaterialTheme.colorScheme.primary
     val milestones = LearningPath.milestones
     val boundaries = listOf(0) + milestones.map { it.wordCount }
     val segmentColors = milestoneColors()
-    val progress = learnedWords.toFloat() / LearningTargetWords
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
@@ -251,16 +249,26 @@ private fun AchievementProgress(
                     )
                 }
 
-                if (progress > 0f) {
-                    drawArc(
-                        color = currentColor,
-                        startAngle = -90f,
-                        sweepAngle = 360f * progress.coerceIn(0f, 1f),
-                        useCenter = false,
-                        topLeft = topLeft,
-                        size = Size(diameter, diameter),
-                        style = Stroke(strokeWidth, cap = StrokeCap.Round)
-                    )
+                segmentColors.forEachIndexed { index, color ->
+                    val stageStart = boundaries[index]
+                    val stageEnd = boundaries[index + 1]
+                    val stageLength = stageEnd - stageStart
+                    val completedInStage = (learnedWords - stageStart)
+                        .coerceIn(0, stageLength)
+                    if (completedInStage > 0) {
+                        val start = stageStart.toFloat() / LearningTargetWords
+                        val fullSweep = (360f * stageLength / LearningTargetWords - gapDegrees)
+                            .coerceAtLeast(0f)
+                        drawArc(
+                            color = color,
+                            startAngle = -90f + (360f * start) + gapDegrees / 2f,
+                            sweepAngle = fullSweep * completedInStage / stageLength,
+                            useCenter = false,
+                            topLeft = topLeft,
+                            size = Size(diameter, diameter),
+                            style = Stroke(strokeWidth, cap = StrokeCap.Round)
+                        )
+                    }
                 }
 
                 milestones.forEachIndexed { index, item ->
@@ -276,7 +284,9 @@ private fun AchievementProgress(
                         center = markerCenter
                     )
                     drawCircle(
-                        color = segmentColors[index],
+                        color = segmentColors[index].copy(
+                            alpha = if (learnedWords >= item.wordCount) 1f else 0.58f
+                        ),
                         radius = 5.dp.toPx(),
                         center = markerCenter
                     )
@@ -693,13 +703,17 @@ private fun wordForm(
     }
 }
 
-private fun milestoneColors(): List<Color> = listOf(
-    Color(0xFF2D6F67),
-    Color(0xFFC9785C),
-    Color(0xFF3478C5),
-    Color(0xFF7B63D3),
-    Color(0xFFE8A54F)
-)
+@Composable
+private fun milestoneColors(): List<Color> {
+    val colors = MaterialTheme.appColors
+    return listOf(
+        colors.milestoneWarmup,
+        colors.milestoneBase,
+        colors.milestoneConfidence,
+        colors.milestoneMomentum,
+        colors.milestoneMastery
+    )
+}
 
 @Composable
 private fun ChevronRightGlyph(

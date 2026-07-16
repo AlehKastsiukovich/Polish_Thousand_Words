@@ -167,17 +167,19 @@ private fun ActiveSession.toStorageString(): String = listOf(
     type.name,
     topicId,
     lessonId,
-    wordIds.joinToString(SessionItemSeparator)
+    wordIds.joinToString(SessionItemSeparator),
+    learnedWordsBeforeReview?.toString().orEmpty()
 ).joinToString(SessionFieldSeparator)
 
 private fun String.toActiveSessionOrNull(): ActiveSession? {
     val parts = split(SessionFieldSeparator)
-    if (parts.size != 4) return null
+    if (parts.size !in 4..5) return null
     return ActiveSession(
         type = ActiveSessionType.entries.firstOrNull { it.name == parts[0] } ?: return null,
         topicId = parts[1],
         lessonId = parts[2],
-        wordIds = parts[3].split(SessionItemSeparator).filter { it.isNotBlank() }
+        wordIds = parts[3].split(SessionItemSeparator).filter { it.isNotBlank() },
+        learnedWordsBeforeReview = parts.getOrNull(4)?.toIntOrNull()
     )
 }
 

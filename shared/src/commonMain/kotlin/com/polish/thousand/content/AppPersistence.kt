@@ -44,7 +44,8 @@ internal data class ActiveSession(
     val type: ActiveSessionType,
     val topicId: String,
     val lessonId: String,
-    val wordIds: List<String> = emptyList()
+    val wordIds: List<String> = emptyList(),
+    val learnedWordsBeforeReview: Int? = null
 )
 
 internal enum class PersistedLessonPhase {

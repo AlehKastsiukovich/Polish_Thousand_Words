@@ -56,7 +56,6 @@ async function convertWavToM4a(inputPath, outputPath) {
             "-f", "m4af",
             "-d", "aac",
             "-u", "vbrq", "27",
-            "-u", "src", "c=1,r=24000",
             inputPath,
             outputPath
         ], {

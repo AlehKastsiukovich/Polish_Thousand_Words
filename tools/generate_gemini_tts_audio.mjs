@@ -8,7 +8,7 @@ import { spawn } from "node:child_process";
 const DEFAULT_MODEL = "gemini-3.1-flash-tts-preview";
 const DEFAULT_VOICE = "Kore";
 const DEFAULT_OUTPUT_DIR = "shared/src/commonMain/composeResources/files/audio";
-const DEFAULT_SOURCE_CSV = "/Users/alehkastsiukovich/Work/1000 slow/polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES.csv";
+const DEFAULT_SOURCE_CSV = "polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES_uk.csv";
 const DEFAULT_LOCAL_PROPERTIES = "local.properties";
 const DEFAULT_RETRIES = 5;
 const SAMPLE_RATE = 24_000;
@@ -33,6 +33,7 @@ function parseArgs(argv) {
         types: "words",
         maxJobs: Number.POSITIVE_INFINITY,
         delayMs: 0,
+        ranks: null,
         overwrite: false,
         dryRun: false
     };
@@ -81,6 +82,10 @@ function parseArgs(argv) {
                 args.end = Number(next);
                 index += 1;
                 break;
+            case "--ranks":
+                args.ranks = new Set(next.split(",").map(Number));
+                index += 1;
+                break;
             case "--types":
                 args.types = next;
                 index += 1;
@@ -112,11 +117,11 @@ function parseArgs(argv) {
         throw new Error("--types must be one of: all, words, examples");
     }
 
-    if (!Number.isFinite(args.start) || !Number.isFinite(args.end)) {
+    if (!Number.isFinite(args.start) || (args.end !== Number.POSITIVE_INFINITY && !Number.isFinite(args.end))) {
         throw new Error("--start and --end must be numbers");
     }
 
-    if (!Number.isFinite(args.maxJobs) || args.maxJobs <= 0) {
+    if ((args.maxJobs !== Number.POSITIVE_INFINITY && !Number.isFinite(args.maxJobs)) || args.maxJobs <= 0) {
         throw new Error("--max-jobs must be a positive number");
     }
 
@@ -141,6 +146,7 @@ Options:
   --retries <count>    Retry count for 429/503
   --start <rank>       Start rank (inclusive)
   --end <rank>         End rank (inclusive)
+  --ranks <list>       Comma-separated ranks to generate
   --types <mode>       all | words | examples
   --max-jobs <count>   Process only the next missing jobs
   --delay-ms <ms>      Wait between generated jobs to stay under RPM
@@ -398,7 +404,6 @@ async function convertWavToM4a(tempWavPath, outputPath) {
             "-f", "m4af",
             "-d", "aac",
             "-u", "vbrq", "27",
-            "-u", "src", "c=1,r=24000",
             tempWavPath,
             outputPath
         ], {
@@ -456,14 +461,9 @@ async function resolveApiKey(propertyName) {
 }
 
 function buildJobs(rows, args) {
-    const filtered = rows.filter((row) => {
-        const rank = Number(row.rank);
-        return rank >= args.start && rank <= args.end;
-    });
-
     const jobs = [];
 
-    for (const row of filtered) {
+    for (const row of rows) {
         const rank = Number(row.rank);
         const rankLabel = String(rank).padStart(4, "0");
         const stem = normalizeFileStem(row.polish);
@@ -591,9 +591,9 @@ async function main() {
     const rows = parseCsv(sourceText).map(normalizeSourceRow);
     const selectedRows = rows.filter((row) => {
         const rank = Number(row.rank);
-        return rank >= args.start && rank <= args.end;
+        return rank >= args.start && rank <= args.end && (args.ranks == null || args.ranks.has(rank));
     });
-    const jobs = buildJobs(rows, args);
+    const jobs = buildJobs(selectedRows, args);
     const outputRoot = path.resolve(process.cwd(), args.outDir);
     const manifestPath = path.join(outputRoot, "manifest.json");
 

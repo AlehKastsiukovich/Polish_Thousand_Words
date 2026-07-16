@@ -15,7 +15,7 @@ Current default:
 
 Default source CSV:
 
-- `/Users/alehkastsiukovich/Work/1000 slow/polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES.csv`
+- `polish_thousand_b1_ru_content_1000_FINAL_NO_DUPLICATES_uk.csv`
 
 Expected columns:
 

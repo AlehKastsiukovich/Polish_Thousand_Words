@@ -163,6 +163,7 @@ private fun AppContent(
                     learnedWords = appState.learnedWordIds.size,
                     addedWords = route.addedWords,
                     attemptedWords = route.attemptedWords,
+                    recognition = route.recognition,
                     quickReviewWords = appState.quickReviewItems.size,
                     continuesToNextLesson = appState.nextLesson != null,
                     onQuickReviewClick = {
@@ -181,7 +182,8 @@ private fun AppContent(
         is AppRoute.AchievementCelebration -> AchievementCelebrationScreen(
             milestoneWordCount = route.milestoneWordCount,
             supportLanguage = appState.supportLanguage,
-            onContinueClick = { dispatchAppIntent(AppIntent.ContinueFromAchievement) }
+            onContinueClick = { dispatchAppIntent(AppIntent.ContinueFromAchievement) },
+            onHomeClick = { dispatchAppIntent(AppIntent.ContinueFromAchievement) }
         )
 
         is AppRoute.Paywall -> PaywallContent(
