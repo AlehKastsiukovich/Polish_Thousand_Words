@@ -1,8 +1,8 @@
-# PolishThousand Summary
+# Mów 1000 Summary
 
 ## Product Promise
 
-`PolishThousand` helps Russian- and Ukrainian-speaking adults learn the 1,000 most useful Polish words and short phrases needed for confident everyday communication and a practical B1 vocabulary base.
+`Mów 1000` helps Russian- and Ukrainian-speaking adults learn the 1,000 most useful Polish words and short phrases needed for confident everyday communication and a practical B1 vocabulary base.
 
 The product is not a traditional language course and is not organized around beginner topics. It is one clear path from `0` to `1,000`.
 
@@ -14,6 +14,20 @@ The product is not a traditional language course and is not organized around beg
 - One primary action per screen.
 - The main screen always answers three questions: how much is complete, what is the next milestone, and what starts next.
 - Categories may exist only as internal content tags for balance and analytics. They are not part of the main navigation.
+
+## Localization Research
+
+Research snapshot from July 16, 2026:
+
+- Around 1.2 million foreign nationals were registered in Poland's social insurance system in mid-2025. Ukrainians and Belarusians were the two largest groups.
+- Employment among citizens of Colombia, the Philippines, and India was growing particularly quickly in 2024.
+- Sources: [ZUS](https://www.zus.pl/-/zus-fundusz-ubezpiecze%C5%84-spo%C5%82ecznych-w-znakomitej-formie-1), [Statistics Poland](https://stat.gov.pl/files/gfx/portalinformacyjny/pl/defaultaktualnosci/6329/15/25/1/cudzoziemcy_wykonujacy_prace_w_polsce_w_grudniu_w_2024_r..pdf), and [2025 migration overview](https://zielonalinia.gov.pl/migracje-w-polsce/).
+- The preliminary localization priority after Russian and Ukrainian is: English, Spanish, Georgian, Belarusian, Vietnamese, and Romanian.
+- This priority is a potential-reach hypothesis, not validated product demand. It must be checked against store-search data, conversion data, and interviews before all six localizations are commissioned.
+- English has especially high leverage as a bridge language for users from India, the Philippines, and the wider international audience.
+- Polish at B1 level is relevant to long-term integration because proof of at least B1 proficiency is required for a long-term EU resident permit and can be used in the procedure for recognition as a Polish citizen. Source: [Office for Foreigners](https://www.gov.pl/web/udsc/zezwolenie-na-pobyt-rezydenta-dlugoterminowego-ue2).
+
+The language picker must therefore scale beyond Russian and Ukrainian without showing every available language as a permanent full-width option on the settings screen.
 
 ## Milestones
 

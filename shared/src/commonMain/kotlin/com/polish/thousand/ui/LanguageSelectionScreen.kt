@@ -1,22 +1,26 @@
 package com.polish.thousand.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -31,35 +35,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.polish.thousand.content.BootstrapLanguage
 import com.polish.thousand.content.SupportLanguage
-import com.polish.thousand.content.appText
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
 
 @Composable
 internal fun LanguageSelectionScreen(
-    selectedLanguage: SupportLanguage = SupportLanguage.Ukrainian,
+    selectedLanguage: SupportLanguage? = null,
+    interfaceLanguage: BootstrapLanguage = BootstrapLanguage.English,
     onLanguageSelected: (SupportLanguage) -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
     val colors = MaterialTheme.appColors
-    var localSelection by remember { mutableStateOf(selectedLanguage) }
-    val text = localSelection.appText
+    val text = interfaceLanguage.selectionText
+    var localSelection by remember(selectedLanguage) { mutableStateOf(selectedLanguage) }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
+                Brush.verticalGradient(
+                    listOf(
                         MaterialTheme.colorScheme.background,
-                        colors.heroEnd,
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
+                        colors.heroStart.copy(alpha = 0.48f),
+                        MaterialTheme.colorScheme.background
                     )
                 )
             )
@@ -67,11 +73,10 @@ internal fun LanguageSelectionScreen(
         LessonGlow(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .offset(x = 68.dp, y = (-8).dp)
                 .size(220.dp),
             brush = Brush.radialGradient(
-                colors = listOf(
-                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.28f),
+                listOf(
+                    MaterialTheme.colorScheme.tertiary.copy(alpha = 0.16f),
                     MaterialTheme.colorScheme.tertiary.copy(alpha = 0f)
                 )
             )
@@ -80,179 +85,108 @@ internal fun LanguageSelectionScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
                 .padding(
-                    horizontal = spacing.screenHorizontal,
-                    vertical = spacing.screenVertical
+                    start = spacing.screenHorizontal,
+                    end = spacing.screenHorizontal,
+                    top = spacing.xxl,
+                    bottom = spacing.lg
                 )
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Surface(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f)
-                ) {
-                    Text(
-                        text = "PolishThousand",
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.76f)
-                    )
-                }
+            LanguageHero(text = text)
+            Spacer(modifier = Modifier.height(spacing.xxl))
 
-                Surface(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f)
-                ) {
-                    Text(
-                        text = localSelection.nativeName,
-                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .selectableGroup(),
+                contentPadding = PaddingValues(bottom = spacing.lg),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
+            ) {
+                items(
+                    items = SupportLanguage.entries,
+                    key = { it.name }
+                ) { language ->
+                    LanguageChoiceCard(
+                        language = language,
+                        selected = language == localSelection,
+                        onClick = { localSelection = language }
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(56.dp))
-            WelcomeBadgeLine(text = text.languageSelectionBadge)
-            Spacer(modifier = Modifier.height(spacing.lg))
-
-            Text(
-                text = text.languageSelectionTitle,
-                style = MaterialTheme.typography.displaySmall,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = text.languageSelectionDescription,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.76f)
-            )
-
-            Spacer(modifier = Modifier.height(spacing.xl))
-            CompactLanguageSwitcher(
-                selectedLanguage = localSelection,
-                onLanguageSelected = { localSelection = it }
-            )
-
-            Spacer(modifier = Modifier.weight(1f, fill = true))
-
             Button(
-                onClick = { onLanguageSelected(localSelection) },
-                modifier = Modifier.fillMaxWidth().height(58.dp),
+                onClick = { localSelection?.let(onLanguageSelected) },
+                enabled = localSelection != null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
                 shape = MaterialTheme.shapes.medium,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.66f)
                 )
             ) {
                 Text(
-                    text = "${text.languageSelectionContinuePrefix} ${localSelection.nativeName.lowercase()}",
+                    text = if (localSelection == null) text.selectToContinue else text.startLearning,
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold
                 )
             }
 
             Spacer(modifier = Modifier.height(spacing.md))
-
             Text(
-                text = text.languageSelectionFooter,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = spacing.md),
+                text = text.footer,
+                modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.66f)
-            )
-        }
-    }
-}
-
-@Composable
-private fun WelcomeBadgeLine(text: String) {
-    Surface(
-        shape = MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f),
-        shadowElevation = 0.dp
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.secondary)
-            )
-            Text(
-                text = text,
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.56f)
             )
         }
     }
 }
 
 @Composable
-private fun CompactLanguageSwitcher(
-    selectedLanguage: SupportLanguage,
-    onLanguageSelected: (SupportLanguage) -> Unit
-) {
-    Surface(
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+private fun LanguageHero(text: LanguageSelectionText) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Surface(
+            modifier = Modifier.size(56.dp),
+            shape = MaterialTheme.shapes.large,
+            color = MaterialTheme.colorScheme.primaryContainer
         ) {
-            SupportLanguage.entries.forEach { language ->
-                val selected = language == selectedLanguage
-                Surface(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable { onLanguageSelected(language) },
-                    shape = MaterialTheme.shapes.medium,
-                    color = if (selected) {
-                        MaterialTheme.colorScheme.primaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.surface
-                    },
-                    border = androidx.compose.foundation.BorderStroke(
-                        1.dp,
-                        if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.24f)
-                        else MaterialTheme.colorScheme.outlineVariant
-                    )
-                ) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 18.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Text(
-                            text = language.code,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f)
-                        )
-                        Text(
-                            text = language.nativeName,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
+            Box(contentAlignment = Alignment.Center) {
+                Text(
+                    text = "Aa",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = text.title,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.displaySmall,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = text.description,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.68f)
+        )
     }
 }
 
 @Composable
-internal fun LanguageOptionCard(
+private fun LanguageChoiceCard(
     language: SupportLanguage,
     selected: Boolean,
     onClick: () -> Unit
@@ -260,65 +194,134 @@ internal fun LanguageOptionCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .selectable(
+                selected = selected,
+                role = Role.RadioButton,
+                onClick = onClick
+            ),
         shape = MaterialTheme.shapes.large,
         color = if (selected) {
             MaterialTheme.colorScheme.primaryContainer
         } else {
-            MaterialTheme.colorScheme.surface.copy(alpha = 0.82f)
+            MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)
         },
-        border = androidx.compose.foundation.BorderStroke(
-            1.dp,
-            if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
-            else MaterialTheme.colorScheme.outlineVariant
-        )
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            }
+        ),
+        shadowElevation = if (selected) 3.dp else 0.dp
     ) {
         Row(
-            modifier = Modifier.padding(18.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+            Surface(
+                modifier = Modifier.size(48.dp),
+                shape = MaterialTheme.shapes.medium,
+                color = if (selected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                }
             ) {
-                Text(
-                    text = language.code,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f)
-                )
-                Text(
-                    text = language.nativeName,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(24.dp)
-                    .clip(CircleShape)
-                    .background(
-                        if (selected) MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.surfaceVariant
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                if (selected) {
+                Box(contentAlignment = Alignment.Center) {
                     Text(
-                        text = "✓",
+                        text = language.code,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        fontWeight = FontWeight.Bold,
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        }
                     )
                 }
             }
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(3.dp)
+            ) {
+                Text(
+                    text = language.nativeName,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = language.explanationSample,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(22.dp)
+                    .clip(CircleShape)
+                    .background(
+                        if (selected) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.outlineVariant
+                    )
+                    .padding(5.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surface)
+            )
         }
     }
 }
+
+private val SupportLanguage.explanationSample: String
+    get() = when (this) {
+        SupportLanguage.Ukrainian -> "Пояснення українською"
+        SupportLanguage.Russian -> "Объяснения на русском"
+    }
+
+private data class LanguageSelectionText(
+    val title: String,
+    val description: String,
+    val selectToContinue: String,
+    val startLearning: String,
+    val footer: String
+)
+
+private val BootstrapLanguage.selectionText: LanguageSelectionText
+    get() = when (this) {
+        BootstrapLanguage.English -> LanguageSelectionText(
+            title = "What language feels natural to you?",
+            description = "We’ll use it for every translation and explanation.",
+            selectToContinue = "Choose one to continue",
+            startLearning = "Start learning",
+            footer = "No account needed · Change anytime"
+        )
+        BootstrapLanguage.Ukrainian -> LanguageSelectionText(
+            title = "Яка мова для вас природна?",
+            description = "Ми використовуватимемо її для перекладів і пояснень.",
+            selectToContinue = "Оберіть мову, щоб продовжити",
+            startLearning = "Почати навчання",
+            footer = "Без облікового запису · Можна змінити будь-коли"
+        )
+        BootstrapLanguage.Russian -> LanguageSelectionText(
+            title = "Какой язык для вас привычнее?",
+            description = "Мы будем использовать его для переводов и объяснений.",
+            selectToContinue = "Выберите язык, чтобы продолжить",
+            startLearning = "Начать обучение",
+            footer = "Без аккаунта · Можно изменить в любое время"
+        )
+    }
 
 @Preview
 @Composable
 private fun LanguageSelectionScreenPreview() {
     PolishThousandTheme {
-        LanguageSelectionScreen()
+        LanguageSelectionScreen(
+            selectedLanguage = null,
+            interfaceLanguage = BootstrapLanguage.English
+        )
     }
 }

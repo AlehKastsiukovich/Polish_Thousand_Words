@@ -106,7 +106,8 @@ private fun AppContent(
         AppRoute.Splash -> SplashScreen()
 
         AppRoute.LanguageSelection -> LanguageSelectionScreen(
-            selectedLanguage = appState.supportLanguage,
+            selectedLanguage = appState.suggestedSupportLanguage,
+            interfaceLanguage = appState.bootstrapLanguage,
             onLanguageSelected = { language ->
                 dispatchAppIntent(AppIntent.SelectLanguage(language))
             }
@@ -196,7 +197,6 @@ private fun AppContent(
         )
 
         AppRoute.Settings -> SettingsScreen(
-            selectedLanguage = appState.supportLanguage,
             supportLanguage = appState.supportLanguage,
             hasPremium = appState.hasPremium,
             isPaymentInProgress = appState.isPaymentInProgress,
@@ -205,9 +205,10 @@ private fun AppContent(
             learnedWords = appState.learnedWordIds.size,
             onBackClick = { dispatchAppIntent(AppIntent.Back) },
             onRestorePurchasesClick = { dispatchAppIntent(AppIntent.RestorePurchases) },
+            onUnlockClick = { dispatchAppIntent(AppIntent.PurchaseFullUnlock) },
             onPaymentMessageClick = { dispatchAppIntent(AppIntent.DismissPaymentMessage) },
-            onLanguageSaved = { language ->
-                dispatchAppIntent(AppIntent.SaveSettings(language))
+            onLanguageChanged = { language ->
+                dispatchAppIntent(AppIntent.ChangeSupportLanguage(language))
             }
         )
     }

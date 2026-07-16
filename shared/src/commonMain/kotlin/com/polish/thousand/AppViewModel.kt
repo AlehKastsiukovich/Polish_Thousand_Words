@@ -3,6 +3,7 @@ package com.polish.thousand
 import com.polish.thousand.content.ActiveSession
 import com.polish.thousand.content.ActiveSessionType
 import com.polish.thousand.content.AppPersistence
+import com.polish.thousand.content.BootstrapLanguage
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningPath
@@ -16,6 +17,7 @@ import com.polish.thousand.content.WordReviewState
 import com.polish.thousand.content.appText
 import com.polish.thousand.content.currentEpochDay
 import com.polish.thousand.content.itemsByIds
+import com.polish.thousand.content.initialLanguageChoice
 import com.polish.thousand.core.mvi.AppDispatchers
 import com.polish.thousand.core.mvi.StoreViewModel
 import com.polish.thousand.core.mvi.UiEffect
@@ -28,6 +30,8 @@ import com.polish.thousand.payments.PaymentResult
 internal data class AppUiState(
     val supportLanguage: SupportLanguage,
     val hasSelectedLanguage: Boolean,
+    val bootstrapLanguage: BootstrapLanguage,
+    val suggestedSupportLanguage: SupportLanguage?,
     val completedLessonIds: Set<String>,
     val learnedWordIds: Set<String>,
     val reviewStates: Map<String, WordReviewState>,
@@ -79,7 +83,7 @@ internal sealed interface AppIntent : UiIntent {
     data object OpenDueReview : AppIntent
     data object OpenQuickReview : AppIntent
     data object OpenSettings : AppIntent
-    data class SaveSettings(val language: SupportLanguage) : AppIntent
+    data class ChangeSupportLanguage(val language: SupportLanguage) : AppIntent
     data class LessonCompleted(val correctWordIds: Set<String>) : AppIntent
     data class ScheduledReviewAnswered(val wordId: String, val quality: ReviewQuality) : AppIntent
     data class QuickReviewAnswered(val wordId: String, val quality: ReviewQuality) : AppIntent
@@ -115,7 +119,7 @@ internal class AppViewModel(
             AppIntent.OpenDueReview -> openDueReview()
             AppIntent.OpenQuickReview -> openQuickReview()
             AppIntent.OpenSettings -> push(AppRoute.Settings)
-            is AppIntent.SaveSettings -> saveSettings(intent.language)
+            is AppIntent.ChangeSupportLanguage -> changeSupportLanguage(intent.language)
             is AppIntent.LessonCompleted -> completeLesson(intent.correctWordIds)
             is AppIntent.ScheduledReviewAnswered -> recordReviewAnswer(
                 wordId = intent.wordId,
@@ -221,16 +225,10 @@ internal class AppViewModel(
         )
     }
 
-    private fun saveSettings(language: SupportLanguage) {
+    private fun changeSupportLanguage(language: SupportLanguage) {
+        if (uiState.value.supportLanguage == language) return
         persistence.saveSupportLanguage(language)
-        val state = uiState.value
-        val backStack = if (state.backStack.size > 1) state.backStack.dropLast(1) else state.backStack
-        val nextState = state.copy(
-            supportLanguage = language,
-            backStack = backStack
-        )
-        setState(nextState)
-        persistActiveRoute(backStack.last())
+        setState(uiState.value.copy(supportLanguage = language))
     }
 
     private fun completeLesson(correctWordIds: Set<String>) {
@@ -668,6 +666,7 @@ internal fun resolveLessonRoute(topicId: String, lessonId: String): ResolvedLess
 
 private fun initialAppState(persistence: AppPersistence): AppUiState {
     val language = persistence.loadSupportLanguage()
+    val initialLanguageChoice = initialLanguageChoice()
     val today = currentEpochDay()
     val completedLessonIds = persistence.loadCompletedLessonIds()
     val learnedWordIds = persistence.loadLearnedWordIds()
@@ -700,8 +699,12 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
         persistence.saveReviewStates(reviewStates)
     }
     return AppUiState(
-        supportLanguage = language ?: SupportLanguage.Ukrainian,
+        supportLanguage = language
+            ?: initialLanguageChoice.suggestedSupportLanguage
+            ?: SupportLanguage.Russian,
         hasSelectedLanguage = language != null,
+        bootstrapLanguage = initialLanguageChoice.interfaceLanguage,
+        suggestedSupportLanguage = initialLanguageChoice.suggestedSupportLanguage,
         completedLessonIds = completedLessonIds,
         learnedWordIds = learnedWordIds,
         reviewStates = reviewStates,

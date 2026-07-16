@@ -16,6 +16,16 @@ internal data class AppText(
     val settingsOverline: String,
     val supportLanguageTitle: String,
     val supportLanguageDescription: String,
+    val settingsLearningSection: String,
+    val settingsAccessSection: String,
+    val settingsLanguageSubtitle: String,
+    val settingsChangeLanguage: String,
+    val settingsChangesImmediately: String,
+    val settingsSearchLanguage: String,
+    val settingsRecommendedLanguages: String,
+    val settingsAllLanguages: String,
+    val settingsSelectedLanguage: String,
+    val settingsProgressSaved: String,
     val currentPlanTitle: String,
     val premiumUnlocked: String,
     val freeStarterPlan: String,
@@ -59,7 +69,7 @@ internal fun SupportLanguage.paywallTitle(completedLessons: Int): String = when 
 }
 
 internal fun TopicContent.titleFor(language: SupportLanguage): String = when (id) {
-    "b1_core" -> if (language == SupportLanguage.Ukrainian) "Polish 1000" else "Polish 1000"
+    "b1_core" -> "Mów 1000"
     else -> title
 }
 
@@ -133,6 +143,16 @@ private val ukrainianAppText = AppText(
     settingsOverline = "Налаштування",
     supportLanguageTitle = "Мова підтримки",
     supportLanguageDescription = "Одна мова підтримки робить уроки спокійнішими й читабельнішими.",
+    settingsLearningSection = "Навчання",
+    settingsAccessSection = "Доступ і дані",
+    settingsLanguageSubtitle = "Переклади та інтерфейс",
+    settingsChangeLanguage = "Змінити",
+    settingsChangesImmediately = "Переклади та інтерфейс зміняться одразу після вибору.",
+    settingsSearchLanguage = "Знайти мову",
+    settingsRecommendedLanguages = "Рекомендовані",
+    settingsAllLanguages = "Усі мови",
+    settingsSelectedLanguage = "Вибрано",
+    settingsProgressSaved = "Збережено",
     currentPlanTitle = "Поточний план",
     premiumUnlocked = "Преміум відкрито",
     freeStarterPlan = "Безкоштовний старт",
@@ -178,6 +198,16 @@ private val russianAppText = AppText(
     settingsOverline = "Настройки",
     supportLanguageTitle = "Язык поддержки",
     supportLanguageDescription = "Один язык поддержки делает уроки спокойнее и проще для чтения.",
+    settingsLearningSection = "Обучение",
+    settingsAccessSection = "Доступ и данные",
+    settingsLanguageSubtitle = "Переводы и интерфейс",
+    settingsChangeLanguage = "Изменить",
+    settingsChangesImmediately = "Переводы и интерфейс изменятся сразу после выбора.",
+    settingsSearchLanguage = "Найти язык",
+    settingsRecommendedLanguages = "Рекомендуемые",
+    settingsAllLanguages = "Все языки",
+    settingsSelectedLanguage = "Выбран",
+    settingsProgressSaved = "Сохранено",
     currentPlanTitle = "Текущий план",
     premiumUnlocked = "Премиум открыт",
     freeStarterPlan = "Бесплатный старт",

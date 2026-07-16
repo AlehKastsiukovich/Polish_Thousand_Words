@@ -92,7 +92,7 @@ private fun HeaderRow() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "PolishThousand",
+            text = "Mów 1000",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground
         )

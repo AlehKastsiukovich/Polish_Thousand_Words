@@ -59,7 +59,7 @@ internal val defaultExerciseTypes = listOf(
 
 private val corePath = TopicContent(
     id = "b1_core",
-    title = "Polish 1000",
+    title = "Mów 1000",
     description = "The most useful Polish words and phrases for confident everyday communication.",
     lessons = generatedB1RuLessons
 )

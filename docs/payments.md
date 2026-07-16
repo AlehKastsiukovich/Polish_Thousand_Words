@@ -9,10 +9,10 @@ Use one purchase:
 - Type: non-consumable / one-time product
 - Price: start with `USD 4.99`, localized by App Store / Google Play price tiers
 - Free gate: first 100 words are free
-- Paid unlock: words 101-1000, all future review for unlocked words, and all future improvements inside the Polish 1000 product
+- Paid unlock: words 101-1000, all future review for unlocked words, and all future improvements inside the Mów 1000 product
 - No account system in v1
 
-This fits the product better than a subscription because Polish 1000 is a finite learning pack. The user understands the value quickly after the first 100 words, and a one-time purchase feels lower-risk than a recurring charge.
+This fits the product better than a subscription because Mów 1000 is a finite learning pack. The user understands the value quickly after the first 100 words, and a one-time purchase feels lower-risk than a recurring charge.
 
 ## Why not subscription first
 
