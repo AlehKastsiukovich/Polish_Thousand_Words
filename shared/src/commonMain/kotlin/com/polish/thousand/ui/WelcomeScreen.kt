@@ -21,12 +21,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +45,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.polish.thousand.content.ActivityOverview
 import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningMilestone
@@ -668,61 +667,231 @@ private fun MilestonePathDialog(
     val spacing = MaterialTheme.appSpacing
     val nextMilestone = LearningPath.nextMilestone(learnedWords)
     val colors = milestoneColors()
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        shape = RoundedCornerShape(28.dp),
-        containerColor = MaterialTheme.colorScheme.surface,
-        title = {
-            Text(
-                text = if (supportLanguage == SupportLanguage.Ukrainian) "Шлях до 1 000" else "Путь к 1 000",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-        },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                LearningPath.milestones.forEachIndexed { index, milestone ->
-                    val isCompleted = learnedWords >= milestone.wordCount
-                    val isNext = milestone == nextMilestone && !isCompleted
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = MaterialTheme.shapes.medium,
-                        color = if (isNext) colors[index].copy(alpha = 0.11f) else Color.Transparent
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = spacing.sm, vertical = spacing.sm),
-                            horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .background(colors[index], CircleShape)
-                            )
-                            Text(
-                                text = milestone.wordCount.toString(),
-                                modifier = Modifier.width(38.dp),
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                text = milestone.titleFor(supportLanguage),
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = if (isCompleted || isNext) 1f else 0.62f)
+    val learnedLabel = when (supportLanguage) {
+        SupportLanguage.Ukrainian -> "$learnedWords слів вивчено"
+        SupportLanguage.Russian -> "$learnedWords слов изучено"
+    }
+    val nextGoalLabel = when {
+        learnedWords >= LearningTargetWords && supportLanguage == SupportLanguage.Ukrainian -> "Усі етапи пройдено"
+        learnedWords >= LearningTargetWords -> "Все этапы пройдены"
+        supportLanguage == SupportLanguage.Ukrainian -> "Наступна ціль: ${milestoneWordCountLabel(nextMilestone.wordCount)} слів"
+        else -> "Следующая цель: ${milestoneWordCountLabel(nextMilestone.wordCount)} слов"
+    }
+
+    Dialog(onDismissRequest = onDismissRequest) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = spacing.md),
+            shape = RoundedCornerShape(28.dp),
+            color = MaterialTheme.colorScheme.surface,
+            shadowElevation = 18.dp
+        ) {
+            Column(
+                modifier = Modifier.padding(spacing.lg),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text(
+                            text = if (supportLanguage == SupportLanguage.Ukrainian) "ВАШ ПРОГРЕС" else "ВАШ ПРОГРЕСС",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = if (supportLanguage == SupportLanguage.Ukrainian) "Шлях до 1 000" else "Путь к 1 000",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = learnedLabel,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
+                        )
+                    }
+                    IconButton(onClick = onDismissRequest) {
+                        Text(
+                            text = "×",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                        )
+                    }
+                }
+
+                Surface(
+                    shape = MaterialTheme.shapes.medium,
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.56f)
+                ) {
+                    Column(modifier = Modifier.padding(vertical = spacing.sm)) {
+                        LearningPath.milestones.forEachIndexed { index, milestone ->
+                            MilestoneDialogRow(
+                                milestone = milestone,
+                                color = colors[index],
+                                isCompleted = learnedWords >= milestone.wordCount,
+                                isCurrent = milestone == nextMilestone && learnedWords < milestone.wordCount,
+                                isLast = index == LearningPath.milestones.lastIndex,
+                                supportLanguage = supportLanguage
                             )
                         }
                     }
                 }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(if (supportLanguage == SupportLanguage.Ukrainian) "Готово" else "Готово")
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = nextGoalLabel,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.64f)
+                    )
+                    Surface(
+                        onClick = onDismissRequest,
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ) {
+                        Text(
+                            text = if (supportLanguage == SupportLanguage.Ukrainian) "Готово" else "Готово",
+                            modifier = Modifier.padding(horizontal = spacing.md, vertical = 9.dp),
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
-    )
+    }
 }
+
+@Composable
+private fun MilestoneDialogRow(
+    milestone: LearningMilestone,
+    color: Color,
+    isCompleted: Boolean,
+    isCurrent: Boolean,
+    isLast: Boolean,
+    supportLanguage: SupportLanguage
+) {
+    val spacing = MaterialTheme.appSpacing
+    val titleColor = MaterialTheme.colorScheme.onSurface.copy(
+        alpha = if (isCompleted || isCurrent) 0.92f else 0.58f
+    )
+
+    Row(
+        modifier = Modifier.padding(horizontal = spacing.sm),
+        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier.size(30.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (!isLast) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .width(1.dp)
+                        .height(25.dp)
+                        .background(MaterialTheme.colorScheme.outlineVariant)
+                )
+            }
+            Surface(
+                modifier = Modifier.size(30.dp),
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.surface,
+                border = BorderStroke(
+                    width = 2.dp,
+                    color = if (isCompleted || isCurrent) color else MaterialTheme.colorScheme.outlineVariant
+                )
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    if (isCompleted) {
+                        Text(
+                            text = "✓",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = color
+                        )
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .size(if (isCurrent) 10.dp else 7.dp)
+                                .background(
+                                    color = if (isCurrent) color else MaterialTheme.colorScheme.outlineVariant,
+                                    shape = CircleShape
+                                )
+                        )
+                    }
+                }
+            }
+        }
+
+        Surface(
+            modifier = Modifier.weight(1f),
+            shape = MaterialTheme.shapes.medium,
+            color = if (isCurrent) color.copy(alpha = 0.12f) else Color.Transparent
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = spacing.sm, vertical = 9.dp),
+                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                        Text(
+                            text = milestoneWordCountLabel(milestone.wordCount),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = milestone.titleFor(supportLanguage),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = if (isCompleted || isCurrent) FontWeight.Medium else FontWeight.Normal,
+                            color = titleColor
+                        )
+                    }
+                    if (isCompleted || isCurrent) {
+                        Text(
+                            text = when {
+                                isCompleted && supportLanguage == SupportLanguage.Ukrainian -> "Пройдено"
+                                isCompleted -> "Пройдено"
+                                supportLanguage == SupportLanguage.Ukrainian -> "Поточна ціль"
+                                else -> "Текущая цель"
+                            },
+                            style = MaterialTheme.typography.labelSmall,
+                            color = color.copy(alpha = 0.9f)
+                        )
+                    }
+                }
+                if (isCurrent) {
+                    Surface(
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surface
+                    ) {
+                        Text(
+                            text = if (supportLanguage == SupportLanguage.Ukrainian) "ЗАРАЗ" else "СЕЙЧАС",
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = color
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun milestoneWordCountLabel(wordCount: Int): String =
+    if (wordCount == LearningTargetWords) "1 000" else wordCount.toString()
 
 private fun progressGoalLabel(
     milestone: LearningMilestone,
