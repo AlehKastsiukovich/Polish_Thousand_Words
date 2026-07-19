@@ -2,7 +2,6 @@ package com.polish.thousand.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -739,16 +738,17 @@ private fun LessonPracticeCard(
                 val isSubmitted = submittedAnswer != null
                 val isCorrect = option == correctAnswer
                 val isWrongSelection = isSubmitted && isSelected && !isCorrect
+                val selectionColor = colors.progressEnd
                 val containerColor = when {
                     isSubmitted && isCorrect -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.92f)
                     isWrongSelection -> MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.78f)
-                    isSelected -> colors.chipContainer
+                    isSelected -> MaterialTheme.colorScheme.surface.copy(alpha = 0.82f)
                     else -> MaterialTheme.colorScheme.surface.copy(alpha = 0.82f)
                 }
                 val borderColor = when {
-                    isSubmitted && isCorrect -> colors.progressStart
+                    isSubmitted && isCorrect -> MaterialTheme.colorScheme.primary
                     isWrongSelection -> MaterialTheme.colorScheme.secondary
-                    isSelected -> MaterialTheme.colorScheme.outline
+                    isSelected -> selectionColor.copy(alpha = 0.34f)
                     else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.76f)
                 }
                 val statusLabel = when {
@@ -758,35 +758,54 @@ private fun LessonPracticeCard(
                 }
 
                 Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(enabled = !isSubmitted) { onAnswerSelected(option) },
+                    onClick = { onAnswerSelected(option) },
+                    enabled = !isSubmitted,
+                    modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     color = containerColor,
-                    border = BorderStroke(1.dp, borderColor)
+                    contentColor = when {
+                        isSubmitted && isCorrect -> MaterialTheme.colorScheme.onPrimaryContainer
+                        isWrongSelection -> MaterialTheme.colorScheme.onSecondaryContainer
+                        else -> MaterialTheme.colorScheme.onSurface
+                    },
+                    border = BorderStroke(
+                        width = if (isSelected || isSubmitted && (isCorrect || isWrongSelection)) 2.dp else 1.dp,
+                        color = borderColor
+                    )
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = spacing.lg, vertical = 17.dp),
-                        horizontalArrangement = Arrangement.spacedBy(spacing.md),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = option,
-                            modifier = Modifier.weight(1f),
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        if (statusLabel != null) {
+                    Box {
+                        Row(
+                            modifier = Modifier.padding(horizontal = spacing.lg, vertical = 17.dp),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Text(
-                                text = statusLabel,
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.SemiBold,
-                                color = if (isCorrect) {
-                                    colors.progressStart
-                                } else {
-                                    MaterialTheme.colorScheme.secondary
-                                }
+                                text = option,
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Unspecified
+                            )
+                            if (statusLabel != null) {
+                                Text(
+                                    text = statusLabel,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = if (isCorrect) {
+                                        colors.progressStart
+                                    } else {
+                                        MaterialTheme.colorScheme.secondary
+                                    }
+                                )
+                            }
+                        }
+                        if (isSelected && !isSubmitted) {
+                            Box(
+                                modifier = Modifier
+                                    .align(Alignment.BottomCenter)
+                                    .fillMaxWidth()
+                                    .height(4.dp)
+                                    .background(selectionColor)
                             )
                         }
                     }

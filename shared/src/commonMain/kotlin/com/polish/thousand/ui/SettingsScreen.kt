@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -58,9 +60,11 @@ internal fun SettingsScreen(
     onRestorePurchasesClick: () -> Unit = {},
     onUnlockClick: () -> Unit = {},
     onPaymentMessageClick: () -> Unit = {},
-    onLanguageChanged: (SupportLanguage) -> Unit = {}
+    onLanguageChanged: (SupportLanguage) -> Unit = {},
+    onResetProgressClick: () -> Unit = {}
 ) {
     var isLanguagePickerVisible by rememberSaveable { mutableStateOf(false) }
+    var isResetConfirmationVisible by rememberSaveable { mutableStateOf(false) }
     val appVersion = rememberAppVersion()
 
     SettingsBackground {
@@ -86,7 +90,50 @@ internal fun SettingsScreen(
                 onRestorePurchasesClick = onRestorePurchasesClick,
                 onUnlockClick = onUnlockClick,
                 onPaymentMessageClick = onPaymentMessageClick,
+                onResetProgressClick = { isResetConfirmationVisible = true },
                 version = appVersion.displayValue()
+            )
+        }
+
+        if (isResetConfirmationVisible) {
+            val text = supportLanguage.appText
+            AlertDialog(
+                onDismissRequest = { isResetConfirmationVisible = false },
+                shape = RoundedCornerShape(28.dp),
+                containerColor = MaterialTheme.colorScheme.surface,
+                title = {
+                    Text(
+                        text = text.settingsResetProgressTitle,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                text = {
+                    Text(
+                        text = text.settingsResetProgressMessage,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            isResetConfirmationVisible = false
+                            onResetProgressClick()
+                        }
+                    ) {
+                        Text(
+                            text = text.settingsResetProgressConfirm,
+                            color = MaterialTheme.colorScheme.error,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isResetConfirmationVisible = false }) {
+                        Text(text = text.settingsResetProgressCancel)
+                    }
+                }
             )
         }
     }
@@ -137,6 +184,7 @@ private fun CompactSettingsContent(
     onRestorePurchasesClick: () -> Unit,
     onUnlockClick: () -> Unit,
     onPaymentMessageClick: () -> Unit,
+    onResetProgressClick: () -> Unit,
     version: String
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -174,15 +222,16 @@ private fun CompactSettingsContent(
                 completedLessons = completedLessons,
                 learnedWords = learnedWords,
                 onUnlockClick = onUnlockClick,
-                onRestorePurchasesClick = onRestorePurchasesClick
+                onRestorePurchasesClick = onRestorePurchasesClick,
+                onResetProgressClick = onResetProgressClick,
+                hasProgress = learnedWords > 0 || completedLessons > 0
             )
 
             if (paymentMessage != null) {
                 Spacer(modifier = Modifier.height(spacing.md))
                 Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(onClick = onPaymentMessageClick),
+                    onClick = onPaymentMessageClick,
+                    modifier = Modifier.fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.78f)
                 ) {
@@ -283,7 +332,9 @@ private fun AccessAndDataCard(
     completedLessons: Int,
     learnedWords: Int,
     onUnlockClick: () -> Unit,
-    onRestorePurchasesClick: () -> Unit
+    onRestorePurchasesClick: () -> Unit,
+    onResetProgressClick: () -> Unit,
+    hasProgress: Boolean
 ) {
     val text = supportLanguage.appText
     Surface(
@@ -369,6 +420,35 @@ private fun AccessAndDataCard(
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.primary
                     )
+                    ChevronIcon(modifier = Modifier.size(19.dp))
+                }
+            }
+
+            if (hasProgress) {
+                SettingsDivider()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            role = Role.Button,
+                            onClick = onResetProgressClick
+                        )
+                        .padding(horizontal = 16.dp, vertical = 15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = text.settingsResetProgress,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                        Text(
+                            text = text.settingsResetProgressDescription,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     ChevronIcon(modifier = Modifier.size(19.dp))
                 }
             }

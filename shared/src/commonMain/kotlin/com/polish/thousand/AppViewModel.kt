@@ -8,6 +8,7 @@ import com.polish.thousand.content.CompletionRecognition
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningPath
+import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.MvpSeedContent
 import com.polish.thousand.content.PendingQuickReview
 import com.polish.thousand.content.ReviewQuality
@@ -83,13 +84,16 @@ internal sealed interface AppIntent : UiIntent {
     data object ContinueFromHome : AppIntent
     data object OpenDueReview : AppIntent
     data object OpenQuickReview : AppIntent
+    data object OpenFreeReview : AppIntent
     data object OpenSettings : AppIntent
     data class ChangeSupportLanguage(val language: SupportLanguage) : AppIntent
     data class LessonCompleted(val correctWordIds: Set<String>) : AppIntent
     data class ScheduledReviewAnswered(val wordId: String, val quality: ReviewQuality) : AppIntent
     data class QuickReviewAnswered(val wordId: String, val quality: ReviewQuality) : AppIntent
+    data class FreeReviewAnswered(val wordId: String, val quality: ReviewQuality) : AppIntent
     data object ReviewCompleted : AppIntent
     data object QuickReviewCompleted : AppIntent
+    data object FreeReviewCompleted : AppIntent
     data object OpenCompletionQuickReview : AppIntent
     data object ContinueFromAchievement : AppIntent
     data object ContinueFromCompletion : AppIntent
@@ -99,6 +103,7 @@ internal sealed interface AppIntent : UiIntent {
     data object DismissPaymentMessage : AppIntent
     data object ContinueFree : AppIntent
     data object ClosePaywall : AppIntent
+    data object ResetProgress : AppIntent
 }
 
 internal sealed interface AppEffect : UiEffect
@@ -119,6 +124,7 @@ internal class AppViewModel(
             AppIntent.ContinueFromHome -> continueFromHome()
             AppIntent.OpenDueReview -> openDueReview()
             AppIntent.OpenQuickReview -> openQuickReview()
+            AppIntent.OpenFreeReview -> openFreeReview()
             AppIntent.OpenSettings -> push(AppRoute.Settings)
             is AppIntent.ChangeSupportLanguage -> changeSupportLanguage(intent.language)
             is AppIntent.LessonCompleted -> completeLesson(intent.correctWordIds)
@@ -132,8 +138,15 @@ internal class AppViewModel(
                 quality = intent.quality,
                 isEarlyReview = true
             )
+            is AppIntent.FreeReviewAnswered -> recordReviewAnswer(
+                wordId = intent.wordId,
+                quality = intent.quality,
+                isEarlyReview = true,
+                updatesPendingQuickReview = false
+            )
             AppIntent.ReviewCompleted -> registerActivityAndReset()
             AppIntent.QuickReviewCompleted -> completeQuickReview()
+            AppIntent.FreeReviewCompleted -> registerActivityAndReset()
             AppIntent.OpenCompletionQuickReview -> openCompletionQuickReview()
             AppIntent.ContinueFromAchievement -> continueFromAchievement()
             AppIntent.ContinueFromCompletion -> continueFromCompletion()
@@ -143,6 +156,7 @@ internal class AppViewModel(
             AppIntent.DismissPaymentMessage -> setState(uiState.value.copy(paymentMessage = null))
             AppIntent.ContinueFree -> continueFree()
             AppIntent.ClosePaywall -> closePaywall()
+            AppIntent.ResetProgress -> resetProgress()
         }
     }
 
@@ -225,6 +239,22 @@ internal class AppViewModel(
                 lessonId = hostLesson.id,
                 wordIds = state.quickReviewWordIds,
                 learnedWordsBeforeReview = state.learnedWordIds.size
+            )
+        )
+    }
+
+    private fun openFreeReview() {
+        val state = uiState.value
+        if (state.learnedWordIds.size < LearningTargetWords) return
+        val wordIds = state.learnedWordIds.sorted().shuffled().take(10)
+        val hostLesson = MvpSeedContent.lessons.firstOrNull { lesson ->
+            lesson.items.any { it.id in wordIds }
+        } ?: return
+        push(
+            AppRoute.FreeReview(
+                topicId = MvpSeedContent.path.id,
+                lessonId = hostLesson.id,
+                wordIds = wordIds
             )
         )
     }
@@ -328,7 +358,8 @@ internal class AppViewModel(
     private fun recordReviewAnswer(
         wordId: String,
         quality: ReviewQuality,
-        isEarlyReview: Boolean
+        isEarlyReview: Boolean,
+        updatesPendingQuickReview: Boolean = true
     ) {
         val state = uiState.value
         val reviewStates = if (isEarlyReview) {
@@ -352,6 +383,7 @@ internal class AppViewModel(
             state.learnedWordIds
         }
         val pendingQuickReview = state.pendingQuickReview?.let { pending ->
+            if (!updatesPendingQuickReview) return@let pending
             if (quality != ReviewQuality.Know || wordId !in pending.wordIds) {
                 pending
             } else {
@@ -604,6 +636,26 @@ internal class AppViewModel(
         setState(uiState.value.copy(activeDays = activeDays))
     }
 
+    private fun resetProgress() {
+        val state = uiState.value
+        persistence.saveCompletedLessonIds(emptySet())
+        persistence.saveLearnedWordIds(emptySet())
+        persistence.saveReviewStates(emptyMap())
+        persistence.savePendingQuickReview(null)
+        persistence.saveActiveDays(emptySet())
+        clearActiveSession()
+        setState(
+            state.copy(
+                completedLessonIds = emptySet(),
+                learnedWordIds = emptySet(),
+                reviewStates = emptyMap(),
+                pendingQuickReview = null,
+                activeDays = emptySet(),
+                backStack = listOf(AppRoute.Welcome)
+            )
+        )
+    }
+
     private fun setState(state: AppUiState) {
         reduceState { state }
     }
@@ -622,6 +674,8 @@ internal class AppViewModel(
         is AppRoute.ReviewOnly -> resolveLessonRoute(route.topicId, route.lessonId) != null &&
             MvpSeedContent.lessons.itemsByIds(route.wordIds).isNotEmpty()
         is AppRoute.QuickReview -> resolveLessonRoute(route.topicId, route.lessonId) != null &&
+            MvpSeedContent.lessons.itemsByIds(route.wordIds).isNotEmpty()
+        is AppRoute.FreeReview -> resolveLessonRoute(route.topicId, route.lessonId) != null &&
             MvpSeedContent.lessons.itemsByIds(route.wordIds).isNotEmpty()
         else -> false
     }
@@ -642,6 +696,11 @@ internal sealed interface AppRoute {
         val lessonId: String,
         val wordIds: List<String>,
         val learnedWordsBeforeReview: Int
+    ) : AppRoute
+    data class FreeReview(
+        val topicId: String,
+        val lessonId: String,
+        val wordIds: List<String>
     ) : AppRoute
     data class AchievementCelebration(
         val milestoneWordCount: Int,
@@ -770,7 +829,7 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
 }
 
 private val AppRoute.isLearningSession: Boolean
-    get() = this is AppRoute.LessonStudy || this is AppRoute.ReviewOnly || this is AppRoute.QuickReview
+    get() = this is AppRoute.LessonStudy || this is AppRoute.ReviewOnly || this is AppRoute.QuickReview || this is AppRoute.FreeReview
 
 private fun AppRoute.toActiveSessionOrNull(): ActiveSession? = when (this) {
     is AppRoute.LessonStudy -> ActiveSession(ActiveSessionType.Lesson, topicId, lessonId)
@@ -781,6 +840,12 @@ private fun AppRoute.toActiveSessionOrNull(): ActiveSession? = when (this) {
         lessonId = lessonId,
         wordIds = wordIds,
         learnedWordsBeforeReview = learnedWordsBeforeReview
+    )
+    is AppRoute.FreeReview -> ActiveSession(
+        type = ActiveSessionType.FreeReview,
+        topicId = topicId,
+        lessonId = lessonId,
+        wordIds = wordIds
     )
     else -> null
 }
@@ -794,6 +859,7 @@ private fun ActiveSession.toRoute(currentLearnedWords: Int): AppRoute = when (ty
         wordIds = wordIds,
         learnedWordsBeforeReview = learnedWordsBeforeReview ?: currentLearnedWords
     )
+    ActiveSessionType.FreeReview -> AppRoute.FreeReview(topicId, lessonId, wordIds)
 }
 
 private fun Set<Long>.markActive(todayEpochDay: Long): Set<Long> =

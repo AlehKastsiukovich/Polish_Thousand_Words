@@ -65,18 +65,21 @@ fun App() {
                         AppIntent.LessonCompleted(effect.correctWordIds)
                     )
                     is LessonEffect.ReviewAnswered -> {
-                        val isQuickReview = appViewModel.uiState.value.currentRoute is AppRoute.QuickReview
+                        val route = appViewModel.uiState.value.currentRoute
                         appViewModel.dispatchIntent(
-                            if (isQuickReview) {
-                                AppIntent.QuickReviewAnswered(effect.wordId, effect.quality)
-                            } else {
-                                AppIntent.ScheduledReviewAnswered(effect.wordId, effect.quality)
+                            when (route) {
+                                is AppRoute.QuickReview -> AppIntent.QuickReviewAnswered(effect.wordId, effect.quality)
+                                is AppRoute.FreeReview -> AppIntent.FreeReviewAnswered(effect.wordId, effect.quality)
+                                else -> AppIntent.ScheduledReviewAnswered(effect.wordId, effect.quality)
                             }
                         )
                         if (effect.sessionCompleted) {
                             appViewModel.dispatchIntent(
-                                if (isQuickReview) AppIntent.QuickReviewCompleted
-                                else AppIntent.ReviewCompleted
+                                when (route) {
+                                    is AppRoute.QuickReview -> AppIntent.QuickReviewCompleted
+                                    is AppRoute.FreeReview -> AppIntent.FreeReviewCompleted
+                                    else -> AppIntent.ReviewCompleted
+                                }
                             )
                         }
                     }
@@ -124,6 +127,7 @@ private fun AppContent(
             onContinueClick = { dispatchAppIntent(AppIntent.ContinueFromHome) },
             onOpenDueReviewClick = { dispatchAppIntent(AppIntent.OpenDueReview) },
             onOpenQuickReviewClick = { dispatchAppIntent(AppIntent.OpenQuickReview) },
+            onOpenFreeReviewClick = { dispatchAppIntent(AppIntent.OpenFreeReview) },
             onOpenSettingsClick = { dispatchAppIntent(AppIntent.OpenSettings) }
         )
 
@@ -146,6 +150,15 @@ private fun AppContent(
         )
 
         is AppRoute.QuickReview -> LessonRouteContent(
+            route = route,
+            appState = appState,
+            lessonState = lessonState,
+            dispatchAppIntent = dispatchAppIntent,
+            dispatchLessonIntent = dispatchLessonIntent,
+            audioPlayer = audioPlayer
+        )
+
+        is AppRoute.FreeReview -> LessonRouteContent(
             route = route,
             appState = appState,
             lessonState = lessonState,
@@ -211,7 +224,8 @@ private fun AppContent(
             onPaymentMessageClick = { dispatchAppIntent(AppIntent.DismissPaymentMessage) },
             onLanguageChanged = { language ->
                 dispatchAppIntent(AppIntent.ChangeSupportLanguage(language))
-            }
+            },
+            onResetProgressClick = { dispatchAppIntent(AppIntent.ResetProgress) }
         )
     }
 }
@@ -300,6 +314,13 @@ private fun AppRoute.toLessonSessionSpecification(): LessonSessionSpecification?
     )
     is AppRoute.QuickReview -> LessonSessionSpecification(
         sessionKey = "quick:$topicId:$lessonId:${wordIds.joinToString(",")}",
+        topicId = topicId,
+        lessonId = lessonId,
+        wordIds = wordIds,
+        reviewOnly = true
+    )
+    is AppRoute.FreeReview -> LessonSessionSpecification(
+        sessionKey = "free:$topicId:$lessonId:${wordIds.joinToString(",")}",
         topicId = topicId,
         lessonId = lessonId,
         wordIds = wordIds,

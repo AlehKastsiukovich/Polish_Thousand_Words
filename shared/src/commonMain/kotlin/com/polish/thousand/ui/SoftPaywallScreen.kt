@@ -1,7 +1,6 @@
 package com.polish.thousand.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -103,6 +102,7 @@ internal fun SoftPaywallScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Surface(
+                        onClick = onCloseClick,
                         shape = MaterialTheme.shapes.extraLarge,
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.84f)
                     ) {
@@ -121,7 +121,6 @@ internal fun SoftPaywallScreen(
                         Text(
                             text = text.later,
                             modifier = Modifier
-                                .clickable(onClick = onCloseClick)
                                 .padding(horizontal = 14.dp, vertical = 10.dp),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.74f)
@@ -188,9 +187,8 @@ internal fun SoftPaywallScreen(
             Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
                 if (paymentMessage != null) {
                     Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(onClick = onPaymentMessageClick),
+                        onClick = onPaymentMessageClick,
+                        modifier = Modifier.fillMaxWidth(),
                         shape = MaterialTheme.shapes.medium,
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f)
                     ) {

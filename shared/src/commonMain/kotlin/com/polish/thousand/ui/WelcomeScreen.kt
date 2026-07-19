@@ -19,13 +19,14 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
@@ -61,7 +63,6 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun WelcomeScreen(
     supportLanguage: SupportLanguage = SupportLanguage.Ukrainian,
@@ -77,6 +78,7 @@ internal fun WelcomeScreen(
     onContinueClick: () -> Unit = {},
     onOpenDueReviewClick: () -> Unit = {},
     onOpenQuickReviewClick: () -> Unit = {},
+    onOpenFreeReviewClick: () -> Unit = {},
     onOpenSettingsClick: () -> Unit = {}
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -150,19 +152,17 @@ internal fun WelcomeScreen(
                     }
                 )
                 Spacer(modifier = Modifier.height(spacing.xl))
+            } else if (learnedWords >= LearningTargetWords) {
+                ScheduledReviewEmptyState(supportLanguage = supportLanguage)
+                Spacer(modifier = Modifier.height(spacing.xl))
             }
 
-            if (nextLesson == null && dueReviewCount == 0 && quickReviewCount == 0) {
-                Text(
-                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
-                        "Режим закріплення відкрито. Повторення з'явиться за розкладом."
-                    } else {
-                        "Режим закрепления открыт. Повторение появится по расписанию."
-                    },
-                    modifier = Modifier.padding(vertical = spacing.xl),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.64f)
+            if (learnedWords >= LearningTargetWords) {
+                FreePracticeCard(
+                    supportLanguage = supportLanguage,
+                    onClick = onOpenFreeReviewClick
                 )
+                Spacer(modifier = Modifier.height(spacing.xl))
             }
 
             Spacer(modifier = Modifier.height(spacing.md))
@@ -174,15 +174,11 @@ internal fun WelcomeScreen(
         }
 
         if (showMilestones) {
-            ModalBottomSheet(
+            MilestonePathDialog(
                 onDismissRequest = { showMilestones = false },
-                containerColor = MaterialTheme.colorScheme.background
-            ) {
-                MilestonePathSheet(
-                    learnedWords = learnedWords,
-                    supportLanguage = supportLanguage
-                )
-            }
+                learnedWords = learnedWords,
+                supportLanguage = supportLanguage
+            )
         }
     }
 }
@@ -207,6 +203,7 @@ private fun AchievementProgress(
         Box(
             modifier = Modifier
                 .size(ringSize)
+                .clip(CircleShape)
                 .clickable(
                     role = Role.Button,
                     onClickLabel = milestonePathLabel(supportLanguage),
@@ -477,6 +474,107 @@ private fun UnifiedReviewCard(
 }
 
 @Composable
+private fun ScheduledReviewEmptyState(supportLanguage: SupportLanguage) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = Color(0xFFF8FCFA),
+        border = BorderStroke(1.dp, Color(0xFFDDEAE5))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = spacing.lg, vertical = 15.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(
+                modifier = Modifier.size(46.dp),
+                shape = CircleShape,
+                color = Color(0xFFE5F3ED)
+            ) {
+                RepeatGlyph(
+                    modifier = Modifier.padding(12.dp),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Повторення за розкладом"
+                    } else {
+                        "Повторения по расписанию"
+                    },
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) {
+                        "Слова з'являться тут, коли настане час їх повторити."
+                    } else {
+                        "Слова появятся здесь, когда придёт время их повторить."
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun FreePracticeCard(
+    supportLanguage: SupportLanguage,
+    onClick: () -> Unit
+) {
+    val spacing = MaterialTheme.appSpacing
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        onClick = onClick
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = spacing.lg, vertical = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(
+                modifier = Modifier.size(46.dp),
+                shape = CircleShape,
+                color = Color(0xFFE8F1FB)
+            ) {
+                Text(
+                    text = "1K",
+                    modifier = Modifier.padding(top = 13.dp),
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color(0xFF367FC4)
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) "Усі 1 000 слів" else "Все 1 000 слов",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = if (supportLanguage == SupportLanguage.Ukrainian) "Вільна практика · 10 слів" else "Свободная практика · 10 слов",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            ChevronRightGlyph(
+                modifier = Modifier.size(20.dp),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}
+
+@Composable
 private fun CompactRhythm(
     activityOverview: ActivityOverview,
     supportLanguage: SupportLanguage
@@ -562,60 +660,68 @@ private fun CompactRhythm(
 }
 
 @Composable
-private fun MilestonePathSheet(
+private fun MilestonePathDialog(
+    onDismissRequest: () -> Unit,
     learnedWords: Int,
     supportLanguage: SupportLanguage
 ) {
     val spacing = MaterialTheme.appSpacing
     val nextMilestone = LearningPath.nextMilestone(learnedWords)
     val colors = milestoneColors()
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .navigationBarsPadding()
-            .padding(horizontal = spacing.screenHorizontal)
-            .padding(bottom = spacing.xl),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg)
-    ) {
-        Text(
-            text = if (supportLanguage == SupportLanguage.Ukrainian) "Шлях до 1 000" else "Путь к 1 000",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
-        )
-        LearningPath.milestones.forEachIndexed { index, milestone ->
-            val isCompleted = learnedWords >= milestone.wordCount
-            val isNext = milestone == nextMilestone && !isCompleted
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.medium,
-                color = if (isNext) colors[index].copy(alpha = 0.1f) else Color.Transparent
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = spacing.md, vertical = spacing.sm),
-                    horizontalArrangement = Arrangement.spacedBy(spacing.md),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(12.dp)
-                            .background(colors[index], CircleShape)
-                    )
-                    Text(
-                        text = milestone.wordCount.toString(),
-                        modifier = Modifier.width(42.dp),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = milestone.titleFor(supportLanguage),
-                        modifier = Modifier.weight(1f),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = if (isCompleted || isNext) 1f else 0.62f)
-                    )
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        shape = RoundedCornerShape(28.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = {
+            Text(
+                text = if (supportLanguage == SupportLanguage.Ukrainian) "Шлях до 1 000" else "Путь к 1 000",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                LearningPath.milestones.forEachIndexed { index, milestone ->
+                    val isCompleted = learnedWords >= milestone.wordCount
+                    val isNext = milestone == nextMilestone && !isCompleted
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = MaterialTheme.shapes.medium,
+                        color = if (isNext) colors[index].copy(alpha = 0.11f) else Color.Transparent
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = spacing.sm, vertical = spacing.sm),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(colors[index], CircleShape)
+                            )
+                            Text(
+                                text = milestone.wordCount.toString(),
+                                modifier = Modifier.width(38.dp),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = milestone.titleFor(supportLanguage),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = if (isCompleted || isNext) 1f else 0.62f)
+                            )
+                        }
+                    }
                 }
             }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismissRequest) {
+                Text(if (supportLanguage == SupportLanguage.Ukrainian) "Готово" else "Готово")
+            }
         }
-    }
+    )
 }
 
 private fun progressGoalLabel(
@@ -805,7 +911,7 @@ private fun WelcomeScreenPreview() {
     PolishThousandTheme {
         WelcomeScreen(
             supportLanguage = SupportLanguage.Russian,
-            learnedWords = 47,
+            learnedWords = 1000,
             activityOverview = LearningActivity.overview(
                 activeDays = emptySet(),
                 todayEpochDay = 13L

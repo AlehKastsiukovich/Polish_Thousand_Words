@@ -37,7 +37,8 @@ internal data class PendingQuickReview(
 internal enum class ActiveSessionType {
     Lesson,
     ScheduledReview,
-    QuickReview
+    QuickReview,
+    FreeReview
 }
 
 internal data class ActiveSession(
