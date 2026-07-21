@@ -34,6 +34,9 @@ kotlin {
             implementation(projects.core.mvi)
             implementation(libs.kotlinx.coroutines.core)
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

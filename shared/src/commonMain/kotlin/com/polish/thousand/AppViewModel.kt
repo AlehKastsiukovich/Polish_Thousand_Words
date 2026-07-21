@@ -79,6 +79,7 @@ internal data class AppUiState(
 
 internal sealed interface AppIntent : UiIntent {
     data object SplashFinished : AppIntent
+    data object RefreshCurrentDay : AppIntent
     data class SelectLanguage(val language: SupportLanguage) : AppIntent
     data object Back : AppIntent
     data object ContinueFromHome : AppIntent
@@ -119,6 +120,7 @@ internal class AppViewModel(
     override fun handleIntentAndReduce(intent: AppIntent) {
         when (intent) {
             AppIntent.SplashFinished -> finishSplash()
+            AppIntent.RefreshCurrentDay -> refreshCurrentDay()
             is AppIntent.SelectLanguage -> selectLanguage(intent.language)
             AppIntent.Back -> navigateBack()
             AppIntent.ContinueFromHome -> continueFromHome()
@@ -194,6 +196,14 @@ internal class AppViewModel(
         }
         setState(state.copy(restoredSession = null, backStack = restoredBackStack))
         if (restoredRoute == null) persistence.saveActiveSession(null)
+    }
+
+    private fun refreshCurrentDay() {
+        val today = currentEpochDay()
+        val state = uiState.value
+        if (state.todayEpochDay != today) {
+            setState(state.copy(todayEpochDay = today))
+        }
     }
 
     private fun selectLanguage(language: SupportLanguage) {

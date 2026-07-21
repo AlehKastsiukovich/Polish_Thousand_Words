@@ -45,6 +45,10 @@ fun App() {
         val appState by appViewModel.uiState.collectAsState()
         val lessonState by lessonViewModel.uiState.collectAsState()
 
+        AppForegroundEffect {
+            appViewModel.dispatchIntent(AppIntent.RefreshCurrentDay)
+        }
+
         DisposableEffect(audioPlayer) {
             onDispose {
                 audioPlayer.stop()
