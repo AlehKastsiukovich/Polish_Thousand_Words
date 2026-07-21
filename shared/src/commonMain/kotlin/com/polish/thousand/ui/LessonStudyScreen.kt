@@ -73,7 +73,6 @@ internal fun LessonStudyScreen(
     val reviewQuestionMode = state.reviewQuestionMode
     val currentIndex = state.learnIndex
     val quizIndex = state.practiceIndex
-    val practiceQuestionMode = state.practiceQuestionMode
     val selectedAnswer = state.selectedAnswer
     val submittedAnswer = state.submittedAnswer
     val isReviewAnswerVisible = state.isReviewAnswerVisible
@@ -208,10 +207,8 @@ internal fun LessonStudyScreen(
                         lesson = lesson,
                         item = quizItem,
                         supportLanguage = supportLanguage,
-                        questionMode = practiceQuestionMode,
                         selectedAnswer = selectedAnswer,
                         submittedAnswer = submittedAnswer,
-                        onPlayWordClick = { onPlayWordClick(quizItem) },
                         onAnswerSelected = { answer ->
                             onIntent(LessonIntent.SelectAnswer(answer))
                         }
@@ -424,8 +421,6 @@ private fun LessonReviewCard(
                     )
 
                     ListeningPrompt(
-                        submittedAnswer = null,
-                        item = item,
                         supportLanguage = supportLanguage,
                         onPlayWordClick = onPlayWordClick
                     )
@@ -683,10 +678,8 @@ private fun LessonPracticeCard(
     lesson: LessonContent,
     item: LessonItemContent,
     supportLanguage: SupportLanguage,
-    questionMode: PracticeQuestionMode,
     selectedAnswer: String?,
     submittedAnswer: String?,
-    onPlayWordClick: () -> Unit,
     onAnswerSelected: (String) -> Unit
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -708,27 +701,16 @@ private fun LessonPracticeCard(
                 verticalArrangement = Arrangement.spacedBy(spacing.md)
             ) {
                 Text(
-                    text = when (questionMode) {
-                        PracticeQuestionMode.Read -> supportLanguage.appText.chooseCorrectTranslation
-                        PracticeQuestionMode.Listen -> listeningQuestionTitle(supportLanguage)
-                    },
+                    text = supportLanguage.appText.chooseCorrectTranslation,
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
                 )
-                when (questionMode) {
-                    PracticeQuestionMode.Read -> AdaptiveWordText(
-                        text = item.polish,
-                        style = MaterialTheme.typography.displayMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        candidateSizes = listOf(62.sp, 58.sp, 54.sp, 50.sp, 46.sp, 42.sp, 38.sp, 34.sp, 30.sp, 28.sp)
-                    )
-                    PracticeQuestionMode.Listen -> ListeningPrompt(
-                        submittedAnswer = submittedAnswer,
-                        item = item,
-                        supportLanguage = supportLanguage,
-                        onPlayWordClick = onPlayWordClick
-                    )
-                }
+                AdaptiveWordText(
+                    text = item.polish,
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    candidateSizes = listOf(62.sp, 58.sp, 54.sp, 50.sp, 46.sp, 42.sp, 38.sp, 34.sp, 30.sp, 28.sp)
+                )
             }
         }
 
@@ -812,20 +794,11 @@ private fun LessonPracticeCard(
                 }
             }
         }
-
-        if (questionMode == PracticeQuestionMode.Listen && submittedAnswer != null) {
-            ListeningAnswerCard(
-                item = item,
-                supportLanguage = supportLanguage
-            )
-        }
     }
 }
 
 @Composable
 private fun ListeningPrompt(
-    submittedAnswer: String?,
-    item: LessonItemContent,
     supportLanguage: SupportLanguage,
     onPlayWordClick: () -> Unit
 ) {
@@ -877,46 +850,6 @@ private fun ListeningPrompt(
             }
         }
 
-        if (submittedAnswer != null) {
-            AdaptiveWordText(
-                text = item.polish,
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                candidateSizes = lessonWordSizes
-            )
-            Text(
-                text = item.translationForSelectedLanguage(supportLanguage),
-                style = lessonTranslationStyle,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-            )
-        }
-    }
-}
-
-@Composable
-private fun ListeningAnswerCard(
-    item: LessonItemContent,
-    supportLanguage: SupportLanguage
-) {
-    val spacing = MaterialTheme.appSpacing
-
-    Surface(
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.74f)
-    ) {
-        Column(
-            modifier = Modifier.padding(spacing.lg),
-            verticalArrangement = Arrangement.spacedBy(spacing.sm)
-        ) {
-            item.examples.take(2).forEachIndexed { index, example ->
-                LessonExampleCard(
-                    index = index + 1,
-                    polish = example.polish,
-                    translation = example.translationForSelectedLanguage(supportLanguage),
-                    onPlayClick = null
-                )
-            }
-        }
     }
 }
 

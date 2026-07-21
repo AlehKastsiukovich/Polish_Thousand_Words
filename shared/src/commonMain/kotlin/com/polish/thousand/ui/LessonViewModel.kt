@@ -43,18 +43,22 @@ internal data class LessonUiState(
     val isReady: Boolean get() = sessionKey != null && lesson != null
 
     val reviewQuestionMode: PracticeQuestionMode
-        get() = if (reviewIndex % 5 == 0) {
+        get() = if (reviewIndex.isListeningReviewQuestion(reviewItems.size)) {
             PracticeQuestionMode.Listen
         } else {
             PracticeQuestionMode.Read
         }
+}
 
-    val practiceQuestionMode: PracticeQuestionMode
-        get() = if (practiceIndex % 5 == 1) {
-            PracticeQuestionMode.Listen
-        } else {
-            PracticeQuestionMode.Read
-        }
+private fun Int.isListeningReviewQuestion(totalReviewItems: Int): Boolean {
+    val listeningQuestionCount = totalReviewItems / 5
+    val firstListeningIndex = 2
+    if (listeningQuestionCount == 0 || this < firstListeningIndex) return false
+
+    // Keep the first two recall prompts text-first, then space listening prompts five words apart.
+    val listeningQuestionIndex = (this - firstListeningIndex) / 5
+    return (this - firstListeningIndex) % 5 == 0 &&
+        listeningQuestionIndex < listeningQuestionCount
 }
 
 internal sealed interface LessonIntent : UiIntent {
