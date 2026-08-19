@@ -108,6 +108,19 @@ private class IosAppPersistence(
             forKey = ActiveDaysKey
         )
     }
+
+    override fun loadProgressCheckpoint(): ProgressCheckpoint? = defaults
+        .stringForKey(ProgressCheckpointKey)
+        ?.toProgressCheckpointOrNull()
+
+    override fun saveProgressCheckpoint(checkpoint: ProgressCheckpoint?) {
+        if (checkpoint == null) {
+            defaults.removeObjectForKey(ProgressCheckpointKey)
+        } else {
+            val value = checkpoint.toStorageString()
+            defaults.setObject(value, forKey = ProgressCheckpointKey)
+        }
+    }
 }
 
 private const val SupportLanguageKey = "support_language"
@@ -126,6 +139,7 @@ private const val SessionItemSeparator = "\u001E"
 private const val HasPremiumKey = "has_premium"
 private const val HasSeenPaywallKey = "has_seen_paywall"
 private const val ActiveDaysKey = "active_days"
+private const val ProgressCheckpointKey = "progress_checkpoint"
 
 private fun WordReviewState.toStorageString(): String = listOf(
     wordId,

@@ -3,8 +3,10 @@ package com.polish.thousand.ui
 import com.polish.thousand.content.AppPersistence
 import com.polish.thousand.content.LessonContent
 import com.polish.thousand.content.LessonItemContent
+import com.polish.thousand.content.MvpContentVersion
 import com.polish.thousand.content.PersistedLessonPhase
 import com.polish.thousand.content.PersistedLessonSession
+import com.polish.thousand.content.ProgressCheckpoint
 import com.polish.thousand.content.ReviewQuality
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.translationForSelectedLanguage
@@ -250,6 +252,7 @@ internal class LessonViewModel(
     private fun setState(state: LessonUiState) {
         reduceState { state }
         state.toPersistedSessionOrNull()?.let(persistence::saveLessonSession)
+        state.toProgressCheckpointOrNull()?.let(persistence::saveProgressCheckpoint)
     }
 }
 
@@ -265,6 +268,23 @@ private fun LessonUiState.toPersistedSessionOrNull(): PersistedLessonSession? {
         submittedAnswer = submittedAnswer,
         correctPracticeWordIds = correctPracticeWordIds,
         isReviewAnswerVisible = isReviewAnswerVisible
+    )
+}
+
+private fun LessonUiState.toProgressCheckpointOrNull(): ProgressCheckpoint? {
+    if (reviewOnly) return null
+    val activeLesson = lesson ?: return null
+    val currentItem = when (phase) {
+        LessonPhase.Review -> reviewItems.getOrNull(reviewIndex)
+        LessonPhase.Learn -> activeLesson.items.getOrNull(learnIndex)
+        LessonPhase.Practice -> activeLesson.items.getOrNull(practiceIndex)
+    } ?: return null
+    return ProgressCheckpoint(
+        contentVersion = MvpContentVersion,
+        supportLanguage = supportLanguage,
+        lessonId = activeLesson.id,
+        wordId = currentItem.id,
+        phase = phase.toPersistedPhase()
     )
 }
 

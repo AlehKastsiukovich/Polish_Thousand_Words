@@ -14,6 +14,7 @@ internal actual fun rememberAppPersistence(): AppPersistence {
 
 private class AndroidAppPersistence(context: Context) : AppPersistence {
     private val preferences = context.getSharedPreferences(PreferencesName, Context.MODE_PRIVATE)
+    private val resumePreferences = context.getSharedPreferences(ResumePreferencesName, Context.MODE_PRIVATE)
 
     override fun loadSupportLanguage(): SupportLanguage? = preferences
         .getString(SupportLanguageKey, null)
@@ -109,9 +110,21 @@ private class AndroidAppPersistence(context: Context) : AppPersistence {
             putStringSet(ActiveDaysKey, days.mapTo(mutableSetOf()) { it.toString() })
         }
     }
+
+    override fun loadProgressCheckpoint(): ProgressCheckpoint? = resumePreferences
+        .getString(ProgressCheckpointKey, null)
+        ?.toProgressCheckpointOrNull()
+
+    override fun saveProgressCheckpoint(checkpoint: ProgressCheckpoint?) {
+        resumePreferences.edit {
+            if (checkpoint == null) remove(ProgressCheckpointKey)
+            else putString(ProgressCheckpointKey, checkpoint.toStorageString())
+        }
+    }
 }
 
 private const val PreferencesName = "polish_thousand_progress"
+private const val ResumePreferencesName = "polish_thousand_resume"
 private const val SupportLanguageKey = "support_language"
 private const val CompletedLessonsKey = "completed_lesson_ids"
 private const val LearnedWordsKey = "learned_word_ids"
@@ -122,6 +135,7 @@ private const val LessonSessionKey = "lesson_session"
 private const val HasPremiumKey = "has_premium"
 private const val HasSeenPaywallKey = "has_seen_paywall"
 private const val ActiveDaysKey = "active_days"
+private const val ProgressCheckpointKey = "progress_checkpoint"
 private const val ReviewStateSeparator = "|"
 private const val PendingQuickReviewWordSeparator = ","
 private const val SessionFieldSeparator = "\u001F"
