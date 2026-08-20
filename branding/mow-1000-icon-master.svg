@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Mów 1000 app icon</title>
+  <desc>Teal speech bubble with Polish white-over-red split numerals 1000.</desc>
+  <defs>
+    <clipPath id="bubble">
+      <path d="M130 188C176 136 247 112 343 112H708C822 112 894 149 924 220C951 284 949 610 904 684C874 734 812 759 723 772L603 894C583 914 554 902 554 872V778H300C206 778 139 748 106 692C71 632 66 284 130 188Z"/>
+    </clipPath>
+    <clipPath id="digits">
+      <text x="145" y="652" font-family="Arial Rounded MT Bold, Arial, Helvetica, sans-serif" font-size="318" font-weight="800" letter-spacing="-9">1000</text>
+    </clipPath>
+  </defs>
+
+  <rect width="1024" height="1024" fill="#FFFDF8"/>
+  <path fill="#2D6F67" d="M130 188C176 136 247 112 343 112H708C822 112 894 149 924 220C951 284 949 610 904 684C874 734 812 759 723 772L603 894C583 914 554 902 554 872V778H300C206 778 139 748 106 692C71 632 66 284 130 188Z"/>
+
+  <text x="145" y="652" fill="#FFFDF8" font-family="Arial Rounded MT Bold, Arial, Helvetica, sans-serif" font-size="318" font-weight="800" letter-spacing="-9">1000</text>
+  <rect x="0" y="570" width="1024" height="300" fill="#DC143C" clip-path="url(#digits)"/>
+</svg>

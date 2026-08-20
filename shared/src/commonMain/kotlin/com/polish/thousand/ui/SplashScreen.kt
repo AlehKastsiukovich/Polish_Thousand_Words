@@ -31,10 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 
-private val BrandNavy = Color(0xFF102E59)
-private val BrandBlue = Color(0xFF173B70)
-private val BrandMint = Color(0xFF5DDEC4)
-private val BrandWhite = Color(0xFFFFFDF8)
+private val BrandTeal = Color(0xFF2D6F67)
+private val BrandMintTint = Color(0xFFEAF4F0)
+private val BrandCream = Color(0xFFFFFDF8)
 
 @Composable
 internal fun SplashScreen() {
@@ -53,9 +52,9 @@ internal fun SplashScreen() {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF214A82),
-                        BrandBlue,
-                        BrandNavy
+                        BrandCream,
+                        Color(0xFFF4FAF7),
+                        BrandMintTint
                     )
                 )
             )
@@ -67,7 +66,7 @@ internal fun SplashScreen() {
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            BrandMint.copy(alpha = 0.12f),
+                            BrandTeal.copy(alpha = 0.10f),
                             Color.Transparent
                         )
                     ),
@@ -90,30 +89,30 @@ internal fun SplashScreen() {
                 modifier = Modifier
                     .size(184.dp)
                     .shadow(
-                        elevation = 24.dp,
+                        elevation = 8.dp,
                         shape = RoundedCornerShape(percent = 24),
-                        ambientColor = Color.Black.copy(alpha = 0.24f),
-                        spotColor = Color.Black.copy(alpha = 0.36f)
+                        ambientColor = BrandTeal.copy(alpha = 0.08f),
+                        spotColor = BrandTeal.copy(alpha = 0.14f)
                     )
             )
             Spacer(modifier = Modifier.height(28.dp))
             Text(
                 text = buildAnnotatedString {
                     append("Mów ")
-                    withStyle(SpanStyle(color = BrandMint)) {
+                    withStyle(SpanStyle(color = BrandTeal)) {
                         append("1000")
                     }
                 },
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.ExtraBold,
-                color = BrandWhite
+                color = BrandTeal
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = "1000 słów do B1",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium,
-                color = BrandWhite.copy(alpha = 0.72f)
+                color = BrandTeal.copy(alpha = 0.68f)
             )
         }
     }
