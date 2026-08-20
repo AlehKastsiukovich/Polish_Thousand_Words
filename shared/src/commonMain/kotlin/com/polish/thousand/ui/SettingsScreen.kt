@@ -17,9 +17,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -44,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.polish.thousand.content.SupportLanguage
 import com.polish.thousand.content.appText
 import com.polish.thousand.content.rememberAppVersion
+import com.polish.thousand.content.supportsProgressRestoreOnReinstall
 import com.polish.thousand.core.designsystem.PolishThousandTheme
 import com.polish.thousand.core.designsystem.appColors
 import com.polish.thousand.core.designsystem.appSpacing
@@ -199,6 +202,7 @@ private fun CompactSettingsContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = spacing.screenHorizontal)
         ) {
             SettingsSectionLabel(text = text.settingsLearningSection)
@@ -224,7 +228,8 @@ private fun CompactSettingsContent(
                 onUnlockClick = onUnlockClick,
                 onRestorePurchasesClick = onRestorePurchasesClick,
                 onResetProgressClick = onResetProgressClick,
-                hasProgress = learnedWords > 0 || completedLessons > 0
+                hasProgress = learnedWords > 0 || completedLessons > 0,
+                showBackupInfo = supportsProgressRestoreOnReinstall
             )
 
             if (paymentMessage != null) {
@@ -334,7 +339,8 @@ private fun AccessAndDataCard(
     onUnlockClick: () -> Unit,
     onRestorePurchasesClick: () -> Unit,
     onResetProgressClick: () -> Unit,
-    hasProgress: Boolean
+    hasProgress: Boolean,
+    showBackupInfo: Boolean
 ) {
     val text = supportLanguage.appText
     Surface(
@@ -400,6 +406,14 @@ private fun AccessAndDataCard(
                 )
             }
 
+            if (showBackupInfo) {
+                SettingsDivider()
+                ProgressBackupInfoRow(
+                    title = text.settingsBackupTitle,
+                    description = text.settingsBackupDescription
+                )
+            }
+
             if (!hasPremium) {
                 SettingsDivider()
                 Row(
@@ -452,6 +466,47 @@ private fun AccessAndDataCard(
                     ChevronIcon(modifier = Modifier.size(19.dp))
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun ProgressBackupInfoRow(
+    title: String,
+    description: String
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Surface(
+            modifier = Modifier.size(36.dp),
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.primaryContainer
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                BackupCloudIcon(modifier = Modifier.size(20.dp))
+            }
+        }
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -774,6 +829,40 @@ private fun CheckIcon(modifier: Modifier = Modifier) {
             color = color,
             start = Offset(size.width * 0.42f, size.height * 0.76f),
             end = Offset(size.width * 0.84f, size.height * 0.26f),
+            strokeWidth = strokeWidth,
+            cap = StrokeCap.Round
+        )
+    }
+}
+
+@Composable
+private fun BackupCloudIcon(modifier: Modifier = Modifier) {
+    val color = MaterialTheme.colorScheme.onPrimaryContainer
+    Canvas(modifier = modifier) {
+        val strokeWidth = 1.8.dp.toPx()
+        val stroke = androidx.compose.ui.graphics.drawscope.Stroke(strokeWidth)
+        drawCircle(
+            color = color,
+            radius = size.minDimension * 0.21f,
+            center = Offset(size.width * 0.31f, size.height * 0.53f),
+            style = stroke
+        )
+        drawCircle(
+            color = color,
+            radius = size.minDimension * 0.27f,
+            center = Offset(size.width * 0.51f, size.height * 0.42f),
+            style = stroke
+        )
+        drawCircle(
+            color = color,
+            radius = size.minDimension * 0.19f,
+            center = Offset(size.width * 0.70f, size.height * 0.54f),
+            style = stroke
+        )
+        drawLine(
+            color = color,
+            start = Offset(size.width * 0.25f, size.height * 0.68f),
+            end = Offset(size.width * 0.76f, size.height * 0.68f),
             strokeWidth = strokeWidth,
             cap = StrokeCap.Round
         )

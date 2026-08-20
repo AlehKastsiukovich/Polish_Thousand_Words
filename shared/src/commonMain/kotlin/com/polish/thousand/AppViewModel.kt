@@ -10,7 +10,11 @@ import com.polish.thousand.content.LearningActivity
 import com.polish.thousand.content.LearningPath
 import com.polish.thousand.content.LearningTargetWords
 import com.polish.thousand.content.MvpSeedContent
+import com.polish.thousand.content.MvpContentVersion
 import com.polish.thousand.content.PendingQuickReview
+import com.polish.thousand.content.PersistedLessonPhase
+import com.polish.thousand.content.PersistedLessonSession
+import com.polish.thousand.content.ProgressCheckpoint
 import com.polish.thousand.content.ReviewQuality
 import com.polish.thousand.content.ReviewSchedule
 import com.polish.thousand.content.SupportLanguage
@@ -20,6 +24,7 @@ import com.polish.thousand.content.appText
 import com.polish.thousand.content.currentEpochDay
 import com.polish.thousand.content.itemsByIds
 import com.polish.thousand.content.initialLanguageChoice
+import com.polish.thousand.content.toRestoredProgressState
 import com.polish.thousand.core.mvi.AppDispatchers
 import com.polish.thousand.core.mvi.StoreViewModel
 import com.polish.thousand.core.mvi.UiEffect
@@ -208,6 +213,7 @@ internal class AppViewModel(
 
     private fun selectLanguage(language: SupportLanguage) {
         persistence.saveSupportLanguage(language)
+        updateProgressCheckpointLanguage(language)
         setState(
             uiState.value.copy(
                 supportLanguage = language,
@@ -272,6 +278,7 @@ internal class AppViewModel(
     private fun changeSupportLanguage(language: SupportLanguage) {
         if (uiState.value.supportLanguage == language) return
         persistence.saveSupportLanguage(language)
+        updateProgressCheckpointLanguage(language)
         setState(uiState.value.copy(supportLanguage = language))
     }
 
@@ -315,6 +322,23 @@ internal class AppViewModel(
         persistence.savePendingQuickReview(pendingQuickReview)
         persistence.saveActiveDays(activeDays)
         clearActiveSession()
+        persistence.saveProgressCheckpoint(
+            MvpSeedContent.nextLesson(completedLessonIds)?.let { nextLesson ->
+                ProgressCheckpoint(
+                    contentVersion = MvpContentVersion,
+                    supportLanguage = state.supportLanguage,
+                    lessonId = nextLesson.id,
+                    wordId = nextLesson.items.firstOrNull()?.id,
+                    phase = PersistedLessonPhase.Learn
+                )
+            } ?: ProgressCheckpoint(
+                contentVersion = MvpContentVersion,
+                supportLanguage = state.supportLanguage,
+                lessonId = lessonRoute.lesson.id,
+                wordId = null,
+                phase = PersistedLessonPhase.Practice
+            )
+        )
 
         val crossedMilestone = LearningPath.crossedCelebrationMilestone(
             previousLearnedWords = previousLearnedWords,
@@ -653,6 +677,7 @@ internal class AppViewModel(
         persistence.saveReviewStates(emptyMap())
         persistence.savePendingQuickReview(null)
         persistence.saveActiveDays(emptySet())
+        persistence.saveProgressCheckpoint(null)
         clearActiveSession()
         setState(
             state.copy(
@@ -672,6 +697,12 @@ internal class AppViewModel(
 
     private fun persistActiveRoute(route: AppRoute) {
         persistence.saveActiveSession(route.toActiveSessionOrNull())
+    }
+
+    private fun updateProgressCheckpointLanguage(language: SupportLanguage) {
+        persistence.loadProgressCheckpoint()?.let { checkpoint ->
+            persistence.saveProgressCheckpoint(checkpoint.copy(supportLanguage = language))
+        }
     }
 
     private fun clearActiveSession() {
@@ -783,11 +814,44 @@ internal fun resolveLessonRoute(topicId: String, lessonId: String): ResolvedLess
 }
 
 private fun initialAppState(persistence: AppPersistence): AppUiState {
-    val language = persistence.loadSupportLanguage()
+    val storedLanguage = persistence.loadSupportLanguage()
+    val storedActiveSession = persistence.loadActiveSession()
+    val storedLessonSession = persistence.loadLessonSession()
+    val storedCompletedLessonIds = persistence.loadCompletedLessonIds()
+    val storedLearnedWordIds = persistence.loadLearnedWordIds()
+    val hasLocalProgress = storedCompletedLessonIds.isNotEmpty() ||
+        storedLearnedWordIds.isNotEmpty() ||
+        storedActiveSession != null ||
+        storedLessonSession != null
+    val storedCheckpoint = persistence.loadProgressCheckpoint()
+        ?.takeIf { it.contentVersion == MvpContentVersion }
+    if (hasLocalProgress && storedCheckpoint == null) {
+        persistence.saveProgressCheckpoint(
+            checkpointFromLocalProgress(
+                supportLanguage = storedLanguage ?: SupportLanguage.Russian,
+                completedLessonIds = storedCompletedLessonIds,
+                activeSession = storedActiveSession,
+                lessonSession = storedLessonSession
+            )
+        )
+    }
+    val restoredCheckpoint = if (hasLocalProgress) {
+        null
+    } else {
+        storedCheckpoint?.toRestoredProgressState()
+    }
+    if (restoredCheckpoint != null) {
+        persistence.saveSupportLanguage(restoredCheckpoint.supportLanguage)
+        persistence.saveCompletedLessonIds(restoredCheckpoint.completedLessonIds)
+        persistence.saveLearnedWordIds(restoredCheckpoint.learnedWordIds)
+        persistence.saveActiveSession(restoredCheckpoint.activeSession)
+        persistence.saveLessonSession(restoredCheckpoint.lessonSession)
+    }
+    val language = storedLanguage ?: restoredCheckpoint?.supportLanguage
     val initialLanguageChoice = initialLanguageChoice()
     val today = currentEpochDay()
-    val completedLessonIds = persistence.loadCompletedLessonIds()
-    val learnedWordIds = persistence.loadLearnedWordIds()
+    val completedLessonIds = restoredCheckpoint?.completedLessonIds ?: storedCompletedLessonIds
+    val learnedWordIds = restoredCheckpoint?.learnedWordIds ?: storedLearnedWordIds
     val storedPendingReview = persistence.loadPendingQuickReview()
     val unresolvedLessons = MvpSeedContent.lessons.filter { lesson ->
         lesson.id in completedLessonIds && lesson.items.any { it.id !in learnedWordIds }
@@ -834,7 +898,48 @@ private fun initialAppState(persistence: AppPersistence): AppUiState {
         isPaymentInProgress = false,
         paymentMessage = null,
         todayEpochDay = today,
-        restoredSession = persistence.loadActiveSession()
+        restoredSession = restoredCheckpoint?.activeSession ?: storedActiveSession
+    )
+}
+
+private fun checkpointFromLocalProgress(
+    supportLanguage: SupportLanguage,
+    completedLessonIds: Set<String>,
+    activeSession: ActiveSession?,
+    lessonSession: PersistedLessonSession?
+): ProgressCheckpoint {
+    val activeLesson = activeSession
+        ?.takeIf { it.type == ActiveSessionType.Lesson }
+        ?.let { session -> resolveLessonRoute(session.topicId, session.lessonId)?.lesson }
+    val activePhase = lessonSession?.phase
+        ?.takeUnless { it == PersistedLessonPhase.Review }
+        ?: PersistedLessonPhase.Learn
+    val activeIndex = when (activePhase) {
+        PersistedLessonPhase.Learn -> lessonSession?.learnIndex
+        PersistedLessonPhase.Practice -> lessonSession?.practiceIndex
+        PersistedLessonPhase.Review -> null
+    }
+    val activeWordId = activeLesson
+        ?.items
+        ?.getOrNull(activeIndex ?: -1)
+        ?.id
+    if (activeLesson != null && activeWordId != null) {
+        return ProgressCheckpoint(
+            contentVersion = MvpContentVersion,
+            supportLanguage = supportLanguage,
+            lessonId = activeLesson.id,
+            wordId = activeWordId,
+            phase = activePhase
+        )
+    }
+
+    val nextLesson = MvpSeedContent.nextLesson(completedLessonIds)
+    return ProgressCheckpoint(
+        contentVersion = MvpContentVersion,
+        supportLanguage = supportLanguage,
+        lessonId = nextLesson?.id ?: MvpSeedContent.lessons.last().id,
+        wordId = nextLesson?.items?.firstOrNull()?.id,
+        phase = PersistedLessonPhase.Learn
     )
 }
 

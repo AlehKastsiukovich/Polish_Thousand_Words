@@ -23,6 +23,8 @@ internal interface AppPersistence {
     fun saveHasSeenPaywall(hasSeenPaywall: Boolean)
     fun loadActiveDays(): Set<Long>
     fun saveActiveDays(days: Set<Long>)
+    fun loadProgressCheckpoint(): ProgressCheckpoint?
+    fun saveProgressCheckpoint(checkpoint: ProgressCheckpoint?)
 }
 
 @Composable
@@ -66,3 +68,33 @@ internal data class PersistedLessonSession(
     val correctPracticeWordIds: Set<String>,
     val isReviewAnswerVisible: Boolean
 )
+
+internal data class ProgressCheckpoint(
+    val contentVersion: String,
+    val supportLanguage: SupportLanguage,
+    val lessonId: String,
+    val wordId: String?,
+    val phase: PersistedLessonPhase
+)
+
+private const val ProgressCheckpointFieldSeparator = "\u001F"
+
+internal fun ProgressCheckpoint.toStorageString(): String = listOf(
+    contentVersion,
+    supportLanguage.name,
+    lessonId,
+    wordId.orEmpty(),
+    phase.name
+).joinToString(ProgressCheckpointFieldSeparator)
+
+internal fun String.toProgressCheckpointOrNull(): ProgressCheckpoint? {
+    val parts = split(ProgressCheckpointFieldSeparator)
+    if (parts.size != 5) return null
+    return ProgressCheckpoint(
+        contentVersion = parts[0],
+        supportLanguage = SupportLanguage.entries.firstOrNull { it.name == parts[1] } ?: return null,
+        lessonId = parts[2],
+        wordId = parts[3].ifBlank { null },
+        phase = PersistedLessonPhase.entries.firstOrNull { it.name == parts[4] } ?: return null
+    )
+}

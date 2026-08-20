@@ -6,6 +6,8 @@ internal enum class ExerciseType {
     UnderstandInContext
 }
 
+internal const val MvpContentVersion = "b1-core-v1"
+
 internal data class LessonExampleContent(
     val polish: String,
     val russian: String,
